@@ -1,0 +1,119 @@
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=0.5in,nohead,nofoot]{geometry}
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+
+
+\everymath{\displaystyle}
+\onehalfspacing
+
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\braket}[2]{\langle #1|#2\rangle}
+
+\begin{document}
+\noindent
+{\large\bf Quasi-normal Mode Decomposition for the ring-down} \\
+
+Teukolsky general field solution:
+\begin{equation}
+\psi(t,r,\theta,\phi) = \frac{1}{2\pi} \int {e^{-i\omega t} \sum_{l,m} e^{im\phi} {}_sS_{lm}(x)R_{lm}(r) d\omega },
+\end{equation}
+where $x=cos(\theta)$ and the summation over $l$ and $m$ is always confined to $|s|< l < \infty$ and $|m| \leq l$. For the outgoing gravitational wave asymptotically $\psi \sim r^4\Psi_4$ and $R_{lm}(r) \sim r^3e^{i\omega r_*}$ ($r_*$ is a "tortoise" radial coordinate). Then ${}_sS_{lm}(x)$ are going to be spin $-2$ spheroidal harmonics with $s$-index dropped and $\phi$ dependence absorbed by the harmonic notation.
+
+\begin{equation}
+r^4\Psi_4 = \frac{1}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{l,m} S_{lm}(x,\phi) r^3 d\omega }.
+\end{equation}
+
+\noindent
+Making both sides dimensionless (multiplying by $Mr^{-3}$)
+
+\begin{equation}
+rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{l,m} S_{lm}(x,\phi) d\omega }.
+\end{equation}
+
+\noindent
+Replacing the Fourier integral with a QNM expansion (a careful assumption, because QNMs are not a complete set)
+
+\begin{equation}
+rM\Psi_4 = M \sum_{lmn}e^{-i\omega_{lmn} (t-r_*)} C_{lmn} S_{lm}(x,\phi ; c_{lmn}), 
+\end{equation}
+where $C_{lmn}$ are complex coefficients of the QNM expansion, and $c_{lmn}=a\omega_{lmn}$ is an oblateness parameter related to the quasi normal frequence. After writing $MC_{lmn}$ as $A_{lmn}e^{i\phi_{lmn}}$ and making substitutions $\omega_{lmn} \rightarrow  \omega_{lmn} - \frac{i}{\tau_{lmn}}$ and $(t-r_*) \rightarrow t$ we get
+\begin{equation}
+rM\Psi_4 = \sum_{lmn} A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x,\phi ; c_{lmn}).
+\end{equation}
+
+\noindent
+Because the modes in a waveform always come in pairs we need to explicitly write them as such. To go from one mode to its pair the sign on both $m$ and the real part of the frequency changes. The modes become degenerate for the case of $m=0$. The variables in the second mode are denoted by a prime:
+
+\begin{equation}
+rM\Psi_4 = \sum_{lmn} \left\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x,\phi ; c_{lmn}) + A^{'}_{lmn} e^{-i\omega^{'}_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau^{'}_{lmn}} S_{lm}(x,\phi ; c^{'}_{lmn}) \right\}.
+\end{equation}
+
+\noindent
+There exist simple symmetry relationships (\textcolor{red}{\bf reference to the appendix}) between these ``twin" modes:
+\begin{equation}
+\begin{array}{l}
+\omega^{'}_{lmn} = -\omega_{l-mn} \\
+\tau^{'}_{lmn} = \tau_{l-mn} \\
+S_{lm}(x,\phi ;c^{'}_{lmn}) = (-1)^l S^{*}_{l-m}(-x,\phi; c_{l-mn}),
+\end{array} 
+\end{equation}
+where $c^{'}_{lmn} \equiv a( \omega^{'}_{lmn} - i/\tau^{'}_{lmn} ) = a( -\omega_{l-mn} - i/\tau_{l-mn} ) = - c^{*}_{l-mn}$.
+
+\noindent
+Plugging those in:
+\begin{align} \label{ringdowneq}
+\nonumber rM\Psi_4 &= \sum_{lmn} \left\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x,\phi; c_{lmn}) +  (-1)^l A^{'}_{lmn} e^{i\omega_{l-mn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{l-mn}}S^{*}_{l-m}(-x,\phi; c_{l-mn}) \right\}\\
+\nonumber 	 	   &=\sum_{lmn} \left\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x, \phi ;c_{lmn}) +  (-1)^l A^{'}_{l-mn} e^{i\omega_{lmn}t+i\phi^{'}_{l-mn}}e^{-t/\tau_{lmn}} S^{*}_{lm}(-x, \phi; c_{lmn}) \right\}\\
+				   &=\sum_{lmn} \left\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x, \phi ;c_{lmn}) +  A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} S^{*}_{lm 	}(-x, \phi; c_{lmn}) \right\},
+\end{align}
+where relabeling was made $(-1)^l A^{'}_{l-mn} \rightarrow A^{'}_{lmn}$ and $\phi^{'}_{l-mn} \rightarrow \phi^{'}_{lmn}$ to get to the last line. Thus, a general waveform for the ring-down signal asymptotically is described by four real parameters $A_{lmn}$, $A^{'}_{lmn}$, $\phi_{lmn}$ and $\phi^{'}_{lmn}$.
+
+On the other hand dimensionless Weyl scalar can be decomposed using spin $-2$ spherical harmonics:
+
+\begin{equation}
+rM\Psi_4 = \sum_{lm} C_{lm}(t,r) Y_{lm}(x, \phi),
+\end{equation} 
+where $C_{lm}$ fully describe the waveform at a given radius. The next step is to relate complex amplitudes $C_{lm}$ to the parameters of the ring-down signal (\ref{ringdowneq}). 
+
+\begin{equation} \label{clm:eq1}
+\begin{aligned}
+\sum_{lm} C_{lm}(t) Y_{lm}(x, \phi) & = \sum_{lmn} \left \{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} S_{lm}(x, \phi ;c_{lmn}) \right. \\
+& \left. + A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} S^{*}_{lm}(-x, \phi; c_{lmn}) \right \}.
+\end{aligned}
+\end{equation}
+
+\noindent
+Introducing ``bra-ket" notation for our basis functions, (\ref{clm:eq1}) can be written as  
+
+\begin{equation} \label{clm:eq2}
+\begin{aligned}
+\sum_{lm} C_{lm}(t) \ket{Y_{lm}(x, \phi)} & = \sum_{lmn} \left \{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} \ket{S_{lmn}(x, \phi ;c)} \right. \\
+& \left. + A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} \bra{S_{lmn}(-x, \phi; c)} \right \}.
+\end{aligned}
+\end{equation}
+
+\noindent
+Before proceeding further it might be useful to do the following: 1.) to rewrite the spheroidal harmonics in terms of spherical harmonics, which have clear orthogonality properties and 2.) to turn the ``bra" vector in (\ref{clm:eq2}) into the corresponding ``ket" vector. To accomplish the first task we expand spheroidal harmonics in terms of spherical harmonics:
+\begin{equation}
+\ket{S_{lmn}(x, \phi ;c)} = \sum_{l^{''}} \mathcal{A}_{ll^{''}mn} \ket{Y_{l^{''}m}(x, \phi)},
+\end{equation}
+\noindent
+Likewise, there exists the expansion for a ``bra" spheroidal harmonic with complex-conjugated coefficients $\mathcal{A}^{*}_{ll^{''}mn}$ and ``bra" spherical harmonics as a basis, witch can be turned into a ``ket" basis using symmetry properties for the spherical harmonics (\textcolor{red}{\bf reference to the appendix}) $\bra{Y_{l^{''}m}(-x, \phi)} = (-1)^{l^{''}} \ket{Y_{l^{''}-m}(x, \phi)}$. With all this in mind, acting on the (\ref{clm:eq2}) with $\bra{Y_{l^{'}m^{'}}(x, \phi)}$ and using orthogonality of the spherical harmonics we get
+\begin{equation}
+\begin{aligned} \label{clm:eq3}
+C_{l^{'}m^{'}}(t) & = \sum_{lmn} \bigg\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} \braket{Y_{l^{'}m^{'}}(x, \phi)}{S_{lmn}(x, \phi ;c)}\\
+&+ A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} \sum_{l^{''}} (-1)^l \mathcal{A}^{*}_{ll^{''}mn} \braket{Y_{l^{'}m^{'}}(x, \phi)}{Y_{l^{''}-m}(x, \phi)} \bigg\}\\
+& = \sum_{ln} \left \{ A_{lm^{'}n} e^{-i\omega_{lm^{'}n}t+i\phi_{lm^{'}n}}e^{-t/\tau_{lm^{'}n}} \mathcal{A}_{ll^{'}m^{'}n} + (-1)^{l^{'}} A^{'}_{l-m^{'}n} e^{i\omega_{l-m^{'}n}t+i\phi^{'}_{l-m^{'}n}}e^{-t/\tau_{l-m^{'}n}} \mathcal{A}^{*}_{ll^{'}-m^{'}n}  \right \},
+\end{aligned}
+\end{equation}
+which after relabeling indices and combining coefficients can be written as 
+\begin{equation}
+C_{lm}(t) = \sum_{l^{'}n} \left \{ \mathcal{C}_{l^{'}lmn} e^{-i\omega_{l^{'}mn}t+i\phi_{l^{'}mn}}e^{-t/\tau_{l^{'}mn}} + \mathcal{C}^{'}_{l^{'}lmn} e^{i\omega_{l^{'}-mn}t+i\phi^{'}_{l^{'}mn}}e^{-t/\tau_{l^{'}mn}} \right \}.
+\end{equation}
+
+\end{document}
