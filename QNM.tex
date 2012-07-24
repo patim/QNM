@@ -10,10 +10,15 @@
 \everymath{\displaystyle}
 \onehalfspacing
 
-\newcommand{\bra}[1]{\langle #1|}
-\newcommand{\ket}[1]{|#1\rangle}
+%\newcommand{\bra}[1]{\langle #1|}
+%\newcommand{\ket}[1]{|#1\rangle}
 \newcommand{\braket}[2]{\langle #1|#2\rangle}
 \mathchardef\minus = "002D
+
+\newcommand{\swY}[4][]{{}_{{}_{#2}}\!Y^{#1}_{#3}(#4)}
+\newcommand{\swSH}[5][]{{}_{{}_{#2}}S^{#1}_{#3}(#4;#5)}
+\newcommand{\swS}[5][]{{}_{{}_{#2}}S^{#1}_{#3}(#4;#5)}
+\newcommand{\scA}[4][]{{}_{{}_{#2}}A^{#1}_{#3}(#4)}
 
 \begin{document}
 \noindent{\large\bf Quasi-normal Mode Decomposition for the ring-down} \\
@@ -21,169 +26,274 @@
 \noindent
 Teukolsky general field solution:
 \begin{equation}
-\psi(t,r,\theta,\phi) = \frac{1}{2\pi} \int {e^{-i\omega t} \sum_{l,m} {}_sS_{lm}(\theta, \phi ; a\omega )R_{lm}(r) d\omega },
+\psi(t,r,\theta,\phi) = \frac{1}{2\pi} \int {e^{-i\omega t} \sum_{\ell,m} \swSH{s}{\ell{m}}{\theta,\phi}{a\omega}R_{\ell{m}}(r) d\omega },
 \end{equation}
-where the summation over $l$ and $m$ is always confined to $|s|< l < \infty$ and $|m| \leq l$. For the outgoing gravitational wave asymptotically $\psi \sim r^4\Psi_4$ and $R_{lm}(r) \sim r^3e^{i\omega r_*}$ ($r_*$ is a "tortoise" radial coordinate). Then ${}_sS_{lm}$ are going to be spin $\minus 2$ spheroidal harmonics
-
+where the summation over $\ell$ and $m$ is always confined to $|s|<
+\ell < \infty$ and $|m| \leq \ell$. To represent outgoing
+gravitational waves, we use $s=-2$ and $\psi = \rho^{-4}\Psi_4$, with
+$\Psi_4$ being the Weyl scalar that behaves at large distances like
+outgoing gravitational waves and $\rho\equiv-1/(r-ia\cos\theta)$.
+Asymptotically, $R_{lm}(r)=r^3e^{i\omega r_*}$ ($r_*$ is the
+''tortoise'' radial coordinate), $\rho=1/r$, and we find
 \begin{equation}
-r^4\Psi_4 = \frac{1}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{l,m} {}_{\minus 2}S_{lm}(\theta, \phi ; a\omega) r^3 d\omega }.
+\Psi_4 \sim \frac1{r}\frac{1}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
-
-\noindent
-Making both sides dimensionless (multiplying by $Mr^{-3}$)
-
+Making both sides dimensionless, we take as our general asymptotic expansion for outgoing gravitational waves:
 \begin{equation}
-rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{l,m} {}_{\minus 2}S_{lm}(\theta, \phi ; a\omega) d\omega }.
+rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
 
-\noindent
-Replacing the Fourier integral with a QNM expansion (a careful assumption, because QNMs are not a complete set)
-
+To represent the ring-down of a Kerr black hole, we replacing the
+Fourier integral with a QNM expansion (a careful assumption, because
+QNMs are not a complete set).  For each mode $(\ell,m)$, there is are
+two infinite sets of QNMs labeled by $n$: $\bar\omega_{\ell{m}n}$ and
+$\bar\omega^\prime_{\ell{m}n}$.  The $n=0$ modes represent the
+dominant QNM for each $(\ell,m)$, and the higher values of $n$
+represent overtones.  When we replace the integral with a sum over all QNM, we must include both sets of modes:
 \begin{equation}
-rM\Psi_4 = M \sum_{lmn}e^{-i\omega_{lmn} (t-r_*)} C_{lmn} {}_{\minus 2}S_{lm}(\theta,\phi ; c_{lmn}), 
+rM\Psi_4 = \sum_{\ell{m}n}\left\{C_{\ell{m}n}e^{-i\bar\omega_{\ell{m}n} (t-r_*)}
+           \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\bar\omega_{\ell{m}n}} 
+           + C^\prime_{\ell{m}n}e^{-i\bar\omega^\prime_{\ell{m}n} (t-r_*)}
+           \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\bar\omega^\prime_{\ell{m}n}}
+           \right\}, 
 \end{equation}
-where $C_{lmn}$ are complex coefficients of the QNM expansion, and $c_{lmn} \equiv a\omega_{lmn}$ is an oblateness parameter related to the quasi normal frequency. After writing $MC_{lmn}$ as $A_{lmn}e^{i\phi_{lmn}}$ and making substitutions $\omega_{lmn} \rightarrow  \omega_{lmn} - \frac{i}{\tau_{lmn}}$ and $(t-r_*) \rightarrow t$ we get
-\begin{equation}
-rM\Psi_4 = \sum_{lmn} A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta,\phi ; c_{lmn}).
-\end{equation}
+where $C_{\ell{m}n}$ and $C^\prime_{\ell{m}n}$ are the arbitrary
+dimensionless complex coefficients of the QNM expansion.
 
-\noindent
-Because the modes in a waveform always come in pairs we need to explicitly write them as such. To go from one mode to its pair the sign on both $m$ and the real part of the frequency changes. The modes become degenerate for the case of $m=0$. The variables in the second mode are denoted by a prime:
-
-\begin{equation}
-rM\Psi_4 = \sum_{lmn} \left\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta,\phi ; c_{lmn}) + A^{'}_{lmn} e^{-i\omega^{'}_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau^{'}_{lmn}} {}_{\minus 2}S_{lm}(\theta,\phi ; c^{'}_{lmn}) \right\}.
-\end{equation}
-
-\noindent
-There exist simple symmetry relationships (see appendix (\ref{sSlm:eq1})) between these ``twin" modes:
-\begin{equation}
-\begin{array}{l}
-\omega^{'}_{lmn} = -\omega_{l-mn} \\
-\tau^{'}_{lmn} = \tau_{l-mn} \\
-{}_{\minus 2}S_{lm}(\theta,\phi ;c^{'}_{lmn}) = (-1)^l {}_{\minus 2}S^{*}_{l-m}(\pi-\theta,\phi; c_{l-mn}),
-\end{array} 
-\end{equation}
-where $c^{'}_{lmn} \equiv a( \omega^{'}_{lmn} - i/\tau^{'}_{lmn} ) = a( -\omega_{l-mn} - i/\tau_{l-mn} ) = -c^{*}_{l-mn}$.
-
-\noindent
-Plugging those in:
-\begin{align} \label{ringdowneq}
-\nonumber rM\Psi_4 &= \sum_{lmn} \Big\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta,\phi; c_{lmn})\\
-\nonumber & + (-1)^l A^{'}_{lmn} e^{i\omega_{l-mn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{l-mn}} {}_{\minus 2}S^{*}_{l-m}(\pi-\theta,\phi; c_{l-mn}) \Big\}\\
-\nonumber &=\sum_{lmn} \Big\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta, \phi ;c_{lmn})\\
-\nonumber & + (-1)^l A^{'}_{l-mn} e^{i\omega_{lmn}t+i\phi^{'}_{l-mn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S^{*}_{lm}(\pi-\theta, \phi; c_{lmn}) \Big\}\\
-\nonumber &=\sum_{lmn} \Bigg\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta, \phi ;c_{lmn}) \\
- & + (-1)^l A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S^{*}_{lm 	}(\pi-\theta, \phi; c_{lmn}) \Big\},
+The two sets of QNMs for Kerr are closely related to each other.  The $\bar\omega$ correspond to ``positive frequency'' modes and the $\bar\omega^\prime$ to ``negative frequency'' modes in the following sense.  Let us define:
+\begin{align}
+    \bar\omega_{\ell{m}n} &\equiv 
+    \omega_{\ell{m}n} - \frac{i}{\tau_{\ell{m}n}}
+      &;\quad a\bar\omega_{\ell{m}n}\equiv c_{\ell{m}n}
+    &\quad:\quad\mbox{and}\quad \omega_{\ell{m}n} \ge 0, \\
+    \bar\omega^\prime_{\ell{m}n} &\equiv 
+    \omega^\prime_{\ell{m}n} - \frac{i}{\tau^\prime_{\ell{m}n}}
+      &;\quad a\bar\omega^\prime_{\ell{m}n}\equiv c^\prime_{\ell{m}n}
+    &\quad:\quad\mbox{and}\quad \omega^\prime_{\ell{m}n} \le 0.
 \end{align}
-where relabeling was made $A^{'}_{l-mn} \rightarrow A^{'}_{lmn}$ and $\phi^{'}_{l-mn} \rightarrow \phi^{'}_{lmn}$ to get to the last line. Thus, a general waveform for the ring-down signal asymptotically is described by four real parameters $A_{lmn}$, $A^{'}_{lmn}$, $\phi_{lmn}$ and $\phi^{'}_{lmn}$.
+They are further related by the fact that:
+\begin{align}
+\omega^\prime_{\ell{m}n} = -\omega_{\ell(-m)n} \\
+\tau^\prime_{\ell{m}n} = \tau_{\ell(-m)n}.
+\end{align} 
+In terms of these definitions, and assuming we evaluate the expansion at fixed $r$ and $r_*$, we find:
+\begin{equation}
+rM\Psi_4 = \sum_{\ell{m}n} \left\{ C_{\ell{m}n} e^{-i\omega_{\ell{m}n}t}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}} + C^\prime_{\ell{m}n} e^{i\omega_{\ell(-m)n}}e^{-t/\tau_{\ell(-m)n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c^\prime_{\ell{m}n}} \right\},
+\end{equation}
+where we have absorbed constant factors involving $e^{r_*}$ into the
+expansion coefficients.
+
+Using the fact that the sum over $m$ extends from $-\ell\cdots\ell$, we can trivially rewrite the expansion as:
+\begin{equation}
+rM\Psi_4 = \sum_{\ell{m}n} \left\{ C_{\ell{m}n} e^{-i\omega_{\ell{m}n}t}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}} + C^\prime_{\ell(-m)n} e^{i\omega_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell(-m)}{\theta,\phi}{c^\prime_{\ell(-m)n}} \right\}.
+\end{equation}
+Furthermore, because
+\begin{equation}
+c^\prime_{\ell(-m)n} = a\left(\omega^\prime_{\ell(-m)n} 
+               - \frac{i}{\tau^\prime_{\ell(-m)n}}\right) =
+               -a\left(\omega_{\ell{m}n} 
+               - \frac{i}{\tau_{\ell{m}n}}\right)^* = -c^*_{\ell{m}n},
+\end{equation}
+and by the symmetries of the spin-weighted spheroidal harmonics given in Eqns~(\ref{eqn:swSHminuss}) and (\ref{eqn:swSHminusm}), we find
+\begin{equation}
+\swSH{\minus 2}{\ell(-m)}{\theta,\phi}{c^\prime_{\ell(-m)n}} = (-1)^l \swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c_{\ell{m}n}},
+\end{equation}
+
+\noindent
+Plugging those in, we get
+\begin{equation}
+\nonumber rM\Psi_4 = \sum_{\ell{m}n} \left\{C_{\ell{m}n} e^{-i\omega_{\ell{m}n}t}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}}
+  + (-1)^\ell C^\prime_{\ell(-m)n} e^{i\omega_{\ell{m}n}t}e^{-t/\tau_{\ell{m}n}} \swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c_{\ell{m}n}} \right\}.
+\end{equation}
+Finally, we can rewrite the two complex expansion coefficients as
+\begin{align}
+  C_{\ell{m}n} &\equiv A_{\ell{m}n}e^{i\phi_{\ell{m}n}}, \\
+  C^\prime_{\ell(-m)n} &\equiv A^\prime_{\ell{m}n}e^{i\phi^\prime_{\ell{m}n}},
+\end{align}
+where $A_{\ell{m}n}$, $A^\prime_{\ell{m}n}$, $\phi_{\ell{m}n}$ and $\phi^\prime_{\ell{m}n}$ are real parameters.  The resulting equation is:
+\begin{align} \label{eqn:Psi4SH:expan}
+\nonumber rM\Psi_4 &= \sum_{\ell{m}n} \Bigl\{A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}} \nonumber\\ & {} \hspace{0.5in}
+  + (-1)^\ell A^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} \swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c_{\ell{m}n}} \Bigr\}.
+\end{align}
 
 \noindent\\
-On the other hand, dimensionless Weyl scalar can be decomposed using spin $\minus 2$ spherical harmonics:
-
-\begin{equation}
-rM\Psi_4 = \sum_{lm} C_{lm}(t,r) {}_{\minus 2}Y_{lm}(\theta, \phi),
+On the other hand, the Weyl scalar can also be decomposed using spin-weight $\minus 2$ spherical harmonics.  Again, assuming fixed $r$ and $r^*$:
+\begin{equation}\label{eqn:Psi4Y:expan}
+rM\Psi_4 = \sum_{\ell{m}} C_{\ell{m}}(t) \swY{\minus 2}{\ell{m}}{\theta,\phi},
 \end{equation} 
-where $C_{lm}$ fully describe the waveform at a given radius. The next step is to relate complex amplitudes $C_{lm}$ to the parameters of the ring-down signal (\ref{ringdowneq}). 
+The next step is to relate complex amplitudes $C_{\ell{m}}$ to the parameters of the ring-down signal (\ref{eqn:Psi4SH:expan}).  To accomplish this, we first expand the spheroidal harmonics in terms of spherical harmonics:
+\begin{equation} \label{eqn:swSH:expan}
+\swSH{\minus 2}{\ell{m}n}{\theta,\phi}{c} = \sum_{\ell^\prime} \mathcal{A}_{\ell\ell^\prime{m}n}(c) \swY{\minus 2}{\ell^\prime{m}}{\theta,\phi}.
+\end{equation}
+Using Eqns~(\ref{eqn:swYminuss}), (\ref{eqn:swYminusm}), (\ref{eqn:swSHminuss}), and (\ref{eqn:swSHminusm}), we also have
+\begin{equation} \label{eqn:swSconj:expan}
+\swSH[*]{\minus 2}{\ell{m}n}{\pi-\theta,\phi}{c} = \sum_{\ell^\prime} (-1)^{\ell^\prime}\mathcal{A}^{*}_{\ell\ell^\prime{m}n}(c) \swY{\minus 2}{\ell^\prime(-m)}{\theta,\phi}.
+\end{equation}
+(Note: $\mathcal{A}^{*}_{\ell\ell^\prime{m}n}(c) = \mathcal{A}_{\ell\ell^\prime(-m)n}(-c^*)$.)
 
-\begin{equation} \label{clm:eq1}
+So, equating Eqs.~(\ref{eqn:Psi4SH:expan}) and (\ref{eqn:Psi4Y:expan}), 
+\begin{equation} \label{eqn:equate:expan}
 \begin{aligned}
-\sum_{lm} C_{lm}(t) {}_{\minus 2}Y_{lm}(x, \phi) & = \sum_{lmn} \Big\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S_{lm}(\theta, \phi ;c_{lmn})\\
-& + (-1)^l A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} {}_{\minus 2}S^{*}_{lm}(\pi-\theta, \phi; c_{lmn}) \Big\}.
+\sum_{\ell{m}} C_{\ell{m}}(t) \swY{\minus 2}{\ell{m}}{\theta,\phi} & = \sum_{\ell{m}n} \Big\{ A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}}\\
+& + (-1)^l A^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} \swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c_{\ell{m}n}} \Big\},
 \end{aligned}
 \end{equation}
-
-\noindent
-Introducing a vector notation for our basis functions, (\ref{clm:eq1}) can be written as  
-
+and using the usual definition for the inner product $\braket{f(\theta, \phi)}{g(\theta, \phi)} \equiv \int{f^{*}(\theta, \phi) g(\theta, \phi) d\Omega}$ along with the orthonormality of the spin-weighted spherical harmonics, Eq,~(\ref{eqn:equate:expan}) becomes
 \begin{equation} \label{clm:eq2}
 \begin{aligned}
-\sum_{lm} C_{lm}(t) \ket{{}_{\minus 2}Y_{lm}(\theta, \phi)} & = \sum_{lmn} \Big\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} \ket{{}_{\minus 2}S_{lmn}(\theta, \phi ;c)}\\
-& + (-1)^l A^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} \ket{{}_{\minus 2}S^{*}_{lmn}(\pi-\theta, \phi; c)} \Big\}
+C_{\ell^\prime{m^\prime}}(t) &= \sum_{\ell{m}n} \Big\{ 
+   A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} 
+   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH{\minus 2}{\ell{m}n}{\theta,\phi}{c_{\ell{m}n}}} \\
+& {}\hspace{0.5in} 
+  + (-1)^l A^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} 
+   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH[*]{\minus 2}{\ell{m}n}{\pi-\theta,\phi}{c_{\ell{m}n}}} \Big\}.
 \end{aligned}
 \end{equation}
-with the dot product defined $\braket{f(\theta, \phi)}{g(\theta, \phi)} \equiv \int{f^{*}(\theta, \phi) g(\theta, \phi) d\Omega}$. Before proceeding further it might be useful to do the following: 1.) to rewrite the spheroidal harmonics in terms of spherical harmonics, which have clear orthogonality properties and 2.) to modify the second term in (\ref{clm:eq2}) using the symmetry properties (see appendix). To accomplish the first task we expand spheroidal harmonics in terms of spherical harmonics:
-\begin{equation} \label{Slmn:expan}
-{}_{\minus 2}S_{lmn}(\theta, \phi ;c) = \sum_{l^{''}} \mathcal{A}_{ll^{''}mn} {}_{\minus 2}Y_{l^{''}m}(\theta, \phi).
-\end{equation}
-\noindent
-Secondly, we take the complex conjugate of (\ref{Slmn:expan}) and using the symmetry property ${}_{\minus 2}Y_{l^{''}m}(\pi-\theta, \phi) = (-1)^{l^{''}} {}_{\minus 2}Y_{l^{''}-m}(\theta, \phi)$ (see appendix (\ref{sYlm:eq1})) the second term takes form:
-
-\begin{equation} \label{SlmnStar:expan}
-{}_{\minus 2}S^{*}_{lmn}(\pi - \theta, \phi ;c) = \sum_{l^{''}} (-1)^{l^{''}}\mathcal{A}^{*}_{ll^{''}mn} {}_{\minus 2}Y_{l^{''}-m}(\theta, \phi).
-\end{equation}
 
 \noindent
-And finally, dot-multiplying $\bra{{}_{\minus 2}Y_{l^{'}m^{'}}(\theta, \phi)}$ with (\ref{clm:eq2}) and using orthogonality of the spherical harmonics we get
-
+Finally, using the expansion in Eqs.~(\ref{eqn:swSH:expan}) and (\ref{eqn:swSconj:expan}), and
+the orthognormality of the spin-weighted spherical harmonics we get
 \begin{equation}
 \begin{aligned} \label{clm:eq3}
-C_{l^{'}m^{'}}(t) & = \sum_{lmn} \Big\{ A_{lmn} e^{-i\omega_{lmn}t+i\phi_{lmn}}e^{-t/\tau_{lmn}} \braket{Y_{l^{'}m^{'}}(\theta, \phi)}{S_{lmn}(\theta, \phi ;c)}\\
-& + (-1)^lA^{'}_{lmn} e^{i\omega_{lmn}t+i\phi^{'}_{lmn}}e^{-t/\tau_{lmn}} \sum_{l^{''}} (-1)^{l^{''}} \mathcal{A}^{*}_{ll^{''}mn} \braket{Y_{l^{'}m^{'}}(\theta, \phi)}{Y_{l^{''}-m}(\theta, \phi)} \Big\}\\
-& = \sum_{ln} \Big\{ A_{lm^{'}n} e^{-i\omega_{lm^{'}n}t+i\phi_{lm^{'}n}}e^{-t/\tau_{lm^{'}n}} \mathcal{A}_{ll^{'}m^{'}n}\\
-& + (-1)^{l + l^{'}} A^{'}_{l-m^{'}n} e^{i\omega_{l-m^{'}n}t+i\phi^{'}_{l-m^{'}n}}e^{-t/\tau_{l-m^{'}n}} \mathcal{A}^{*}_{ll^{'}-m^{'}n}  \Big\},
+C_{\ell^\prime{m}^\prime}(t) & = \sum_{\ell{m}n} \Big\{ 
+   A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}}
+    \sum_{\ell^{\prime\prime}} \mathcal{A}_{\ell\ell^{\prime\prime}mn}(c_{\ell{m}n})
+    \braket{\swY{\minus 2}{\ell^\prime{m}^\prime}{\theta,\phi}}{\swY{\minus 2}{\ell^{\prime\prime}m}{\theta,\phi}} \\
+& {} \hspace{0.6in}
+  + (-1)^lA^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}}
+    \sum_{\ell^{\prime\prime}} (-1)^{\ell^{\prime\prime}} \mathcal{A}^{*}_{\ell\ell^{\prime\prime}mn}(c_{\ell{m}n})
+    \braket{\swY{\minus 2}{\ell^\prime{m}^\prime}{\theta,\phi}}{\swY{\minus 2}{\ell^{\prime\prime}(-m)}{\theta,\phi}} \Big\} \\ 
+ & = \sum_{\ell{n}} \Big\{ 
+   A_{\ell{m^\prime}n} e^{-i\omega_{\ell{m^\prime}n}t+i\phi_{\ell{m^\prime}n}}e^{-t/\tau_{\ell{m^\prime}n}}
+    \mathcal{A}_{\ell\ell^\prime{m^\prime}n}(c_{\ell{m^\prime}n}) \\
+& {} \hspace{0.6in}
+  + (-1)^{\ell+\ell^\prime}A^\prime_{\ell(-m^\prime)n} e^{i\omega_{\ell(-m^\prime)n}t+i\phi^\prime_{\ell(-m^\prime)n}}e^{-t/\tau_{\ell(-m^\prime)n}}
+    \mathcal{A}^{*}_{\ell\ell^\prime(-m^\prime)n}(c_{\ell(-m^\prime)n}) \Big\}.
 \end{aligned}
 \end{equation}
-which after relabeling indices and combining coefficients can be written as 
+After relabeling indices we have
 \begin{equation}
-C_{lm}(t) = \sum_{l^{'}n} \Big\{ \mathcal{C}_{l^{'}lmn} e^{-i\omega_{l^{'}mn}t+i\phi_{l^{'}mn}}e^{-t/\tau_{l^{'}mn}} + (-1)^{l^{'}+l} \mathcal{C}^{'}_{l^{'}lmn} e^{i\omega_{l^{'}-mn}t+i\phi^{'}_{l^{'}mn}}e^{-t/\tau_{l^{'}mn}} \Big\}.
+\begin{aligned}
+ C_{\ell{m}}(t) & = \sum_{\ell^\prime{n}} \Big\{ 
+   A_{\ell^\prime{m}n}\mathcal{A}_{\ell^\prime\ell{m}n}(c_{\ell^\prime{m}n})
+    e^{-i\omega_{\ell^\prime{m}n}t+i\phi_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}} \\
+& {} \hspace{0.6in}
+  + (-1)^{\ell+\ell^\prime}A^\prime_{\ell^\prime(-m)n}
+    \mathcal{A}^{*}_{\ell^\prime\ell(-m)n}(c_{\ell^\prime(-m)n})
+    e^{i\omega_{\ell^\prime(-m)n}t+i\phi^\prime_{\ell^\prime(-m)n}}e^{-t/\tau_{\ell^\prime(-m)n}} \Big\}.
+\end{aligned}
+\end{equation}
+Finally, let us define two new functions:
+\begin{align}
+  \mathcal{R}_{\ell^\prime\ell{m}n}(t) &\equiv 
+    \mathcal{A}_{\ell^\prime\ell{m}n}(c_{\ell^\prime{m}n})
+    e^{-i\omega_{\ell^\prime{m}n}t+i\phi_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}, \\
+  \mathcal{R}^\prime_{\ell^\prime\ell{m}n}(t) &\equiv  
+    (-1)^\ell\mathcal{A}^*_{\ell^\prime\ell{m}n}(c_{\ell^\prime{m}n})
+    e^{i\omega_{\ell^\prime{m}n}t+i\phi^\prime_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}.
+\end{align}
+So,
+\begin{equation}
+ C_{\ell{m}}(t) = \sum_{\ell^\prime{n}} \left\{ 
+   A_{\ell^\prime{m}n}\mathcal{R}_{\ell^\prime\ell{m}n}(t)
+  + (-1)^{\ell^\prime}A^\prime_{\ell^\prime(-m)n}\mathcal{R}^\prime_{\ell^\prime\ell(-m)n}(t)
+     \right\}.
 \end{equation}
 
+\newpage
+\noindent{\large\bf Appendix: Spin-Weighted Spheroidal Harmonics}
+\vspace{0.25in}
 
-\noindent{\large\bf \\\\ Appendix} \\
-
-\noindent
-Some of the symmetries with phase convention for harmonics. The equations are given for $\theta$-part of the harmonics with $x \equiv cos(\theta)$, $\phi$-part is always trivially equal to $\sim e^{i\phi}$.\\
-
-\noindent
-{\it Scalar spheroidal harmonics}\\
+The spin-weighted spheroidal harmonics,
+$\swSH{s}{\ell{m}}{\theta,\phi}{c}$, are generalizations of the
+spin-weighted spherical harmonics,
+$\swY{s}{\ell{m}}{\theta,\phi}=\swSH{s}{\ell{m}}{\theta,\phi}{0}$,
+where $s$ is the spin weight of the harmonic, and $c$ is the
+oblateness parameter.  The angular dependence separates as
 \begin{equation}
-\partial_x \Big[ (1-x^2)\partial_x S_{lm}(x;c)\Big] + \bigg[(cx)^2 + {}_0A_{lm}(c) - \frac{m^2}{1-x^2}\bigg]S_{lm}(x;c) = 0
+  \swSH{s}{\ell{m}}{\theta,\phi}{c} \equiv 
+  \frac1{2\pi}\,\swS{s}{\ell{m}}{\cos\theta}{c}e^{im\phi}.
+\end{equation}
+With $x\equiv\cos\theta$, the spin-weighted spheroidal {\em function},
+$\swS{s}{\ell{m}}{x}{c}$, satisfies
+\begin{equation}\label{eqn:swSF_DiffEqn}
+\partial_x \Big[ (1-x^2)\partial_x [\swS{s}{\ell{m}}{x}{c}]\Big] 
+    + \bigg[(cx)^2 - 2 csx + s + \scA{s}{\ell m}{c} 
+      - \frac{(m+sx)^2}{1-x^2}\bigg]\swS{s}{\ell{m}}{x}{c} = 0,
+\end{equation}
+where $\scA{s}{\ell m}{c}$ is the separation constant.
+
+The basic symmetries inherent in the spin-weighted spheroidal harmonics
+follow from~(\ref{eqn:swSF_DiffEqn}):
+\begin{eqnarray}
+s\rightarrow-s;\ x\rightarrow-x &\Rightarrow&
+    \left\{\begin{array}{c}\swS{-s}{\ell{m}}{x}{c}=\pm\swS{s}{\ell{m}}{-x}{c} \\
+        \scA{-s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c} + 2s \end{array}\right. \\
+m\rightarrow-m;\ x\rightarrow-x;\ c\rightarrow-c &\Rightarrow&
+    \left\{\begin{array}{c}\swS{s}{\ell(-m)}{x}{c}=\pm\swS{s}{\ell{m}}{-x}{-c}\\
+        \scA{s}{\ell(-m)}{c} = \scA{s}{\ell{m}}{-c} \end{array}\right. \\
+\mbox{complex conjugation} &\Rightarrow&
+    \left\{\begin{array}{c} \swS[*]{s}{\ell{m}}{x}{c}=\pm\swS{s}{\ell{m}}{x}{c^*} \\
+        \scA[*]{s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c^*} \end{array}\right.
+\end{eqnarray}
+
+Additional sign conventions are chosen for consistency with common
+sign conventions for the angular-spheroidal functions,
+$\swS{}{\ell{m}}{x}{c} = \swS{0}{\ell{m}}{x}{c}$, and the spin-weighted spheroidal harmonics, $\swY{s}{\ell{m}}{\theta,\phi}$.
+
+\vspace{0.25in}
+\noindent
+{\it Angular spheroidal functions}
+\begin{equation}
+\partial_x \Big[ (1-x^2)\partial_x \swS{}{\ell{m}}{x}{c}\Big] + \bigg[(cx)^2 + \scA{}{\ell{m}}{c} - \frac{m^2}{1-x^2}\bigg]\swS{}{\ell{m}}{x}{c} = 0
 \end{equation}
 \begin{align}
-{}_0A_{lm}(-c) &= {}_0A_{lm}(c) \\
-{}_0A_{l-m}(c) &= {}_0A_{lm}(c) \\
-{}_0A_{lm}(c^*) &= {}_0A^*_{lm}(c) \\\nonumber\\
-S_{lm}(-x;c) &= (-1)^{l+m} S_{lm}(x;c) \\
-S_{lm}(x;-c) &= S_{lm}(x;c) \\
-S_{l-m}(x;c) &= (-1)^m S_{lm}(x;c) \\
-S^*_{lm}(x;c) &= S_{lm}(x;c^*) \\\nonumber \\
-S^*_{lm}(\theta, \phi;c) &= (-1)^m S_{l-m}(\theta, \phi; c^*)
+\swS{}{\ell{m}}{-x}{c} &= (-1)^{\ell+m}\swS{}{\ell{m}}{x}{c}& \\
+\swS{}{\ell{m}}{x}{-c} &= \swS{}{\ell{m}}{x}{c} 
+           &:\ \scA{}{\ell{m}}{-c} = \scA{}{\ell{m}}{c} \\
+\swS{}{\ell(-m)}{x}{c} &= (-1)^m\swS{}{\ell{m}}{x}{c} 
+           &:\ \scA{}{\ell(-m)}{c} = \scA{}{\ell{m}}{c} \\
+\swS[*]{}{\ell{m}}{x}{c} &= \swS{}{\ell{m}}{x}{c^*} 
+           &:\ \scA[*]{}{\ell{m}}{c} = \scA{}{\ell{m}}{c^*}
 \end{align}
 
 \noindent
-{\it Spin-weight spherical harmonics} \\
+{\it Spin-weighted spherical functions}
 \begin{equation}
-\partial_x \Big[ (1-x^2)\partial_x [{}_sY_{lm}(x)]\Big] + \bigg[s + {}_sA_{lm} - \frac{(m+sx)^2}{1-x^2}\bigg]{}_sY_{lm}(x) = 0
+\partial_x \Big[ (1-x^2)\partial_x [\swS{s}{\ell{m}}{x}{0}]\Big] + \bigg[s + \scA{s}{\ell{m}}{0} - \frac{(m+sx)^2}{1-x^2}\bigg]\swS{s}{\ell{m}}{x}{0} = 0
 \end{equation}
 \begin{equation}
-{}_sA_{lm} = l(l+1) - s(s+1)\\
+\scA{s}{\ell{m}}{0} = l(l+1) - s(s+1)\\
 \end{equation}
 \begin{align}
-{}_{s}Y_{lm}(-x) &= (-1)^{l+m} {}_{-s}Y_{lm}(x) \\
-{}_{s}Y_{l-m}(x) &= (-1)^{s+m} {}_{-s}Y_{lm}(x)
-\end{align}
-
-\begin{align} \label{sYlm:eq1}
-{}_{s}Y_{lm}(\pi-\theta,\phi) &= (-1)^{l+m} {}_{-s}Y_{lm}(\theta, \phi) \\
-\nonumber					  &= (-1)^{l+s} {}_{s}Y_{l-m}(\theta, \phi)
+\swS{-s}{\ell{m}}{x}{0} &= (-1)^{\ell+m}\swS{s}{\ell{m}}{-x}{0} 
+           &:\ \scA{-s}{\ell{m}}{0} = \scA{s}{\ell{m}}{0} + 2s \\
+\swS{s}{\ell(-m)}{x}{0} &= (-1)^{\ell+s}\swS{s}{\ell{m}}{-x}{0} 
+           &:\ \scA{s}{\ell(-m)}{0} = \scA{s}{\ell{m}}{0} \\
+\swS[*]{s}{\ell{m}}{x}{0} &= \swS{s}{\ell{m}}{x}{0} 
+           &:\ \scA[*]{s}{\ell{m}}{0} = \scA{s}{\ell{m}}{0}
 \end{align}
 
 \noindent
-{\it Spin-weight spheroidal harmonics} \\
-\begin{equation}
-\partial_x \Big[ (1-x^2)\partial_x [{}_sS_{lm}(x;c)]\Big] + \bigg[(cx)^2 - 2 csx + s + {}_sA_{lm}(c) - \frac{(m+sx)^2}{1-x^2}\bigg]{}_sS_{lm}(x;c) = 0
-\end{equation}
-\begin{align}
-{}_{-s}A_{lm}(c) &= {}_sA_{lm}(c)+2s \\
-{}_sA_{l-m}(c) &= {}_sA_{lm}(-c) \\
-{}_sA^*_{lm}(c) &= {}_sA_{lm}(c^*) \\\nonumber\\
-{}_sS_{lm}(-x;c) &= (-1)^{l+m} {}_{-s}S_{lm}(x;c) \\
-{}_sS_{l-m}(x;c) &= (-1)^{s+m} {}_{-s}S_{lm}(x;-c) \\
-{}_sS^*_{lm}(x;c) &= {}_sS_{lm}(x;c^*)
+{\it Spin-weighted spherical harmonics}
+\begin{align}\label{eqn:swYminuss}
+\swY{-s}{\ell{m}}{\theta,\phi}=(-1)^{\ell+m}\swY{s}{\ell{m}}{\pi-\theta,\phi} \\ \label{eqn:swYminusm}
+\swY{s}{\ell(-m)}{\theta,\phi}=(-1)^{s+m}\swY[*]{-s}{\ell{m}}{\theta,\phi}
 \end{align}
+
+\noindent
+These leave us with the following conventions for the spin-weighted spherical harmonics and spheroidal functions:
 \begin{align}
-{}_sS^*_{lm}(\theta, \phi ; c) &= (-1)^{s+l} {}_{s}S_{l-m}(\pi-\theta, \phi ; c) \label{sSlm:eq1} \\
-{}_{-s}S_{lm}(\theta, \phi ; c) &= (-1)^{s+m} {}_{s}S_{l-m}(\pi-\theta, \phi ; c)
+\swS{-s}{\ell{m}}{x}{c} &= (-1)^{\ell+m}\swS{s}{\ell{m}}{-x}{c} 
+           &:\ \scA{-s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c} + 2s \\
+\swS{s}{\ell(-m)}{x}{c} &= (-1)^{\ell+s}\swS{s}{\ell{m}}{-x}{-c} 
+           &:\ \scA{s}{\ell(-m)}{c} = \scA{s}{\ell{m}}{-c} \\
+\swS[*]{s}{\ell{m}}{x}{c} &= \swS{s}{\ell{m}}{x}{c^*} 
+           &:\ \scA[*]{s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c^*}
+\end{align}
+\begin{align}\label{eqn:swSHminuss}
+\swSH{-s}{\ell{m}}{\theta,\phi}{c} &= (-1)^{\ell+m}\swSH{s}{\ell{m}}{\pi-\theta,\phi}{c} \\ \label{eqn:swSHminusm}
+\swSH{s}{\ell(-m)}{\theta,\phi}{c} &= (-1)^{s+m}\swSH[*]{-s}{\ell{m}}{\theta,\phi}{-c^*}
 \end{align}
 
 \end{document}
