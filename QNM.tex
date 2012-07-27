@@ -44,7 +44,7 @@ Making both sides dimensionless, we take as our general asymptotic expansion for
 rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
 
-To represent the ring-down of a Kerr black hole, we replacing the
+To represent the ring-down of a Kerr black hole, we replace the
 Fourier integral with a QNM expansion (a careful assumption, because
 QNMs are not a complete set).  For each mode $(\ell,m)$, there is are
 two infinite sets of QNMs labeled by $n$: $\bar\omega_{\ell{m}n}$ and
@@ -153,7 +153,7 @@ C_{\ell^\prime{m^\prime}}(t) &= \sum_{\ell{m}n} \Big\{
 
 \noindent
 Finally, using the expansion in Eqs.~(\ref{eqn:swSH:expan}) and (\ref{eqn:swSconj:expan}), and
-the orthognormality of the spin-weighted spherical harmonics we get
+the orthonormality of the spin-weighted spherical harmonics we get
 \begin{equation}
 \begin{aligned} \label{clm:eq3}
 C_{\ell^\prime{m}^\prime}(t) & = \sum_{\ell{m}n} \Big\{ 
@@ -188,10 +188,10 @@ Finally, let us define two new functions:
 \begin{align}
   \mathcal{R}_{\ell\ell^\prime{m}n}(t,\phi) &\equiv 
     \YSH{\ell\ell^\prime{m}n}{c_{\ell^\prime{m}n}}
-    e^{-i\omega_{\ell^\prime{m}n}t+i\phi}e^{-t/\tau_{\ell^\prime{m}n}}, \\
+    e^{-i\omega_{\ell^\prime{m}n}t+i\phi_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}, \\
   \mathcal{R}^\prime_{\ell\ell^\prime{m}n}(t,\phi) &\equiv  
     (-1)^\ell\YSH[*]{\ell\ell^\prime{m}n}{c_{\ell^\prime{m}n}}
-    e^{i\omega_{\ell^\prime{m}n}t+i\phi}e^{-t/\tau_{\ell^\prime{m}n}}.
+    e^{i\omega_{\ell^\prime{m}n}t+i\phi{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}.
 \end{align}
 So,
 \begin{equation}
@@ -201,6 +201,7 @@ So,
      \mathcal{R}^\prime_{\ell\ell^\prime(-m)n}(t,\phi^\prime_{\ell^\prime(-m)n})
      \right\}.
 \end{equation}
+Thus, for each $\ell$ and $m$ we have four numbers $A_{\ell^\prime{m}n}$, $A^\prime_{\ell^\prime(-m)n}$, $\phi_{\ell^\prime{m}n}$, and $\phi^\prime_{\ell^\prime(-m)n}$ describing the wave, which later will be exploited as fit parameters.
 
 \newpage
 \noindent{\large\bf Appendix: Spin-Weighted Spheroidal Harmonics}
