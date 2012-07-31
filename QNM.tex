@@ -124,13 +124,13 @@ rM\Psi_4 = \sum_{\ell{m}} C_{\ell{m}}(t) \swY{\minus 2}{\ell{m}}{\theta,\phi},
 \end{equation} 
 The next step is to relate complex amplitudes $C_{\ell{m}}$ to the parameters of the ring-down signal (\ref{eqn:Psi4SH:expan}).  To accomplish this, we first expand the spheroidal harmonics in terms of spherical harmonics:
 \begin{equation} \label{eqn:swSH:expan}
-\swSH{\minus 2}{\ell{m}n}{\theta,\phi}{c} = \sum_{\ell^\prime} \YSH{\ell^\prime\ell{m}n}{c} \swY{\minus 2}{\ell^\prime{m}}{\theta,\phi}.
+\swSH{\minus 2}{\ell{m}}{\theta,\phi}{c} = \sum_{\ell^\prime} \YSH{\ell^\prime\ell{m}}{c} \swY{\minus 2}{\ell^\prime{m}}{\theta,\phi}.
 \end{equation}
 Using Eqns~(\ref{eqn:swYminuss}), (\ref{eqn:swYminusm}), (\ref{eqn:swSHminuss}), and (\ref{eqn:swSHminusm}), we also have
 \begin{equation} \label{eqn:swSconj:expan}
-\swSH[*]{\minus 2}{\ell{m}n}{\pi-\theta,\phi}{c} = \sum_{\ell^\prime} (-1)^{\ell^\prime}\YSH[*]{\ell^\prime\ell{m}n}{c} \swY{\minus 2}{\ell^\prime(-m)}{\theta,\phi}.
+\swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c} = \sum_{\ell^\prime} (-1)^{\ell^\prime}\YSH[*]{\ell^\prime\ell{m}}{c} \swY{\minus 2}{\ell^\prime(-m)}{\theta,\phi}.
 \end{equation}
-(Note: $\YSH[*]{\ell^\prime\ell{m}n}{c} = \YSH{\ell^\prime\ell(-m)n}{-c^*}$.)
+[Note: $\YSH[*]{\ell^\prime\ell{m}}{c} = (-1)^{\ell^\prime+\ell}\YSH{\ell^\prime\ell(-m)}{-c^*}$.]
 
 So, equating Eqs.~(\ref{eqn:Psi4SH:expan}) and (\ref{eqn:Psi4Y:expan}), 
 \begin{equation} \label{eqn:equate:expan}
@@ -144,10 +144,10 @@ and using the usual definition for the inner product $\braket{f(\theta, \phi)}{g
 \begin{aligned}
 C_{\ell^\prime{m^\prime}}(t) &= \sum_{\ell{m}n} \Big\{ 
    A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} 
-   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH{\minus 2}{\ell{m}n}{\theta,\phi}{c_{\ell{m}n}}} \\
+   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}}} \\
 & {}\hspace{0.5in} 
   + A^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}} 
-   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH[*]{\minus 2}{\ell{m}n}{\pi-\theta,\phi}{c_{\ell{m}n}}} \Big\}.
+   \braket{\swY{\minus 2}{\ell^\prime{m^\prime}}{\theta,\phi}}{\swSH[*]{\minus 2}{\ell{m}}{\pi-\theta,\phi}{c_{\ell{m}n}}} \Big\}.
 \end{aligned}
 \end{equation}
 
@@ -158,39 +158,39 @@ the orthonormality of the spin-weighted spherical harmonics we get
 \begin{aligned} \label{clm:eq3}
 C_{\ell^\prime{m}^\prime}(t) & = \sum_{\ell{m}n} \Big\{ 
    A_{\ell{m}n} e^{-i\omega_{\ell{m}n}t+i\phi_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}}
-    \sum_{\ell^{\prime\prime}} \YSH{\ell^{\prime\prime}\ell{m}n}{c_{\ell{m}n}}
+    \sum_{\ell^{\prime\prime}} \YSH{\ell^{\prime\prime}\ell{m}}{c_{\ell{m}n}}
     \braket{\swY{\minus 2}{\ell^\prime{m}^\prime}{\theta,\phi}}{\swY{\minus 2}{\ell^{\prime\prime}m}{\theta,\phi}} \\
 & {} \hspace{0.6in}
   + A^\prime_{\ell{m}n} e^{i\omega_{\ell{m}n}t+i\phi^\prime_{\ell{m}n}}e^{-t/\tau_{\ell{m}n}}
-    \sum_{\ell^{\prime\prime}} (-1)^{\ell^{\prime\prime}} \YSH[*]{\ell^{\prime\prime}\ell{m}n}{c_{\ell{m}n}}
+    \sum_{\ell^{\prime\prime}} (-1)^{\ell^{\prime\prime}} \YSH[*]{\ell^{\prime\prime}\ell{m}}{c_{\ell{m}n}}
     \braket{\swY{\minus 2}{\ell^\prime{m}^\prime}{\theta,\phi}}{\swY{\minus 2}{\ell^{\prime\prime}(-m)}{\theta,\phi}} \Big\} \\ 
  & = \sum_{\ell{n}} \Big\{ 
    A_{\ell{m^\prime}n} e^{-i\omega_{\ell{m^\prime}n}t+i\phi_{\ell{m^\prime}n}}e^{-t/\tau_{\ell{m^\prime}n}}
-    \YSH{\ell^\prime\ell{m^\prime}n}{c_{\ell{m^\prime}n}} \\
+    \YSH{\ell^\prime\ell{m^\prime}}{c_{\ell{m^\prime}n}} \\
 & {} \hspace{0.6in}
   + (-1)^{\ell^\prime}A^\prime_{\ell(-m^\prime)n} e^{i\omega_{\ell(-m^\prime)n}t+i\phi^\prime_{\ell(-m^\prime)n}}e^{-t/\tau_{\ell(-m^\prime)n}}
-    \YSH[*]{\ell^\prime\ell(-m^\prime)n}{c_{\ell(-m^\prime)n}} \Big\}.
+    \YSH[*]{\ell^\prime\ell(-m^\prime)}{c_{\ell(-m^\prime)n}} \Big\}.
 \end{aligned}
 \end{equation}
 After relabeling indices we have
 \begin{equation}
 \begin{aligned}
  C_{\ell{m}}(t) & = \sum_{\ell^\prime{n}} \Big\{ 
-   A_{\ell^\prime{m}n}\YSH{\ell\ell^\prime{m}n}{c_{\ell^\prime{m}n}}
+   A_{\ell^\prime{m}n}\YSH{\ell\ell^\prime{m}}{c_{\ell^\prime{m}n}}
     e^{-i\omega_{\ell^\prime{m}n}t+i\phi_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}} \\
 & {} \hspace{0.6in}
   + (-1)^\ell A^\prime_{\ell^\prime(-m)n}
-    \YSH[*]{\ell\ell^\prime(-m)n}{c_{\ell^\prime(-m)n}}
+    \YSH[*]{\ell\ell^\prime(-m)}{c_{\ell^\prime(-m)n}}
     e^{i\omega_{\ell^\prime(-m)n}t+i\phi^\prime_{\ell^\prime(-m)n}}e^{-t/\tau_{\ell^\prime(-m)n}} \Big\}.
 \end{aligned}
 \end{equation}
 Finally, let us define two new functions:
 \begin{align}
   \mathcal{R}_{\ell\ell^\prime{m}n}(t,\phi) &\equiv 
-    \YSH{\ell\ell^\prime{m}n}{c_{\ell^\prime{m}n}}
+    \YSH{\ell\ell^\prime{m}}{c_{\ell^\prime{m}n}}
     e^{-i\omega_{\ell^\prime{m}n}t+i\phi_{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}, \\
   \mathcal{R}^\prime_{\ell\ell^\prime{m}n}(t,\phi) &\equiv  
-    (-1)^\ell\YSH[*]{\ell\ell^\prime{m}n}{c_{\ell^\prime{m}n}}
+    (-1)^\ell\YSH[*]{\ell\ell^\prime{m}}{c_{\ell^\prime{m}n}}
     e^{i\omega_{\ell^\prime{m}n}t+i\phi{\ell^\prime{m}n}}e^{-t/\tau_{\ell^\prime{m}n}}.
 \end{align}
 So,
