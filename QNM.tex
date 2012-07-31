@@ -428,12 +428,12 @@ the first term in Eq.~(\ref{eqn:swSF_DiffEqn}), we get
       \left[s^2-\frac{(m+sx)^2}{1-x^2}\right]
       \swS{s}{\ell{m}}{x}{c} \\
    &= -\left[(cx)^2 - 2csx + s+\scA{s}{\ell{m}}{c}-\frac{(m+sx)^2}{1-x^2}\right]
-      \swS{s}{\ell^\prime{m}}{x}{c}.
+      \swS{s}{\ell{m}}{x}{c}.
 \end{align}
 The last two lines then give
 \begin{equation}
   \left[(cx)^2 - 2csx + s(s+1) +\scA{s}{\ell{m}}{c}\right]
-  \swS{s}{\ell^\prime{m}}{x}{c} =
+  \swS{s}{\ell{m}}{x}{c} =
   \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty C_{\ell^\prime\ell{m}}(c)
   \left[\ell^\prime(\ell^\prime+1)\right]
   \swS{s}{\ell^\prime{m}}{x}{0}
@@ -445,26 +445,116 @@ which we can rewrite as
      + 2csx -\scA{s}{\ell{m}}{c} \right]
    \swS{s}{\ell^\prime{m}}{x}{0} = 0.
 \end{equation}
-
+Eliminating the $x$ and $x^2$ dependence using Eqs~(\ref{eqn:swS:xrecur}) and (\ref{eqn:swS:x2recur}), and relabeling the $\ell^\prime$ indices so that all of the spin-weighted spherical functions $\swS{s}{\ell{m}}{x}{0}$ are of the same order, we get
 \begin{align}
 - \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}+2}^\infty c^2 C_{(\ell^\prime-2)\ell{m}}(c)
-   \mathcal{A}{s(\ell^\prime-2)m}\swS{s}{\ell^\prime{m}}{x}{0} & \\
+   \mathcal{A}_{s(\ell^\prime-2)m}\swS{s}{\ell^\prime{m}}{x}{0} &
+\nonumber \\
 -  \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}+1}^\infty C_{(\ell^\prime-1)\ell{m}}(c)
-   \left[c^2\mathcal{D}{s(\ell^\prime-1)m} 
-     - 2cs\mathcal{F}{s(\ell^\prime-1)m}\right]
-   \swS{s}{\ell^\prime{m}}{x}{0} & \\
+   \left[c^2\mathcal{D}_{s(\ell^\prime-1)m} 
+     - 2cs\mathcal{F}_{s(\ell^\prime-1)m}\right]
+   \swS{s}{\ell^\prime{m}}{x}{0} &
+\nonumber \\
 +  \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty C_{\ell^\prime\ell{m}}(c)
    \left[[\ell^\prime(\ell^\prime+1) -s(s+1) 
-       - c^2 \mathcal{B}{s\ell^\prime{m}} + 2cs\mathcal{H}{s\ell^\prime{m}}
-       \right]\swS{s}{\ell^\prime{m}}{x}{0} & \\
+       - c^2 \mathcal{B}_{s\ell^\prime{m}} + 2cs\mathcal{H}_{s\ell^\prime{m}}
+       \right]\swS{s}{\ell^\prime{m}}{x}{0} &
+\nonumber \\
 -  \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}-1}^\infty C_{(\ell^\prime+1)\ell{m}}(c)
-   \left[c^2\mathcal{E}{s(\ell^\prime+1)m} 
-     - 2cs\mathcal{G}{s(\ell^\prime+1)m}\right]
-   \swS{s}{\ell^\prime{m}}{x}{0} & \\
+   \left[c^2\mathcal{E}_{s(\ell^\prime+1)m} 
+     - 2cs\mathcal{G}_{s(\ell^\prime+1)m}\right]
+   \swS{s}{\ell^\prime{m}}{x}{0} &
+\nonumber \\
 - \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}-2}^\infty c^2 C_{(\ell^\prime+2)\ell{m}}(c)
-   \mathcal{C}{s(\ell^\prime+2)m}\swS{s}{\ell^\prime{m}}{x}{0} & \\
+   \mathcal{C}_{s(\ell^\prime+2)m}\swS{s}{\ell^\prime{m}}{x}{0} &
+\nonumber \\
 =  \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty C_{\ell^\prime\ell{m}}(c)&
    \scA{s}{\ell{m}}{c}\swS{s}{\ell^\prime{m}}{x}{0}.
 \end{align}
+
+We demand that $\mathcal{F}_{s(\ell_{\mbox{\tiny min}}-1){m}}=0$,
+which implies that $\mathcal{A}_{s(\ell_{\mbox{\tiny min}}-1){m}} =
+\mathcal{A}_{s(\ell_{\mbox{\tiny min}}-2){m}} =
+\mathcal{D}_{s(\ell_{\mbox{\tiny min}}-1){m}}=0$.  This, together with the
+fact that $\swS{s}{(\ell_{\mbox{\tiny min}}-1){m}}{x}{0} =
+\swS{s}{(\ell_{\mbox{\tiny min}}-2){m}}{x}{0} = 0$, allows us to combine the
+terms under one sum, yielding
+\begin{align}\label{eqn:eigenvalue_eqn:inf}
+\sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty\Big\{
+& - c^2 \mathcal{A}_{s(\ell^\prime-2)m} C_{(\ell^\prime-2)\ell{m}}(c)
+-  \left[c^2\mathcal{D}_{s(\ell^\prime-1)m} 
+            - 2cs\mathcal{F}_{s(\ell^\prime-1)m}\right] C_{(\ell^\prime-1)\ell{m}}(c)
+\nonumber \\
+&\mbox{} + \left[[\ell^\prime(\ell^\prime+1) -s(s+1) 
+       - c^2 \mathcal{B}_{s\ell^\prime{m}} + 2cs\mathcal{H}_{s\ell^\prime{m}}
+       \right] C_{\ell^\prime\ell{m}}(c)
+\nonumber  \\
+&\mbox{} -  \left[c^2\mathcal{E}_{s(\ell^\prime+1)m} 
+            - 2cs\mathcal{G}_{s(\ell^\prime+1)m}\right] C_{(\ell^\prime+1)\ell{m}}(c) 
+- c^2 \mathcal{C}_{s(\ell^\prime+2)m} 
+       C_{(\ell^\prime+2)\ell{m}}(c)\Big\}\swS{s}{\ell^\prime{m}}{x}{0}
+\nonumber \\
+& =  \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty 
+   \scA{s}{\ell{m}}{c} C_{\ell^\prime\ell{m}}(c) \swS{s}{\ell^\prime{m}}{x}{0}.
+\end{align}
+We find, then, the 5-term recurrence relation
+\begin{align}
+- c^2 \mathcal{A}_{s(\ell^\prime-2)m} C_{(\ell^\prime-2)\ell{m}}(c)
+-  \left[c^2\mathcal{D}_{s(\ell^\prime-1)m} 
+            - 2cs\mathcal{F}_{s(\ell^\prime-1)m}\right] C_{(\ell^\prime-1)\ell{m}}(c)&
+\nonumber \\
+\mbox{} + \left[[\ell^\prime(\ell^\prime+1) -s(s+1) 
+       - c^2 \mathcal{B}_{s\ell^\prime{m}} + 2cs\mathcal{H}_{s\ell^\prime{m}}
+       \right] C_{\ell^\prime\ell{m}}(c)&
+\nonumber  \\
+\mbox{} -  \left[c^2\mathcal{E}_{s(\ell^\prime+1)m} 
+            - 2cs\mathcal{G}_{s(\ell^\prime+1)m}\right] C_{(\ell^\prime+1)\ell{m}}(c) 
+- c^2 \mathcal{C}_{s(\ell^\prime+2)m} 
+       C_{(\ell^\prime+2)\ell{m}}(c)
+& = \scA{s}{\ell{m}}{c} C_{\ell^\prime\ell{m}}(c).
+\end{align}
+
+If we truncate the series at $\ell_{\mbox{\tiny max}}$ then we have a
+finite-dimensional spectral approximation to the eigenvalue problem
+for the spin-weighted spheroidal harmonics.  With 
+$N=\ell_{\mbox{\tiny max}} - \ell_{\mbox{\tiny min}} + 1$, then for
+given values of $s$ and $m$, we have an $N\times{N}$ pente-diagonal
+matrix $\mathbb{M}$ whose elements are given by
+\begin{equation}
+  M_{\ell\ell^\prime} = \left\{\begin{array}{lcl}
+  \mbox{if\ }\ell^\prime=\ell-2 &:& -c^2 \mathcal{A}_{s\ell^\prime{m}}, \\
+  \mbox{if\ }\ell^\prime=\ell-1 &:& -c^2 \mathcal{D}_{s\ell^\prime{m}} 
+                                   + 2cs \mathcal{F}_{s\ell^\prime{m}} ,\\
+  \mbox{if\ }\ell^\prime=\ell &:& \ell^\prime(\ell^\prime+1)-s(s+1)
+                                   - c^2 \mathcal{B}_{s\ell^\prime{m}} 
+                                   + 2cs \mathcal{H}_{s\ell^\prime{m}}, \\
+  \mbox{if\ }\ell^\prime=\ell+1 &:& -c^2 \mathcal{E}_{s\ell^\prime{m}} 
+                                   + 2cs \mathcal{G}_{s\ell^\prime{m}}, \\
+  \mbox{if\ }\ell^\prime=\ell+2 &:& -c^2 \mathcal{C}_{s\ell^\prime{m}}, \\
+  \mbox{otherwise} &:& 0.
+  \end{array}\right.
+\end{equation}
+The finite dimensional version of Eq.~(\ref{eqn:eigenvalue_eqn:inf}) is 
+then simply the eigenvalue equation
+\begin{equation}\label{eqn::eigenvalue_eqn:fin}
+  \mathbb{M}\cdot\vec{C}_{\ell{m}}(c) = \scA{s}{\ell{m}}{c}\vec{C}_{\ell{m}}(c).
+\end{equation}
+For given $s$, $m$, and $c$, the matrix $\mathbb{M}$ is constructed
+and its $N$ eigenvalues are the $\scA{s}{\ell{m}}{c}$, where $\ell\in
+\{\ell_{\mbox{\tiny min}},...,\ell_{\mbox{\tiny max}}\}$, and the
+elements of the corresponding eigenvector $\vec{C}_{\ell{m}}(c)$ are the
+expansion coefficients $C_{\ell^\prime\ell{m}}(c)$.
+
+Because of the exponential convergence of spectral expansions, for 
+$\ell \ge \ell_{\mbox{\tiny min}}$ but $\ell \ll \ell_{\mbox{\tiny max}}$, 
+we expect $\scA{s}{\ell{m}}{c}$ and $\vec{C}_{\ell{m}}(c)$ to have
+extremely high accuracy.  The largest value of $\ell$ for which we
+can expect an accurate eigenvalue and eigenvector can be determined
+by looking at the resulting values of the expansion coefficients 
+$C_{\ell^\prime\ell{m}}(c)$.  For given $\ell$ and $m$, only coefficients
+where $\ell^\prime$ is reasonably close to $\ell$ will have significant
+coefficients.  As long as the coefficients $C_{\ell^\prime\ell{m}}(c)$ are
+not significant for $\ell^\prime \ge \ell_{\mbox{\tiny max}}$, then 
+the solution will be highly accurate.
 
 \end{document}
