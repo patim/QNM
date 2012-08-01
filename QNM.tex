@@ -34,14 +34,14 @@ where the summation over $\ell$ and $m$ is always confined to $|s|<
 gravitational waves, we use $s=-2$ and $\psi = \rho^{-4}\Psi_4$, with
 $\Psi_4$ being the Weyl scalar that behaves at large distances like
 outgoing gravitational waves and $\rho\equiv-1/(r-ia\cos\theta)$.
-Asymptotically, $R_{lm}(r)=r^3e^{i\omega r_*}$ ($r_*$ is the
+Asymptotically, $R_{lm}(r)=r^3e^{i\omega r^*}$ ($r^*$ is the
 ''tortoise'' radial coordinate), $\rho=1/r$, and we find
 \begin{equation}
-\Psi_4 \sim \frac1{r}\frac{1}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
+\Psi_4 \sim \frac1{r}\frac{1}{2\pi} \int {e^{-i\omega (t-r^*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
 Making both sides dimensionless, we take as our general asymptotic expansion for outgoing gravitational waves:
 \begin{equation}
-rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r_*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
+rM\Psi_4 = \frac{M}{2\pi} \int {e^{-i\omega (t-r^*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
 
 To represent the ring-down of a Kerr black hole, we replace the
@@ -52,9 +52,9 @@ $\bar\omega^\prime_{\ell{m}n}$.  The $n=0$ modes represent the
 dominant QNM for each $(\ell,m)$, and the higher values of $n$
 represent overtones.  When we replace the integral with a sum over all QNM, we must include both sets of modes:
 \begin{equation}
-rM\Psi_4 = \sum_{\ell{m}n}\left\{C_{\ell{m}n}e^{-i\bar\omega_{\ell{m}n} (t-r_*)}
+rM\Psi_4 = \sum_{\ell{m}n}\left\{C_{\ell{m}n}e^{-i\bar\omega_{\ell{m}n} (t-r^*)}
            \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\bar\omega_{\ell{m}n}} 
-           + C^\prime_{\ell{m}n}e^{-i\bar\omega^\prime_{\ell{m}n} (t-r_*)}
+           + C^\prime_{\ell{m}n}e^{-i\bar\omega^\prime_{\ell{m}n} (t-r^*)}
            \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\bar\omega^\prime_{\ell{m}n}}
            \right\}, 
 \end{equation}
@@ -77,11 +77,11 @@ They are further related by the fact that:
 \omega^\prime_{\ell{m}n} = -\omega_{\ell(-m)n} \\
 \tau^\prime_{\ell{m}n} = \tau_{\ell(-m)n}.
 \end{align} 
-In terms of these definitions, and assuming we evaluate the expansion at fixed $r$ and $r_*$, we find:
+In terms of these definitions, and assuming we evaluate the expansion at fixed $r$ and $r^*$, we find:
 \begin{equation}
 rM\Psi_4 = \sum_{\ell{m}n} \left\{ C_{\ell{m}n} e^{-i\omega_{\ell{m}n}t}e^{-t/\tau_{\ell{m}n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c_{\ell{m}n}} + C^\prime_{\ell{m}n} e^{i\omega_{\ell(-m)n}}e^{-t/\tau_{\ell(-m)n}} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{c^\prime_{\ell{m}n}} \right\},
 \end{equation}
-where we have absorbed constant factors involving $e^{r_*}$ into the
+where we have absorbed constant factors involving $e^{r^*}$ into the
 expansion coefficients.
 
 Using the fact that the sum over $m$ extends from $-\ell\cdots\ell$, we can trivially rewrite the expansion as:
@@ -226,23 +226,24 @@ $\swS{s}{\ell{m}}{x}{c}$, satisfies
 \end{equation}
 where $\scA{s}{\ell m}{c}$ is the separation constant.
 
-The basic symmetries inherent in the spin-weighted spheroidal harmonics
+The basic symmetries inherent in the spin-weighted spheroidal functions
 follow from~(\ref{eqn:swSF_DiffEqn}):
 \begin{eqnarray}
 s\rightarrow-s;\ x\rightarrow-x &\Rightarrow&
-    \left\{\begin{array}{c}\swS{-s}{\ell{m}}{x}{c}=\pm\swS{s}{\ell{m}}{-x}{c} \\
+    \left\{\begin{array}{c}\swS{-s}{\ell{m}}{x}{c}\propto\swS{s}{\ell{m}}{-x}{c} \\
         \scA{-s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c} + 2s \end{array}\right. \\
 m\rightarrow-m;\ x\rightarrow-x;\ c\rightarrow-c &\Rightarrow&
-    \left\{\begin{array}{c}\swS{s}{\ell(-m)}{x}{c}=\pm\swS{s}{\ell{m}}{-x}{-c}\\
+    \left\{\begin{array}{c}\swS{s}{\ell(-m)}{x}{c}\propto\swS{s}{\ell{m}}{-x}{-c}\\
         \scA{s}{\ell(-m)}{c} = \scA{s}{\ell{m}}{-c} \end{array}\right. \\
 \mbox{complex conjugation} &\Rightarrow&
-    \left\{\begin{array}{c} \swS[*]{s}{\ell{m}}{x}{c}=\pm\swS{s}{\ell{m}}{x}{c^*} \\
+    \left\{\begin{array}{c} \swS[*]{s}{\ell{m}}{x}{c}\propto\swS{s}{\ell{m}}{x}{c^*} \\
         \scA[*]{s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c^*} \end{array}\right.
 \end{eqnarray}
 
-Additional sign conventions are chosen for consistency with common
-sign conventions for the angular-spheroidal functions,
-$\swS{}{\ell{m}}{x}{c} = \swS{0}{\ell{m}}{x}{c}$, and the spin-weighted spheroidal harmonics, $\swY{s}{\ell{m}}{\theta,\phi}$.
+Additional sign and normalization conventions are chosen for
+consistency with common sign conventions for the angular-spheroidal
+functions, $\swS{}{\ell{m}}{x}{c} = \swS{0}{\ell{m}}{x}{c}$, and the
+spin-weighted spheroidal harmonics, $\swY{s}{\ell{m}}{\theta,\phi}$.
 
 \vspace{0.25in}
 \noindent
@@ -556,5 +557,195 @@ where $\ell^\prime$ is reasonably close to $\ell$ will have significant
 coefficients.  As long as the coefficients $C_{\ell^\prime\ell{m}}(c)$ are
 not significant for $\ell^\prime \ge \ell_{\mbox{\tiny max}}$, then 
 the solution will be highly accurate.
+
+\newpage
+\noindent{\large\bf Appendix: Teukolsky Equation -- Series Solution
+of the Radial Equation}
+\vspace{0.25in}
+
+The Teukolsky Equation is written as
+\begin{equation}
+\begin{aligned}
+\left[\frac{(r^2+a^2)^2}{\Delta} - a^2\sin^2\theta\right]
+   \frac{\partial^2\psi}{\partial{t}^2}
++ \frac{4Mar}{\Delta}\frac{\partial^2\psi}{\partial{t}\partial\phi}
++ \left[\frac{a^2}{\Delta} - \frac1{\sin^2\theta}\right]
+   \frac{\partial^2\psi}{\partial{t}^2} &\\
+- \Delta^{-s}\frac{\partial}{\partial{r}}\left(
+    \Delta^{s+1}\frac{\partial\psi}{\partial{r}}\right)
+-  \frac1{\sin\theta}\frac{\partial}{\partial\theta}\left(
+   \sin\theta\frac{\partial\psi}{\partial\theta}\right)
+- 2s\left[\frac{a(r-M)}{\Delta} + \frac{i\cos\theta}{\sin^2\theta}\right]
+     \frac{\partial\psi}{\partial\phi} &\\
+- 2s\left[\frac{M(r^2-a^2)}{\Delta} - r - ia\cos\theta\right]
+     \frac{\partial\psi}{\partial{t}}
++ (s^2\cot^2\theta - s)\psi
+&= 4\pi\Sigma T,
+\end{aligned}
+\end{equation}
+where\\
+\parbox{3.75in}{
+\begin{align}
+  \Delta &\equiv r^2 + a^2 - 2Mr \nonumber \\
+         &= (r-r_+)(r-r_\minus)
+\end{align}
+}
+\parbox{3.75in}{
+\begin{align}
+  \Sigma &\equiv r^2 + a^2\cos^2\theta; \\
+    r_\pm &\equiv M \pm \sqrt{M^2 - a^2}
+\end{align}
+}
+
+With
+\begin{equation}
+  \psi(t,r,\theta,\phi) = e^{-i\omega{t}} e^{im\phi}S(\theta)R(r),
+\end{equation}
+the equation separates.  The angular equation is given by
+Eq.~(\ref{eqn:swSF_DiffEqn}) with $S(\theta) =
+\swS{s}{\ell{m}}{\cos\theta}{a\omega}$, and the radial equation
+is given by
+\begin{equation}\label{eqn:radialR:Diff_Eqn}
+\Delta^{-s}\frac{d}{dr}\left[\Delta^{s+1}\frac{dR(r)}{dr}\right]
++ \left[\frac{K^2 -2is(r-M)K}{\Delta} + 4is\omega{r} - \lambda\right]R(r)=0,
+\end{equation}
+where
+\begin{align}
+  K &\equiv (r^2+a^2)\omega - am, \\
+  \lambda &\equiv \scA{s}{\ell{m}}{a\omega} + a^2\omega^2 - 2am\omega.
+\end{align}
+
+In order to explore the behavior of solutions near the horizon, $r_+$
+and near infinity, it is useful to rewrite the differential equation in
+terms of the tortoise coordinate $r^*$ defined by
+\begin{equation}\label{eqn:tortoise_coord:DiffEqn}
+  \frac{dr^*}{dr} \equiv \frac{r^2+a^2}{\Delta}.
+\end{equation}
+We find
+\begin{equation}
+\frac{d^2Y(r^*)}{d{r^*}^2} +\left\{\frac1{(r^2+a^2)^2}\left[
+    K^2 -2is(r-M)K + \Delta(4is\omega{r} - \lambda)\right]
+    - G^2 - \frac{dG}{dr^*}\right\}Y(r^*) = 0,
+\end{equation}
+where we assume $r=r(r^*)$ and
+\begin{align}\label{eqn:radialtortoise:DiffEqn}
+  Y(r^*) &\equiv \Delta^{s/2}(r^2+a^2)^{1/2}R(r), \\
+  G &\equiv \frac{s(r-M)}{r^2+a^2} + \frac{r\Delta}{(r^2+a^2)^2}.
+\end{align}
+In the asymptotic limit $r\to\infty$ ($r^*\to\infty$),
+Eq.~(\ref{eqn:radialtortoise:DiffEqn}) becomes
+\begin{equation}
+\frac{d^2Y(r^*)}{d{r^*}^2} + \left(\omega^2 
+     + 2\frac{is\omega}{r}\right)Y(r^*) \approx 0,
+\end{equation}
+which has the two solutions (to the same order)
+\begin{equation}
+   Y(r^*) \sim r^{\pm{s}}e^{\mp{i}\omega{r^*}}.
+\end{equation}
+In terms of the original radial function we find
+\begin{equation}
+  \lim_{r\to\infty}R(r) \sim \left\{\begin{array}{lcl}
+      \frac{e^{-i\omega{r^*}}}{r} &:& \mbox{ingoing wave}, \\ \\
+      \frac{e^{i\omega{r^*}}}{r^{2s+1}} &:& \mbox{outgoing wave}. \\
+   \end{array}\right.
+\end{equation}
+In the asymptotic limit $r\to r_+$ ($r^*\to-\infty$),
+Eq.~(\ref{eqn:radialtortoise:DiffEqn}) becomes
+\begin{equation}
+\frac{d^2Y(r^*)}{d{r^*}^2} + \left(k 
+    - is\frac{(r_+-M)}{2Mr_+}\right)^2Y(r^*) \approx 0,
+\end{equation}
+where $k\equiv\omega-m\omega_+$ and $\omega_+\equiv a/(2Mr_+)$,
+which has the two solutions (to the same order)
+\begin{equation}\label{eqn:rplusYlimit}
+   Y(r^*) \sim e^{\mp{i}k{r^*}}\left[e^{\frac{(r_+-M)}{Mr_+}r^*}\right]^{\pm{s}/2}.
+\end{equation}
+In order to determine the asymptotic limit of the term in brackets, we
+need to integrate Eq.~(\ref{eqn:tortoise_coord:DiffEqn}) for the
+Tortoise coordinates.  The result is
+\begin{equation}\label{eqn:Tortose_coord}
+  r^* = r + \frac{2M}{r_+-r_\minus}\left[
+    r_+\ln\left(\frac{r-r_+}{M}\right) 
+    - r_\minus\ln\left(\frac{r-r_\minus}{M}\right)\right].
+\end{equation}
+To consider the asymptotic limit we let $r=r_++\epsilon$ giving us
+\begin{align}
+   r^*(\epsilon) &= r_+ + \epsilon + \frac{2M}{r_+-r_\minus}\left[
+    r_+\ln\left(\frac{\epsilon}{M}\right) 
+    - r_\minus\ln\left(\frac{\epsilon +r_+-r_\minus}{M}\right)\right] \nonumber\\ 
+   &= r_+ + \epsilon + \frac{2M}{r_+-r_\minus}\left[
+    r_+\ln\left(\frac{\epsilon}{M}\right) 
+    - r_\minus\ln\left(1+\frac{\epsilon M}{r_+-r_\minus}\right)
+   - r_\minus\ln\left(\frac{M}{r_+-r_\minus}\right)\right].
+\end{align}
+So, the term in brackets in Eq.~(\ref{eqn:rplusYlimit}) becomes
+\begin{equation}
+  \frac{(r_+-M)}{Mr_+}r^*(\epsilon) =
+     \frac{(r_+-M)}{Mr_+}\left[r_+ + \mathcal{O}(\epsilon)\right]
+     + 2\frac{(r_+-M)}{r_+-r_m}\ln\left(\frac\epsilon{M}\right).
+\end{equation}
+But $2\frac{(r_+-M)}{r_+-r_m}=1$, so
+\begin{align}
+  e^{\frac{(r_+-M)}{Mr_+}r^*(\epsilon)} &\propto \epsilon + \mathcal{O}(\epsilon^2), \\
+       &\propto (r-r_+)(r-r_\minus) + \mathcal{O}(\epsilon^2), \\
+       &\propto \Delta + \mathcal{O}(\epsilon^2).
+\end{align}
+This give us
+\begin{equation}
+   Y(r^*) \sim \Delta^{\pm{s}/2}e^{\mp{i}k{r^*}},
+\end{equation}
+or in terms of the original radial function
+\begin{equation}
+  \lim_{r^*\to-\infty}R(r^*) \sim \left\{\begin{array}{lcl}
+      e^{ik{r^*}} &:& \mbox{ingoing wave (out of BH)}, \\ \\
+     \Delta^{-s}e^{-ik{r^*}} &:& \mbox{outgoing wave (into BH)}. \\
+   \end{array}\right.
+\end{equation}
+The latter solution, representing waves flowing into the black hole is
+is the physically relevant condition.
+
+Returning to the standard radial coordinate $r$ via
+Eq.~(\ref{eqn:Tortose_coord}) gives us the behavior near $\infty$ as
+\begin{equation}
+  R(r) \sim r^{-1-2s-2i\omega{M}}e^{i\omega{r}}, 
+\end{equation}
+and near the horizon, $r=r_+$ as
+\begin{equation}
+  R(r) \sim (r - r_+)^{-s-i\sigma_+}, 
+\end{equation}
+where $\sigma_+\equiv\frac{2\omega{M}r_+ - ma}{r_+-r_\minus}$, and we
+have used $e^{-ik{r^*}} \propto (r-r_+)^{-i\sigma_+}$.
+
+We factor out these asymptotic behaviors by defining a new radial 
+function $\bar{R}(r)$ via
+\begin{equation}
+  R(r) \equiv e^{i\omega{r}} r^{-1-2s-2i\omega{M}} (r - r_+)^{-s-i\sigma_+} \bar{R}(r).
+\end{equation}
+Finally, if we choose dimensionless variables as
+\begin{align}
+  \bar{r} &\equiv \frac{r}{M}, \\
+  \bar{r}_\pm &\equiv \frac{r_\pm}{M}, \\
+  \bar\omega &\equiv M\omega, \\
+  \bar{a} &\equiv \frac{a}{M},
+\end{align}
+then our original radial equation, (\ref{eqn:radialR:Diff_Eqn}), can 
+be written as
+\begin{equation}\label{eqn:radialRbar:Diff_Eqn}
+  \Delta^2\frac{d^2\bar{R}}{d\bar{r}^2}
+  + \Delta[b_0 + b_1(\bar{r}-\bar{r}_+) + b_2\Delta]\frac{d\bar{R}}{d\bar{r}}
+  + [b_3\Delta + b_4(\bar{r}-\bar{r}_+)]\bar{R} = 0,
+\end{equation}
+where
+\begin{align}
+  b_0 &\equiv (1-s-2i\sigma_+)(\bar{r}_+-\bar{r}_\minus), \\
+  b_1 &\equiv -2(s-2i\bar\omega), \\
+  b_2 &\equiv 2i\bar\omega, \\
+  b_3 &\equiv (4\bar{r}_+-\bar{a}^2)\bar\omega^2
+              + 2[(\bar{r}_+-\bar{r}_\minus)\sigma_+ + i\bar{r}_+ 
+                  - 2i(1+s)]\bar\omega - \scA{s}{\ell{m}}{\bar{a}\bar\omega}, \\
+  b_4 &\equiv -(\bar{r}_+-\bar{r}_\minus)(1-4i\bar\omega)(1+s-2i\sigma_+),
+\end{align}
+and we note that Eq.~(\ref{eqn:radialRbar:Diff_Eqn}) has no singular
+points at $r=r_+$.
 
 \end{document}
