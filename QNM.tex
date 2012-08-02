@@ -719,8 +719,11 @@ have used $e^{-ik{r^*}} \propto (r-r_+)^{-i\sigma_+}$.
 We factor out these asymptotic behaviors by defining a new radial 
 function $\bar{R}(r)$ via
 \begin{equation}
-  R(r) \equiv e^{i\omega{r}} r^{-1-2s-2i\omega{M}} (r - r_+)^{-s-i\sigma_+} \bar{R}(r).
+  R(r) \equiv e^{i\omega{r}} (r-r_\minus)^{-1-2s-2i\omega{M}} 
+        (r - r_+)^{-s-i\sigma_+} \bar{R}(r),
 \end{equation}
+where we choose $(r-r_\minus)$ in the large $r$ behavior to avoid
+introducing singular points near $r=r_+$.
 Finally, if we choose dimensionless variables as
 \begin{align}
   \bar{r} &\equiv \frac{r}{M}, \\
