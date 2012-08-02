@@ -731,9 +731,10 @@ Finally, if we choose dimensionless variables as
 then our original radial equation, (\ref{eqn:radialR:Diff_Eqn}), can 
 be written as
 \begin{equation}\label{eqn:radialRbar:Diff_Eqn}
-  \Delta^2\frac{d^2\bar{R}}{d\bar{r}^2}
-  + \Delta[b_0 + b_1(\bar{r}-\bar{r}_+) + b_2\Delta]\frac{d\bar{R}}{d\bar{r}}
-  + [b_3\Delta + b_4(\bar{r}-\bar{r}_+)]\bar{R} = 0,
+  \Delta^2\frac{d^2\bar{R}(\bar{r})}{d\bar{r}^2}
+  + \Delta[b_0 + b_1(\bar{r}-\bar{r}_+) + b_2\Delta]
+            \frac{d\bar{R}(\bar{r})}{d\bar{r}}
+  + [b_3\Delta + b_4(\bar{r}-\bar{r}_+)]\bar{R}(\bar{r}) = 0,
 \end{equation}
 where
 \begin{align}
@@ -747,5 +748,76 @@ where
 \end{align}
 and we note that Eq.~(\ref{eqn:radialRbar:Diff_Eqn}) has no singular
 points at $r=r_+$.
+
+A series expansion can by found for $\bar{R}(\bar{r})$ by choosing
+\begin{equation}
+  \bar{R}(\bar{r}) = \sum_{n=0}^\infty{a_n\left(
+       \frac{\bar{r}-\bar{r}_+}{\bar{r}-\bar{r}_\minus}\right)^n}.
+\end{equation}
+It is convenient to use a new coordinate $\xi$ which varies over the
+range $[0,1]$ and is defined by
+\begin{equation}
+  \xi \equiv \frac{\bar{r}-\bar{r}_+}{\bar{r}-\bar{r}_\minus}.
+\end{equation}
+In terms of $\xi$, Eq.~(\ref{eqn:radialRbar:Diff_Eqn}) becomes
+\begin{equation}\label{eqn:Rbar_xi:Diff_Eqn}
+  \xi(1-\xi)^2\frac{d^2\bar{R}(\xi)}{d\xi^2}
+  + [C_0(1-\xi)^2 + C_1\xi(1-\xi) + C_2\xi]
+            \frac{d\bar{R}(\xi)}{d\xi}
+  + [C_3(\xi-1) + C_4]\bar{R}(\xi) = 0,
+\end{equation}
+where
+\begin{align}
+  C_0 &\equiv 1-s-2i\sigma_+, \\
+  C_1 &\equiv 2(1+s-2i\bar\omega), \\
+  C_2 &\equiv 2i(\bar{r}_+-\bar{r}_\minus)\bar\omega, \\
+  C_3 &\equiv (1-4i\bar\omega)(1+s-2i\sigma_+), \\
+  C_4 &\equiv (4\bar{r}_+-\bar{a}^2)\bar\omega^2
+              + 2[(\bar{r}_+-\bar{r}_\minus)\sigma_+ + i\bar{r}_+ 
+                  - 2i(1+s)]\bar\omega - \scA{s}{\ell{m}}{\bar{a}\bar\omega}.
+\end{align}
+Inserting the series expansion into Eq.~(\ref{eqn:Rbar_xi:Diff_Eqn}), we get
+\begin{equation}
+\begin{aligned}
+  \sum_{n=0}^\infty{a_n\{n(n-1) + n[C_0+C_1] + C_3\}}\xi^{n+1} & \\
+  \sum_{n=0}^\infty{a_n\{-2n(n-1) + n[-2C_0-C_1+C_2] + [-C_3+C_4]\}}\xi^n & \\
+  \sum_{n=0}^\infty{a_n\{n(n-1) + nC_0\}}\xi^{n-1} &=0.
+\end{aligned}
+\end{equation}
+Relabeling the sums we get
+\begin{equation}
+\begin{aligned}
+  \sum_{n=1}^\infty{a_{n-1}\{(n-1)(n-2) + (n-1)[C_0+C_1] + C_3\}}\xi^n & \\
+  \sum_{n=0}^\infty{a_n\{-2n(n-1) + n[-2C_0-C_1+C_2] + [-C_3+C_4]\}}\xi^n & \\
+  \sum_{n=-1}^\infty{a_{n+1}n(n-1)(n+C_0)}\xi^n &=0.
+\end{aligned}
+\end{equation}
+We can rewrite this with a single sum by starting the sum at
+$n=1$.  The result is
+\begin{equation}\label{eqn:radialPS:sum}
+\begin{aligned}
+  a_0D_3 + a_1D_0 +
+  \sum_{n=1}^\infty\Bigl\{& a_{n+1}\{(n^2 + (1+D_0)n + D_0\} \\
+    & \mbox{} + a_n\{-2n^2 + (2+D_1)n + D_3\} \\
+    & \mbox{} + a_{n-1}\{n^2 + (-3+D_2)n + D_4 - D_2 + 2)\}\Bigr\}\xi^n =0,
+\end{aligned}
+\end{equation}
+where
+\begin{align}
+  D_0 &\equiv C_0, \\
+  D_1 &\equiv -2C_0-C_1+C_2, \\
+  D_2 &\equiv C_0+C_1, \\
+  D_3 &\equiv -C_3+C_4, \\
+  D_4 &\equiv C_3.
+\end{align}
+Finally, since Eq.~(\ref{eqn:radialPS:sum}) must be true for all values
+of $\xi$, we find
+\begin{align}
+  a_0\beta_0 + a_1\alpha_0 &= 0, \\
+  a_{n+1}\alpha_n + a_n\beta_n + a_{n-1}\gamma_n &=0, \\
+  \alpha_n &\equiv n^2 + (D_0+1)n + D_0, \\
+  \beta_n &\equiv -2n^2 + (D_1+2)n + D_3, \\
+  \gamma_n &\equiv n^2 + (D_2-3)n +D_4 - D_2 +2.
+\end{align}
 
 \end{document}
