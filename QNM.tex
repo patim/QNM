@@ -410,8 +410,8 @@ where
 We can expand the spin-weighted spheroidal functions in terms of the
 spin-weighted spherical functions,
 \begin{equation}
-  \swS{\ell{m}}{x}{c} = \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty
-      C_{\ell^\prime\ell{m}}(c)\swS{\ell^\prime{m}}{x}{0},
+  \swS{s}{\ell{m}}{x}{c} = \sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty
+      C_{\ell^\prime\ell{m}}(c)\swS{s}{\ell^\prime{m}}{x}{0},
 \end{equation}
 where $\ell_{\mbox{min}}\equiv\max(|m|,|s|)$.  Using this expansion in
 the first term in Eq.~(\ref{eqn:swSF_DiffEqn}), we get
@@ -426,7 +426,7 @@ the first term in Eq.~(\ref{eqn:swSF_DiffEqn}), we get
    &= -\sum_{\ell^\prime=\ell_{\mbox{\tiny min}}}^\infty C_{\ell^\prime\ell{m}}(c)
       \left[\ell^\prime(\ell^\prime+1)\right]
       \swS{s}{\ell^\prime{m}}{x}{0} +
-      \left[s^2-\frac{(m+sx)^2}{1-x^2}\right]
+      \left[s^2+\frac{(m+sx)^2}{1-x^2}\right]
       \swS{s}{\ell{m}}{x}{c} \\
    &= -\left[(cx)^2 - 2csx + s+\scA{s}{\ell{m}}{c}-\frac{(m+sx)^2}{1-x^2}\right]
       \swS{s}{\ell{m}}{x}{c}.
