@@ -403,6 +403,226 @@ where
 \end{align}
 
 \newpage
+\noindent{\large\bf Appendix: Lorentz Transformations with
+  Spin-Weighted Spherical Harmonics}\\ {\em See Goldberg et.\ a,l
+  ``Spin-s Spherical Harmonics and $\eth$'', J.\ Math.\ Phys., 1967,
+  {\bf 8}, 2155;\\ Newman \& Penrose, ``Note on the
+  Bondi-Metzner-Sachs Group'', J.\ Math.\ Phys., 1966, {\bf 7}, 863;\\
+  Morrison \& Parker, ``A Guide to Rotations in Quantum Mechanics'',
+  Aust.\ J.\ PHys., 1987, {\bf 40}, 465.}
+\vspace{0.25in}
+
+Care must be taken when considering coordinate transformations when
+spin-wighted tensors are used.  Start with a standard spherical
+coordinate system $(\theta,\phi)$ with metric ${\rm d}s^2={\rm
+  d}\theta^2+\sin^2\theta{\rm d}\phi^2$.  To consider spin-weighted
+functions, we need to define a complex vector $\vec{m}$, so that
+$\vec{m}$ and its conjugate $\vec{m}^*$ form a null basis dyad for
+vectors satisfying $\vec{m}\cdot\vec{m}=0$ and
+$\vec{m}\cdot\vec{m}^*=1$.  $\vec{m}$ is thus defined only up to a
+phase factor, so $\vec{m}^\prime=e^{i\psi}\vec{m}$.  A quantity is
+said to tranform with spin-weight $s$ if it tranforms as
+$\eta^\prime=e^{is\psi}\eta$.
+
+In spherical coordinates, a standard definition is to take
+\begin{equation}
+  \vec{m} = \frac1{\sqrt2}(\partial_\theta + \frac{i}{\sqrt\theta}\partial_\phi)
+\quad\mbox{and}\quad
+  \tilde{m} = \frac1{\sqrt2}({\rm d}\theta + i\sqrt\theta{\rm d}\phi),
+\end{equation}
+where $\tilde{m}$ is the basis form dual to $\vec{m}$.  With this
+definition, the ${\rm Re}{\vec{m}}$ is tangent to curves of constant
+$\phi$, and the ${\rm Im}{\vec{m}}$ is tangent to curves of constant
+$\theta$.  To consider Lorentz transformations, it is convenient to
+consider the complex coordinate transformation defined by
+\begin{equation}
+  \zeta\equiv e^{i\phi}\cot(\theta/2).
+\end{equation}
+We can then consider the complex pair $(\zeta,\zeta^2)$ as coordiantes
+on the sphere and find the metric is given by
+\begin{equation}
+{\rm d}s^2 = \frac4{(1+\zeta\zeta^*)^2}{\rm d}\zeta{\rm d}\zeta^*.
+\end{equation}
+For clarity later on, we will let $\vec\mu$ denote the complex null
+vector in this coordinate system.  It is natural to choose the ${\rm
+  Re}{\vec\mu}$ to be tangent to curves of constant ${\rm Im}\zeta$
+and the ${\rm Im}{\vec\mu}$ to be tangent to curves of constant ${\rm
+  Re}\zeta$.  We can then write the $\tilde\mu$ as
+\begin{equation}
+  \tilde\mu = \frac1{\sqrt2}\frac2{1+\zeta\zeta^*}{\rm d}\zeta^*,
+\end{equation}
+and we find that
+\begin{equation}
+  \tilde{m} = e^{i(\phi+\pi)}\tilde\mu
+\quad\mbox{and}\quad \vec{m} = e^{i(\phi+\pi)}\vec\mu.
+\end{equation}
+So, the two basis sets are related by a spin-rotation angle of $\phi+\pi$.
+
+The effect of a proper, homogeneous Lorentz transformation can be
+represented by the M\"{o}bius transformation
+\begin{equation}\label{eq:Mobius-def}
+  \acute\zeta = \frac{\alpha\zeta+\beta}{\gamma\zeta+\delta}
+\quad\mbox{or}\quad
+  \zeta = -\frac{\delta\acute\zeta-\beta}{\gamma\acute\zeta-\alpha}
+\qquad\mbox{with}\qquad
+\alpha\delta-\beta\gamma=1.
+\end{equation}
+Under this coordiate transformation, the metric becomes
+\begin{equation}
+  {\rm d}s^2 = K^2\frac4{(1+\acute\zeta\acute\zeta^*)^2}
+              {\rm d}\acute\zeta{\rm d}\acute\zeta^*,
+\end{equation}
+where the conformal factor $K$ is defined by
+\begin{equation}
+  K\equiv \frac{|\alpha\zeta+\beta|^2+|\gamma\zeta+\delta|^2}{1+\zeta\zeta^*}.
+\end{equation}
+The complex null form in the $(\zeta^\prime,\zeta^{\prime*})$ coordinates,
+$\tilde\mu^\prime$, is given by
+\begin{equation}
+  \tilde\mu^\prime = \frac1{\sqrt2}\frac{2K}{1+\acute\zeta\acute\zeta^*}
+           {\rm d}\acute\zeta^*,
+\end{equation}
+and we find that
+\begin{equation}
+  \tilde\mu = e^{-i\Lambda}\tilde\mu^\prime
+\quad\mbox{with}\quad e^{-i\Lambda}\equiv 
+   \frac{\gamma\zeta+\delta}{\gamma^*\zeta^*+\delta^*} =
+   \frac{\gamma^*\acute\zeta^*-\alpha^*}{\gamma\acute\zeta-\alpha}.
+\end{equation}
+So, the two basis sets are related by a spin-rotation angle of $-\Lambda$.
+
+Finally, we can obtain the transformed $(\acute\theta,\acute\phi)$
+coordinates from
+\begin{equation}
+  \acute\zeta\equiv e^{i\acute\phi}\cot(\acute\theta/2).
+\end{equation}
+The transformed metric is given by
+\begin{equation}
+{\rm d}s^2 = K^2({\rm d}\acute\theta^2+\sin^2\acute\theta{\rm d}\acute\phi^2).
+\end{equation}
+The complex null form in the $(\acute\theta,\acute\phi)$ coordinates,
+$\tilde{m}^\prime$, is given by
+\begin{equation}
+\tilde{m}^\prime = \frac{K}{\sqrt2}
+      ({\rm d}\acute\theta^2+\sin^2\acute\theta{\rm d}\acute\phi^2),
+\end{equation}
+and we find that
+\begin{equation}
+\tilde\mu^\prime = e^{-i(\acute\phi+\pi)}\tilde{m}^\prime.
+\end{equation}
+So, these two basis sets are related by a spin-rotation angle of
+$-(\acute\phi+\pi)$.
+
+To summarize:
+\begin{equation}
+{\rm d}s^2 = {\rm d}\theta^2+\sin^2\theta{\rm d}\phi^2
+     = \frac4{(1+\zeta\zeta^*)^2}{\rm d}\zeta{\rm d}\zeta^*
+     =  K^2\frac4{(1+\acute\zeta\acute\zeta^*)^2}
+              {\rm d}\acute\zeta{\rm d}\acute\zeta^*
+     = K^2({\rm d}\acute\theta^2+\sin^2\acute\theta{\rm d}\acute\phi^2),
+\end{equation}
+and
+\begin{equation}
+\tilde{m} = e^{i(\phi+\pi)}\tilde\mu
+     = e^{i(\phi-\Lambda+\pi)}\tilde\mu^\prime
+     = e^{i(\phi-\acute\phi-\Lambda)}\tilde{m}^\prime.
+\end{equation}
+So, given a proper, homogeneous Lorentze transformation defined by the
+M\"{o}bius transformation of Eq.~(\ref{eq:Mobius-def}), the metric
+transforms by a conformal factor of $K^2$, and the complex null basis
+includes a spin-rotation angle of $\phi-\acute\phi-\Lambda$.
+
+To understand how spin-weighted spherical harmonics transform under 
+Lorentz transformations, we note that (in terms of the $(\zeta,\zeta^*)$
+coordinates) we can write these functions as
+\begin{equation}
+  {}_sY_{\ell m}(\zeta) = \sum_{m_1=0}^{L-s}{\sum_{m_2=0}^{L+s}{
+      {}_sB^L_{\ell m}{}^{m_1m_2}{}_sZ^L_{m_1m_2}}}
+\quad\mbox{where}\quad |s|\le\ell\le L,\quad |m|\le\ell,
+\end{equation}
+with
+\begin{eqnarray}
+ {}_sZ^L_{m_1m_2}&\equiv&(1+\zeta\zeta^*)^{-L}\zeta^{L-s-m_1}\zeta^{*L+s-m_2}, \\
+{}_sB^L_{\ell m}{}^{m_1m_2} &\equiv&
+    (-1)^{\ell+m}\sqrt{\frac{(\ell+m)!(\ell-m)!}{(\ell-s)!(\ell+s)!}
+  \frac{(2\ell+1)}{4\pi}} \nonumber \\ &&\mbox{\hspace{0.25in}}
+    \times\sum_{p=0}^{p_m}{(-1)^p
+      \left(\begin{array}{c}\ell-s \\ p\end{array}\right)
+        \left(\begin{array}{c}\ell+s \\ p+s-m\end{array}\right)
+        \left(\begin{array}{c}L-\ell \\ L-s-m_1-p\end{array}\right)
+          \delta_{m_2,m_1+s+m}}. \\ && \nonumber\\
+    && p_m=\min(L-s-m_1,\ell-s,\ell+m),\quad
+       0\le m_1\le L-s,\quad
+       0\le m_2\le L+s\nonumber
+\end{eqnarray}
+
+The reason for this complicated representation of the ${}_sY_{\ell m}$
+is that it is straightforward to show how the ${}_sZ^L_{m_1m_2}$
+transform under the Lorentz transformation of Eq.~(\ref{eq:Mobius-def}),
+\begin{equation}
+{}_s\acute{Z}^L_{m_1m_2} = K^{-L}e^{is\Lambda}
+    \sum_{n_1=0}^{L-s}{\sum_{n_2=0}^{L-s}{
+        A^{[\frac12(L-s)][\frac12(L+s)]}_{m_1m_2;n_1n_2}{}_sZ^L_{n_1n_2}}}.
+\end{equation}
+So, up to a conformal factor $K^{-L}e^{is\Lambda}$, the functions
+${}_sZ^L_{m_1m_2}$ transform under the
+$\mathcal{D}^{[\frac12(L-s)][\frac12(L+s)]}$ irreducible
+representation of the Lorentz group, and matrix elements of the
+explicit representation are given by
+$A^{(j_1)(j_2)}_{m_1m_2;n_1n_2}=A^{(j_1)}_{m_1n_1}A^{*(j_2)}_{m_2n_2}$
+and
+\begin{equation}
+  A^{(j)}_{mn}=\sum_{p=0}^{\min(m,n)}{
+    \alpha^{2j+p-m-n}\beta^{n-p}\gamma^{m-p}\delta^p
+      \left(\begin{array}{c}2j-m \\ m-p\end{array}\right)
+      \left(\begin{array}{c}m \\ p\end{array}\right)}.
+\end{equation}
+
+Because the ${}_sB^L_{\ell m}{}^{m_1m_2}$ form a square,
+$(L-s+1)(L+s+1)$-dimensional, non-singular matrix, we find that
+\begin{equation}
+{}_sY_{\ell m}(\acute\zeta)=K^{-L}e^{is\Lambda}\sum_{\acute\ell\acute{m}}
+         \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}{}_sY_{\acute\ell\acute{m}}(\zeta),
+\end{equation}
+where
+\begin{equation}
+  \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}\equiv
+    \sum_{m_1,n_1=0}^{L-s} \sum_{m_2,n_2=0}^{L+s}
+         {}_sB^L_{\ell m}{}^{m_1m_2}
+         A^{[\frac12(L-s)][\frac12(L+s)]}_{m_1m_2;n_1n_2}
+         \left( {}_sB^L_{\acute\ell\acute{m}}{}^{n_1n_2}\right)^{-1}.
+\end{equation}
+Transforming to the usual spherical coordiantes, we must remember to also
+include the spin-rotation angles.  The result is
+\begin{equation}
+{}_sY_{\ell m}(\acute\theta,\acute\phi)=
+     K^{-L}e^{is(\Lambda-\phi+\acute\phi)}\sum_{\acute\ell\acute{m}}
+         \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}
+                 {}_sY_{\acute\ell\acute{m}}(\theta,\phi).
+\end{equation}
+For general Lorentz transformations, the matrix
+$\mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}$ is dense.  However,
+if we restrict outselves to rotations, then we find that the matrix is
+block-diagonal and can be written as
+\begin{equation}
+  \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}} = 
+  D^\ell_{\acute{m}m}(\bar\alpha,\bar\beta,\bar\gamma)\delta_{\ell,\acute\ell}.
+\end{equation}
+Here, $\bar\alpha$, $\bar\beta$, and $\bar\gamma$ are the (real) Euler
+angles defining the rotation (not to be confused with the (complex)
+coefficients of the M\"{o}bius transformation).  Since $K=1$ for
+rotations, this gives
+\begin{equation}
+{}_sY_{\ell m}(\acute\theta,\acute\phi)=
+     e^{is(\Lambda-\phi+\acute\phi)}\sum_{\acute{m}}
+         {}_sY_{\ell\acute{m}}(\theta,\phi)
+         D^\ell_{\acute{m}m}(\bar\alpha,\bar\beta,\bar\gamma),
+\end{equation}
+which reduces to the usual transformation rule for spherical harmonics
+when $s=0$.
+
+
+\newpage
 \noindent{\large\bf Appendix: Spectral Method for Spin-Weighted
   Spheroidal Harmonics}
 \vspace{0.25in}
