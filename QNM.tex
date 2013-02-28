@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{setspace}
+\usepackage{graphicx}
 
 
 \everymath{\displaystyle}
@@ -173,7 +174,7 @@ C_{\ell^\prime{m}^\prime}(t) & = \sum_{\ell{m}n} \Big\{
 \end{aligned}
 \end{equation}
 After relabeling indices we have
-\begin{equation}
+\begin{equation}\label{eq:SphericalKerrModes}
 \begin{aligned}
  C_{\ell{m}}(t) & = \sum_{\ell^\prime{n}} \Big\{ 
    A_{\ell^\prime{m}n}\YSH{\ell\ell^\prime{m}}{c_{\ell^\prime{m}n}}
@@ -514,7 +515,7 @@ So, these two basis sets are related by a spin-rotation angle of
 $-(\acute\phi+\pi)$.
 
 To summarize:
-\begin{equation}
+\begin{equation}\label{eq:LorentzMetricTrans}
 {\rm d}s^2 = {\rm d}\theta^2+\sin^2\theta{\rm d}\phi^2
      = \frac4{(1+\zeta\zeta^*)^2}{\rm d}\zeta{\rm d}\zeta^*
      =  K^2\frac4{(1+\acute\zeta\acute\zeta^*)^2}
@@ -536,7 +537,7 @@ To understand how spin-weighted spherical harmonics transform under
 Lorentz transformations, we note that (in terms of the $(\zeta,\zeta^*)$
 coordinates) we can write these functions as
 \begin{equation}
-  {}_sY_{\ell m}(\zeta) = \sum_{m_1=0}^{L-s}{\sum_{m_2=0}^{L+s}{
+  \swY{s}{\ell m}{\zeta} = \sum_{m_1=0}^{L-s}{\sum_{m_2=0}^{L+s}{
       {}_sB^L_{\ell m}{}^{m_1m_2}{}_sZ^L_{m_1m_2}}}
 \quad\mbox{where}\quad |s|\le\ell\le L,\quad |m|\le\ell,
 \end{equation}
@@ -581,8 +582,9 @@ and
 Because the ${}_sB^L_{\ell m}{}^{m_1m_2}$ form a square,
 $(L-s+1)(L+s+1)$-dimensional, non-singular matrix, we find that
 \begin{equation}
-{}_sY_{\ell m}(\acute\zeta)=K^{-L}e^{is\Lambda}\sum_{\acute\ell\acute{m}}
-         \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}{}_sY_{\acute\ell\acute{m}}(\zeta),
+\swY{s}{\ell m}{\acute\zeta}=K^{-L}e^{is\Lambda}\sum_{\acute\ell\acute{m}}
+         \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}
+         \swY{s}{\acute\ell\acute{m}}{\zeta},
 \end{equation}
 where
 \begin{equation}
@@ -594,11 +596,11 @@ where
 \end{equation}
 Transforming to the usual spherical coordiantes, we must remember to also
 include the spin-rotation angles.  The result is
-\begin{equation}
-{}_sY_{\ell m}(\acute\theta,\acute\phi)=
+\begin{equation}\label{eq:LorentzYTrans}
+\swY{s}{\ell m}{\acute\theta,\acute\phi}=
      K^{-L}e^{is(\Lambda-\phi+\acute\phi)}\sum_{\acute\ell\acute{m}}
          \mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}
-                 {}_sY_{\acute\ell\acute{m}}(\theta,\phi).
+                 \swY{s}{\acute\ell\acute{m}}{\theta,\phi}.
 \end{equation}
 For general Lorentz transformations, the matrix
 $\mathcal{R}^{(s,L)}_{\ell m\acute\ell\acute{m}}$ is dense.  However,
@@ -610,16 +612,148 @@ block-diagonal and can be written as
 \end{equation}
 Here, $\bar\alpha$, $\bar\beta$, and $\bar\gamma$ are the (real) Euler
 angles defining the rotation (not to be confused with the (complex)
-coefficients of the M\"{o}bius transformation).  Since $K=1$ for
+coefficients of the M\"{o}bius transformation).  These Euler angles
+denote the angles in an active rotation taking the Cartesian basis
+vectors of the un-primed coordinate system into the Cartesian basis
+vectos of the primed coordiante system.  In other words, the
+$\acute{z}$-axis will point in the $(\theta=\beta,\phi=\alpha)$
+direction in the un-primed system.  The corresponding coefficients for
+the M\"{o}bius transformation are
+\begin{equation}
+  \alpha = e^{-\frac{i}2(\bar\alpha+\bar\gamma)}\cos\tfrac{\bar\beta}2,
+\quad
+  \beta = e^{\frac{i}2(\bar\alpha-\bar\gamma)}\sin\tfrac{\bar\beta}2,
+\quad
+  \delta = -\beta^*,
+\quad
+  \gamma = \alpha^*. 
+\end{equation}
+Since $K=1$ for
 rotations, this gives
 \begin{equation}
-{}_sY_{\ell m}(\acute\theta,\acute\phi)=
+\swY{s}{\ell m}{\acute\theta,\acute\phi}=
      e^{is(\Lambda-\phi+\acute\phi)}\sum_{\acute{m}}
-         {}_sY_{\ell\acute{m}}(\theta,\phi)
+         \swY{s}{\ell\acute{m}}{\theta,\phi}
          D^\ell_{\acute{m}m}(\bar\alpha,\bar\beta,\bar\gamma),
 \end{equation}
 which reduces to the usual transformation rule for spherical harmonics
 when $s=0$.
+
+We must consider two separate coordinate systems because the
+spin-weighted spheroidal harmonics needed to describe the ring-down of
+a Kerr Black hole are defined with respect to the direction of the
+angular momentum of the black hole which may not align with the
+$z$-axis of the ``code'' coordinates.
+
+\noindent
+\parbox[t]{3.5in}{\hrule height 0pt width 0pt
+\setlength{\parindent}{0.25in}
+Now, let the un-primed coordinate system $\{x,y,z\}$ be the ``code''
+coordiante system, and let $(\theta,\phi)$ be the associated
+coordinates on a 2-sphere of constant radius defined by the usual
+transformation between Cartesian and spherical coordinates.  And, let
+the primed coordinate system $\{\acute{x},\acute{y},\acute{z}\}$ be
+the ``Kerr'' coordinate system with the $\acute{z}$-axis aligned with
+the direction of the angular momentum of the Kerr black hole.
+
+Let $\Psi_4(\theta,\phi)$ be the spin weight $s=-2$ Weyl scalar
+containing the gravitational wave signal in the ``code'' frame.  In
+the ``Kerr'' frame, it is given by
+\begin{equation}
+\Psi_4(\acute\theta,\acute\phi)=e^{i(-2)(\Lambda-\phi+\acute\phi)}\Psi_4(\theta,\phi)
+\end{equation}
+}
+\parbox[t]{4in}{\hrule height 0pt width 0pt
+\hspace{0.5in}
+\begin{picture}(180,220)(0,0)
+\put(0,0){\includegraphics[width=2.5in,clip]{CoordRot}}
+\put(0,27){$x$}
+\put(175,51){$y$}
+\put(37,209){$z$}
+\put(128,3){$\acute{x}$}
+\put(129,82){$\acute{y}$}
+\put(103,181){$\acute{z}$}
+\put(40,36){$\bar\alpha$}
+\put(63,153){$\bar\beta$}
+\end{picture}} 
+Each scalar can be expanded in terms of its own set of spin-weighted
+spherical harmonics:
+\begin{equation}
+\Psi_4(\theta,\phi)=\sum_{\ell m}C_{\ell m}\swY{-2}{\ell m}{\theta,\phi}
+\qquad\mbox{and}\qquad
+\Psi_4(\acute\theta,\acute\phi)=
+\sum_{\ell m}\acute{C}_{\ell m}\swY{-2}{\ell m}{\acute\theta,\acute\phi}.
+\end{equation}
+This gives us
+\begin{equation}
+\Psi_4(\theta,\phi)=\sum_{\ell m}C_{\ell m}\swY{-2}{\ell m}{\theta,\phi}
+=e^{-i(-2)(\Lambda-\phi+\acute\phi)}
+\sum_{\ell m}\acute{C}_{\ell m}\swY{-2}{\ell m}{\acute\theta,\acute\phi}.
+\end{equation}
+Using the orthonormality of the spin-weighted spherical harmonics,
+we find
+\begin{equation}
+C_{\acute\ell\acute{m}}=\oint{\swY[*]{-2}{\acute\ell\acute{m}}{\theta,\phi}
+  \left(e^{-i(-2)(\Lambda-\phi+\acute\phi)}
+  \sum_{\ell m}\acute{C}_{\ell m}\swY{-2}{\ell m}{\acute\theta,\acute\phi}\right)
+  {\rm d}\Omega}
+\end{equation}
+Allowing for the moment that our coordinates are related by a proper,
+homogeneous Lorentz transformation, we can use the inverse of
+Eq.~(\ref{eq:LorentzYTrans})
+\begin{equation}
+\swY{s}{\ell m}{\theta,\phi}=
+     K^Le^{-is(\Lambda-\phi+\acute\phi)}\sum_{\acute\ell\acute{m}}
+         \mathcal{R}^{-1(s,L)}_{\ell m\acute\ell\acute{m}}
+                 \swY{s}{\acute\ell\acute{m}}{\acute\theta,\acute\phi} 
+\end{equation}
+and transform the area element using Eq.~(\ref{eq:LorentzMetricTrans}) to
+get
+\begin{eqnarray}
+C_{\acute\ell\acute{m}}&=&\oint{
+  \left(K^Le^{-i(-2)(\Lambda-\phi+\acute\phi)}\sum_{\hat\ell\hat{m}}
+         \mathcal{R}^{-1(s,L)}_{\acute\ell\acute{m}\hat\ell\hat{m}}
+                 \swY{-2}{\hat\ell\hat{m}}{\acute\theta,\acute\phi}
+\right)^*
+  \left(e^{-i(-2)(\Lambda-\phi+\acute\phi)}
+  \sum_{\ell m}\acute{C}_{\ell m}\swY{-2}{\ell m}{\acute\theta,\acute\phi}\right)
+  K^2{\rm d}\acute\Omega} \\ \mbox{} \label{eq:LorentzCoefTrans}
+&=& \sum_{\hat\ell\hat{m}}{\sum_{\ell m}{
+ \left(\mathcal{R}^{-1(s,L)}_{\acute\ell\acute{m}\hat\ell\hat{m}}\right)^*
+ \acute{C}_{\ell m}
+ \oint{K^{L+2}\swY[*]{-2}{\hat\ell\hat{m}}{\acute\theta,\acute\phi}
+   \swY{-2}{\ell m}{\acute\theta,\acute\phi}{\rm d}\acute\Omega}}}.
+\end{eqnarray}
+It is clear that the ``conformal'' factor $K$ spoils the
+orthonormality condition in the case of full proper, homogeneous
+Lorentz transformations.  However, in the restricted case of
+rotations, we have $K=1$.  We also have 
+\begin{equation}
+  \mathcal{R}^{-1(s,L)}_{\acute\ell\acute{m}\ell m} = 
+  D^{\ell*}_{\acute{m}m}(\bar\alpha,\bar\beta,\bar\gamma)\delta_{\acute\ell,\ell},
+\end{equation}
+allowing us to simplify Eq.~(\ref{eq:LorentzCoefTrans}), after
+relabeling indices, to
+\begin{equation}
+  C_{\ell{m}} = \sum_{\acute{m}}{
+    \acute{C}_{\ell\acute{m}}
+    D^\ell_{m\acute{m}}(\bar\alpha,\bar\beta,\bar\gamma)}.
+\end{equation}
+
+In particular, if our $\acute{C}_{\ell m}$ are from the mode decomposition
+of Kerr given in Eq.~(\ref{eq:SphericalKerrModes}), we find that
+\begin{equation}\label{eq:SphericalRotatedKerrModes}
+\begin{aligned}
+ C_{\ell{m}}(t) & = \sum_{\acute\ell\acute{m}n}
+ D^{\acute\ell}_{m\acute{m}}(\bar\alpha,\bar\beta,0) \Big\{ 
+   A_{\acute\ell\acute{m}n}\YSH{\ell\acute\ell\acute{m}}{c_{\acute\ell\acute{m}n}}
+    e^{-i\omega_{\acute\ell\acute{m}n}t+i\phi_{\acute\ell\acute{m}n}}e^{-t/\tau_{\acute\ell\acute{m}n}} \\
+& {} \hspace{0.6in}
+  + (-1)^\ell A^\prime_{\acute\ell(-\acute{m})n}
+    \YSH[*]{\ell\acute\ell(-\acute{m})}{c_{\acute\ell(-\acute{m})n}}
+    e^{i\omega_{\acute\ell(-\acute{m})n}t+i\phi^\prime_{\acute\ell(-\acute{m})n}}e^{-t/\tau_{\acute\ell(-\acute{m})n}} \Big\}.
+\end{aligned}
+\end{equation}
 
 
 \newpage
