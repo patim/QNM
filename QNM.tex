@@ -1036,9 +1036,9 @@ So, the term in brackets in Eq.~(\ref{eqn:rplusYlimit}) becomes
 \begin{equation}
   \frac{(r_+-M)}{Mr_+}r^*(\epsilon) =
      \frac{(r_+-M)}{Mr_+}\left[r_+ + \mathcal{O}(\epsilon)\right]
-     + 2\frac{(r_+-M)}{r_+-r_m}\ln\left(\frac\epsilon{M}\right).
+     + 2\frac{(r_+-M)}{r_+-r_\minus}\ln\left(\frac\epsilon{M}\right).
 \end{equation}
-But $2\frac{(r_+-M)}{r_+-r_m}=1$, so
+But $2\frac{(r_+-M)}{r_+-r_\minus}=1$, so
 \begin{align}
   e^{\frac{(r_+-M)}{Mr_+}r^*(\epsilon)} &\propto \epsilon + \mathcal{O}(\epsilon^2), \\
        &\propto (r-r_+)(r-r_\minus) + \mathcal{O}(\epsilon^2), \\
@@ -1060,7 +1060,7 @@ The latter solution, representing waves flowing into the black hole is the physi
 Returning to the standard radial coordinate $r$ via
 Eq.~(\ref{eqn:Tortose_coord}) gives us the behavior near $\infty$ as
 \begin{equation}
-  R(r) \sim r^{-1-2s-2i\omega{M}}e^{i\omega{r}}, 
+  R(r) \sim r^{-1-2s+2i\omega{M}}e^{i\omega{r}}, 
 \end{equation}
 and near the horizon, $r=r_+$ as
 \begin{equation}
@@ -1072,7 +1072,7 @@ have used $e^{-ik{r^*}} \propto (r-r_+)^{-i\sigma_+}$.
 We factor out these asymptotic behaviors by defining a new radial 
 function $\bar{R}(r)$ via
 \begin{equation}
-  R(r) \equiv e^{i\omega{r}} (r-r_\minus)^{-1-2s-2i\omega{M}} 
+  R(r) \equiv e^{i\omega{r}} (r-r_\minus)^{-1-s+2i\omega{M}+i\sigma_+} 
         (r - r_+)^{-s-i\sigma_+} \bar{R}(r),
 \end{equation}
 where we choose $(r-r_\minus)$ in the large $r$ behavior to avoid
