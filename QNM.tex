@@ -1066,7 +1066,7 @@ and near the horizon, $r=r_+$ as
 \begin{equation}
   R(r) \sim (r - r_+)^{-s-i\sigma_+}, 
 \end{equation}
-where $\sigma_+\equiv\frac{2\omega{M}r_+ - ma}{r_+-r_\minus}$, and we
+where $\sigma_\pm\equiv\frac{2\omega{M}r_\pm - ma}{r_+-r_\minus}$, and we
 have used $e^{-ik{r^*}} \propto (r-r_+)^{-i\sigma_+}$.
 
 We factor out these asymptotic behaviors by defining a new radial 
@@ -1175,5 +1175,87 @@ of $\xi$, we find
   \beta_n &\equiv -2n^2 + (D_1+2)n + D_3, \\
   \gamma_n &\equiv n^2 + (D_2-3)n +D_4 - D_2 +2.
 \end{align}
+
+\newpage
+\noindent{\large\bf Teukolsky Equation -- Solution
+in terms of the confluent Heun Equation}
+\vspace{0.25in}
+
+The radial equation given in Eq.~(\ref{eqn:radialR:Diff_Eqn}) can be written
+terms of the confluent Huen equation.  A useful form if it is:
+\begin{equation}
+\frac{d^2H(z)}{dz^2} 
++ \left(4p + \frac\gamma{z}+\frac\delta{z-1}\right)\frac{dH(z)}{dz}
++ \frac{4\alpha pz -\sigma}{z(z-1)}H(z)=0.
+\end{equation}
+This differential equation has regular singular points at $z=0$ and
+$z=1$, and an irregular singular point at $z=\infty$.  In order to
+reduce Eq.~(\ref{eqn:radialR:Diff_Eqn}) to this form, we first make
+the following transformation:
+\begin{equation}
+R(r) = (r-r_+)^\xi(r-r_\minus)^\eta e^{\zeta r}H(r).
+\end{equation}
+Eq.~(\ref{eqn:radialR:Diff_Eqn}) then takes the form
+\begin{eqnarray}
+&&\frac{d^2H(r)}{dr^2}
++\left(2\zeta +\frac{1+s+2\xi}{r-r_+}+\frac{1+s+2\eta}{r-r_\minus}\right)
+\frac{dH(r)}{dr} \\
+&&\mbox{}
++\frac{
+\begin{array}{l}
+\left[4M\omega^2 + 2\zeta(1+\xi+\eta) + 2s(\zeta+i\omega)\right]r
+-a^2\omega^2 - \scA{s}{\ell{m}}{a\omega} \\
+\mbox{\hspace{0.5in}} + 2M\left(2M\omega^2 - (1+s)\zeta - is\omega\right) 
+- 2\zeta(r_\minus\xi + r_+\eta) + (\xi+\eta) (1+2s+\xi+\eta)
+\end{array}
+}{(r-r_+)(r-r_\minus)}H(r)=0, \nonumber
+\end{eqnarray}
+where the parameters $\zeta$, $\xi$, and $\eta$ must be fixed to be
+\begin{equation}
+  \zeta=\pm i\omega,\qquad
+  \xi=\frac{-s\pm(s + 2i\sigma_+)}2,\qquad
+  \eta=\frac{-s\pm(s - 2i\sigma_\minus)}2,
+\end{equation}
+so that there are 8 possible ways of achieving this form, and we recall that
+\begin{equation}
+ \sigma_\pm\equiv\frac{2\omega{M}r_\pm - ma}{r_+-r_\minus}
+\end{equation}
+If we define $\bar\zeta=\pm i\bar\omega$, then we have the dimensionless form
+\begin{eqnarray}
+&&\frac{d^2H(\bar{r})}{d\bar{r}^2}
++\left(2\bar\zeta +\frac{1+s+2\xi}{\bar{r}-\bar{r}_+}
++\frac{1+s+2\eta}{\bar{r}-\bar{r}_\minus}\right)
+\frac{dH(\bar{r})}{d\bar{r}} \\
+&&\mbox{}
++\frac{
+\begin{array}{l}
+\left[4\bar\omega^2 + 2\bar\zeta(1+\xi+\eta) 
++ 2s(\bar\zeta+i\bar\omega)\right]\bar{r}
+-\bar{a}^2\bar\omega^2 - \scA{s}{\ell{m}}{\bar{a}\bar\omega} \\
+\mbox{\hspace{0.5in}} + 2\left(2\bar\omega^2-(1+s)\bar\zeta-is\bar\omega\right) 
+- 2\bar\zeta(\bar{r}_\minus\xi + \bar{r}_+\eta) + (\xi+\eta) (1+2s+\xi+\eta)
+\end{array}
+}{(\bar{r}-\bar{r}_+)(\bar{r}-\bar{r}_\minus)}H(\bar{r})=0, \nonumber
+\end{eqnarray}
+
+There are two choices for transforming the radial coordinate $\bar{r}$
+which are both useful when examining the symmetries of the system.  We
+will focus on
+\begin{equation}
+z \equiv \frac{\bar{r}-\bar{r}_\minus}{\bar{r}_+-\bar{r}_\minus}.
+\end{equation}
+The other possibility is $z \equiv
+\frac{\bar{r}_+-\bar{r}}{\bar{r}_+-\bar{r}_\minus}$.
+We find:
+\begin{eqnarray}
+  p &=& (\bar{r}_+-\bar{r}_\minus)\frac{\bar\zeta}2 \\
+  \gamma &=& 1+s+2\eta \\
+  \delta &=& 1+s+2\xi \\
+  \alpha &=& 1+s+\xi+\eta - 2\bar\zeta + s\frac{i\bar\omega}{\bar\zeta} \\
+  \sigma &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
+   - 2\left(2\bar\omega^2-(1+s)\bar\zeta-is\bar\omega\right) 
+   + 2\bar\zeta(\bar{r}_\minus\xi + \bar{r}_+\eta) - (\xi+\eta) (1+2s+\xi+\eta)
+   -\bar\zeta\alpha\bar{r}_\minus
+\end{eqnarray}
 
 \end{document}
