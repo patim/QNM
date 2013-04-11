@@ -1181,8 +1181,9 @@ of $\xi$, we find
 in terms of the confluent Heun Equation}
 \vspace{0.25in}
 
-The radial equation given in Eq.~(\ref{eqn:radialR:Diff_Eqn}) can be written
-terms of the confluent Huen equation.  A useful form if it is:
+The radial equation given in Eq.~(\ref{eqn:radialR:Diff_Eqn}) can be
+written in terms of the confluent Huen equation.  A useful form of it
+is the so-called {\em non-symmetrical canonical form} :
 \begin{equation}
 \frac{d^2H(z)}{dz^2} 
 + \left(4p + \frac\gamma{z}+\frac\delta{z-1}\right)\frac{dH(z)}{dz}
@@ -1212,9 +1213,9 @@ Eq.~(\ref{eqn:radialR:Diff_Eqn}) then takes the form
 \end{eqnarray}
 where the parameters $\zeta$, $\xi$, and $\eta$ must be fixed to be
 \begin{equation}
-  \zeta=\pm i\omega,\qquad
-  \xi=\frac{-s\pm(s + 2i\sigma_+)}2,\qquad
-  \eta=\frac{-s\pm(s - 2i\sigma_\minus)}2,
+  \zeta=\pm i\omega\equiv\zeta_\pm,\qquad
+  \xi=\frac{-s\pm(s + 2i\sigma_+)}2\equiv\xi_\pm,\qquad
+  \eta=\frac{-s\pm(s - 2i\sigma_\minus)}2\equiv\eta_\pm,
 \end{equation}
 so that there are 8 possible ways of achieving this form, and we recall that
 \begin{equation}
@@ -1238,14 +1239,11 @@ If we define $\bar\zeta=\pm i\bar\omega$, then we have the dimensionless form
 }{(\bar{r}-\bar{r}_+)(\bar{r}-\bar{r}_\minus)}H(\bar{r})=0, \nonumber
 \end{eqnarray}
 
-There are two choices for transforming the radial coordinate $\bar{r}$
-which are both useful when examining the symmetries of the system.  We
-will focus on
+There are several choices for transforming the radial coordinate
+$\bar{r}$.  We will focus use
 \begin{equation}
 z \equiv \frac{\bar{r}-\bar{r}_\minus}{\bar{r}_+-\bar{r}_\minus}.
 \end{equation}
-The other possibility is $z \equiv
-\frac{\bar{r}_+-\bar{r}}{\bar{r}_+-\bar{r}_\minus}$.
 We find:
 \begin{eqnarray}
   p &=& (\bar{r}_+-\bar{r}_\minus)\frac{\bar\zeta}2 \\
@@ -1255,7 +1253,189 @@ We find:
   \sigma &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
    - 2\left(2\bar\omega^2-(1+s)\bar\zeta-is\bar\omega\right) 
    + 2\bar\zeta(\bar{r}_\minus\xi + \bar{r}_+\eta) - (\xi+\eta) (1+2s+\xi+\eta)
-   -\bar\zeta\alpha\bar{r}_\minus
+   -\bar\zeta\alpha\bar{r}_\minus \\
+   &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
+   - 8\bar\omega^2 +\bar\zeta\left[
+     \bar{r}_+\left(\alpha+\frac{\gamma-\delta}2\right)-
+     \bar{r}_\minus\left(\frac{\gamma-\delta}2\right)\right]
+   + \left(1+s-\frac{\gamma+\delta}2\right)\left(s+\frac{\gamma+\delta}2\right).
+   \nonumber
 \end{eqnarray}
+
+For the regular singular point at $z=0$ ($r=r_\minus$), the
+characteristic exponents are $\{0,1-\gamma\}$ so the solutions behave
+like
+\begin{equation}
+  \lim_{z\to0}H(z)\sim1 \quad\mbox{or}\quad z^{1-\gamma}.
+\end{equation}
+For the regular singular point at $z=1$ ($r=r_+$), the characteristic
+exponents are $\{0,1-\delta\}$ so the solutions behave like
+\begin{equation}
+  \lim_{z\to1}H(z)\sim1 \quad\mbox{or}\quad (z-1)^{1-\delta}.
+\end{equation}
+For the irregular singular point at $z=\infty$, solutions behave like
+\begin{equation}
+  \lim_{z\to\infty}H(z)\sim z^{-\alpha} \quad\mbox{or}\quad 
+  e^{-4pz}z^{\alpha-\gamma-\delta}.
+\end{equation}
+Now, with $R(z)\sim z^\eta(z-1)^\xi e^{(\bar{r}_+-\bar{r}_\minus)\bar\zeta z}$, we
+find
+\begin{eqnarray}
+  \lim_{z\to0}R(z)&\sim& z^\eta \quad\mbox{or}\quad z^{-s-\eta}, \\
+  \lim_{z\to1}R(z)&\sim& (z-1)^\xi \quad\mbox{or}\quad (z-1)^{-s-\xi},\\
+  \lim_{z\to\infty}R(z)&\sim& 
+z^{-1-s(1+\frac{i\bar\omega}{\bar\zeta})+2\bar\zeta}e^{(\bar{r}_+-\bar{r}_\minus)\bar\zeta z} 
+\quad\mbox{or}\quad 
+z^{-1-s(1-\frac{i\bar\omega}{\bar\zeta})-2\bar\zeta}e^{-(\bar{r}_+-\bar{r}_\minus)\bar\zeta z}.
+\end{eqnarray}
+It is easy to see that the behavior at $z=0$ ($r=r_\minus$) depends
+only on $\eta$ and that each of the two values of $\eta$ yield the
+same pair of local solutions.  The same is true for the two values of
+$\xi$ at $z=1$ ($r=r_+$), and for the two values of $\zeta$ at
+$z=\infty$.  So any of the 8 possible combinations of the three pairs
+of parameters yields the same set of local solutions:
+\begin{eqnarray}
+  \lim_{z\to0}R(z)&\sim& z^{-s+i\sigma_\minus} \quad\mbox{or}\quad z^{-i\sigma_\minus}, \\
+  \lim_{z\to1}R(z)&\sim& (z-1)^{-s-i\sigma_+} \quad\mbox{or}\quad (z-1)^{i\sigma_+},\\
+  \lim_{z\to\infty}R(z)&\sim& 
+z^{-1-2s+2i\bar\omega}e^{i(\bar{r}_+-\bar{r}_\minus)\bar\omega z} 
+\quad\mbox{or}\quad 
+z^{-1-2i\bar\omega}e^{-i(\bar{r}_+-\bar{r}_\minus)\bar\omega z}.
+\end{eqnarray}
+Physical solutions representing radiation that is entering the black-hole
+horizon ($z=1$) and is outgoing at infinity are given by
+\begin{equation}\
+  \lim_{z\to1}R(z)\sim (z-1)^{-s-i\sigma_+} \quad\mbox{and}\quad
+  \lim_{z\to\infty}R(z)\sim 
+  z^{-1-2s+2i\bar\omega}e^{i(\bar{r}_+-\bar{r}_\minus)\bar\omega z},
+\end{equation}
+and require $s\le0$.
+
+Two local solutions are defined by
+\begin{equation}
+ Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;0)=1 \quad\mbox{and}\quad
+ Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(a)}_kz^k}
+\end{equation}
+and
+\begin{equation}
+ \lim_{z\to\infty}z^\alpha Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z)=1
+ \quad\mbox{and}\quad
+ Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(r)}_kz^{\alpha-k}}.
+\end{equation}
+{\em Note, there are assumptions about $p$ in the limit for $Hc^{(r)}$.}
+
+The physical solution at $z=1$ corresponds to either of the local solutions
+\begin{eqnarray}
+  Hc^{(a)}(-p,\alpha,\delta,\gamma,\sigma+4p\alpha;1-z) &\mbox{with}&
+  \xi=\xi_\minus, \\
+  (z-1)^{1-\delta}Hc^{(a)}(-p,\alpha+1-\delta,2-\delta,\gamma,\sigma-(1-\delta)\gamma+4p(\alpha+1-\delta);1-z) &\mbox{with}&
+  \xi=\xi_+.
+\end{eqnarray}
+The physical solution at $z=\infty$ corresponds to either of the local solutions
+\begin{eqnarray}
+  Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) &\mbox{with}&
+  \bar\zeta=\bar\zeta_+, \\
+  e^{-4pz}Hc^{(r)}(-p,-\alpha+\gamma+\delta,\gamma,\delta,\sigma+4p\gamma;z) &\mbox{with}&
+  \bar\zeta=\bar\zeta_\minus.
+\end{eqnarray}
+The two solutions at $z=0$ correspond to either of the two local solutions
+\begin{eqnarray}
+  Hc^{(a)}(p,\alpha,\gamma,,\delta,\sigma+4p\alpha;z) &\mbox{with}&
+  \eta=\eta_\pm, \\
+  z^{1-\gamma}Hc^{(a)}(p,\alpha+1-\gamma,2-\gamma,\delta,\sigma+(1-\gamma)(4p-\delta);z) &\mbox{with}&
+  \eta=\eta_\mp.
+\end{eqnarray}
+
+The local solution $Hc^{(a)}(p,-q,\gamma,\delta,\sigma;z)$ has $q+1$
+polynomial solutions of $q$-th order whenever the second parameter,
+$-q$, is a non-positive integer.  Each of the $q+1$ solutions
+corresponds to a differnt value for $\sigma\equiv\sigma_{nq}$ with
+$n=0,\ldots,q$.  This is guaranteed for certain combinations of the
+parameters $\{\bar\zeta,\xi,\eta\}$.  In particular:
+\begin{equation}
+  q= \left\{\begin{array}{lc}
+  -1-2s = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_+,\xi_+,\eta_+) \\
+            \alpha-\gamma-\delta & (\bar\zeta_-,\xi_+,\eta_+) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_-)
+  \end{array}\right. & s\le\frac12 \\
+  -1+2s = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_+,\eta_\minus) \\\
+            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_\minus,\eta_+)
+  \end{array}\right. & s\ge\frac12 \\
+\end{array}\right.
+\end{equation}
+ 
+Certain choices for the parameters lead to solutions of particular
+interest.  If we choose $\bar\zeta=\bar\zeta_\minus$,
+$\xi=\xi_\minus$, and $\eta=\eta_\minus$, then
+\begin{equation}
+\alpha=1+s+\xi_\minus+\eta_\minus-2\bar\zeta_\minus+s\frac{i\bar\omega}{\bar\zeta_\minus} = 1-2s.
+\end{equation}
+Similarly, if we choose $\bar\zeta=\bar\zeta_+$, $\xi=\xi_+$, and
+$\eta=\eta_+$, then
+\begin{equation}
+\alpha=1+s+\xi_++\eta_+-2\bar\zeta_++s\frac{i\bar\omega}{\bar\zeta_+} = 1+2s.
+\end{equation}
+
+
+
+
+Another useful form is the so-called {\em symmetrical canonical form}.  If
+we let $z\mapsto 1-2z$, then we have regular singular points at $z=\pm1$
+and an irregular singular point at $z=-\infty$, and the differential
+equation becomes:
+\begin{equation}
+\frac{d^2H^{(s)}(z)}{dz^2} 
++ \left(-2p + \frac\gamma{z-1}+\frac\delta{z+1}\right)\frac{dH^{(s)}(z)}{dz}
++ \frac{-2\alpha pz -\sigma+2\alpha p}{z^2-1}H^{(s)}(z)=0,
+\end{equation}
+Where $H^{(s)}(z)\equiv H(\frac{1-z}2)$.
+It is more common to replace $\{\gamma,\delta,\alpha,\sigma\}$ with
+$\{\mu,\nu,\beta,\lambda\}$ where:
+\begin{equation}
+ \gamma=\mu+\nu+1,\qquad \delta=\mu-\nu+1,\qquad \alpha=-\beta+\mu+1,\qquad
+\sigma = \lambda -2p(\beta-\mu-\nu-1)-\mu(\mu+1).
+\end{equation}
+Then the equation is written:
+\begin{equation}
+\frac{d^2H^{(s)}(z)}{dz^2} 
++ \left(-2p + \frac{\mu+\nu+1}{z-1}+\frac{\mu-\nu+1}{z+1}\right)\frac{dH^{(s)}(z)}{dz}
++ \frac{2p(\beta-\mu-1)z -2p\nu+\mu(\mu+1)-\lambda}{z^2-1}H^{(s)}(z)=0,
+\end{equation}
+and
+\begin{eqnarray}
+  \mu &=& s+\eta+\xi \\
+  \nu &=& \eta-\xi \\
+  \beta &=& 2\bar\zeta - s\frac{i\bar\omega}{\bar\zeta} \\
+  \lambda &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
+   - 8\bar\omega^2 +\bar\zeta\bar{r}_\minus(1+\mu-\beta)
+   + s(1+s).
+\end{eqnarray}
+
+The {\em B\^{o}cher symmetrical form}, also called the {\em
+  generalized spheroidal equation}, is obtained by the transformation:
+\begin{equation}
+  H^{(B)}(z)\equiv(z-1)^{\frac{\mu+\nu}2}(z+1)^{\frac{\mu-\nu}2}e^{-pz}H^{(s)}(z),
+\end{equation}
+and takes the form:
+\begin{equation}
+\frac{d}{dz}\left((z^2-1)\frac{dH^{(B)}(z)}{dz}\right)
++\left(-p^2(z^2-1)+2p\beta z-\lambda
+    -\frac{\mu^2+\nu^2+2\mu\nu z}{z^2-1}\right)H^{(B)}(z)=0.
+\end{equation}
+
+Finally, the {\em normal symmetrical form}, or the {\em normal form of
+the  generalized spheroidal equation}, is obtained by the transformation:
+\begin{equation}
+  H^{(B)}(z)\equiv(1-z^2)^{-\frac12}H^{(N)}(z),
+\end{equation}
+and takes the form:
+\begin{equation}
+(z^2-1)\frac{d^2H^{(N)}(z)}{dz^2}
++\left(-p^2(z^2-1)+2p\beta z-\lambda
+    -\frac{\mu^2+\nu^2-1+2\mu\nu z}{z^2-1}\right)H^{(N)}(z)=0.
+\end{equation}
 
 \end{document}
