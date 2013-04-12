@@ -1322,25 +1322,42 @@ and
  \quad\mbox{and}\quad
  Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(r)}_kz^{\alpha-k}}.
 \end{equation}
-{\em Note, there are assumptions about $p$ in the limit for $Hc^{(r)}$.}
+{\em Note, there are assumptions about $p$ in the limit for
+  $Hc^{(r)}$.}  The coefficients $c^{(a)}_k$ and $c^{(r)}_k$ are
+defined by 3-term recurrence relations
+\begin{eqnarray}
+  f^{(a)}_kc^{(a)}_{k+1}+ g^{(a)}_kc^{(a)}_k+ h^{(a)}_kc^{(a)}_{k-1} &=& 0 
+  \qquad c^{(a)}_{-1}=0 \qquad c^{(a)}_0=1 \\
+  g^{(a)}_k &=& k(k-4p+\gamma+\delta-1)-\sigma \\
+  f^{(a)}_k &=& -(k+1)(k+\gamma) \\
+  h^{(a)}_k &=& -4p(k+\alpha-1)
+\end{eqnarray}
+and
+\begin{eqnarray}
+  f^{(r)}_kc^{(r)}_{k+1}+ g^{(r)}_kc^{(r)}_k+ h^{(r)}_kc^{(r)}_{k-1} &=& 0 
+  \qquad c^{(r)}_{-1}=0 \qquad c^{(r)}_0=1 \\
+  g^{(r)}_k &=& (k+\alpha)(k-4p-\gamma-\delta+1)-\sigma \\
+  f^{(r)}_k &=& -4p(k+1) \\
+  h^{(r)}_k &=& -(k+\alpha-1)(k+\alpha-\gamma)
+\end{eqnarray}
 
 The physical solution at $z=1$ corresponds to either of the local solutions
 \begin{eqnarray}
-  Hc^{(a)}(-p,\alpha,\delta,\gamma,\sigma+4p\alpha;1-z) &\mbox{with}&
+  Hc^{(a)}(-p,\alpha,\delta,\gamma,\sigma-4p\alpha;1-z) &\mbox{with}&
   \xi=\xi_\minus, \\
-  (z-1)^{1-\delta}Hc^{(a)}(-p,\alpha+1-\delta,2-\delta,\gamma,\sigma-(1-\delta)\gamma+4p(\alpha+1-\delta);1-z) &\mbox{with}&
+  (z-1)^{1-\delta}Hc^{(a)}(-p,\alpha+1-\delta,2-\delta,\gamma,\sigma-(1-\delta)\gamma-4p(\alpha+1-\delta);1-z) &\mbox{with}&
   \xi=\xi_+.
 \end{eqnarray}
 The physical solution at $z=\infty$ corresponds to either of the local solutions
 \begin{eqnarray}
   Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) &\mbox{with}&
   \bar\zeta=\bar\zeta_+, \\
-  e^{-4pz}Hc^{(r)}(-p,-\alpha+\gamma+\delta,\gamma,\delta,\sigma+4p\gamma;z) &\mbox{with}&
+  e^{-4pz}Hc^{(r)}(-p,-\alpha+\gamma+\delta,\gamma,\delta,\sigma-4p\gamma;z) &\mbox{with}&
   \bar\zeta=\bar\zeta_\minus.
 \end{eqnarray}
 The two solutions at $z=0$ correspond to either of the two local solutions
 \begin{eqnarray}
-  Hc^{(a)}(p,\alpha,\gamma,,\delta,\sigma+4p\alpha;z) &\mbox{with}&
+  Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;z) &\mbox{with}&
   \eta=\eta_\pm, \\
   z^{1-\gamma}Hc^{(a)}(p,\alpha+1-\gamma,2-\gamma,\delta,\sigma+(1-\gamma)(4p-\delta);z) &\mbox{with}&
   \eta=\eta_\mp.
@@ -1356,28 +1373,20 @@ parameters $\{\bar\zeta,\xi,\eta\}$.  In particular:
   q= \left\{\begin{array}{lc}
   -1-2s = \left\{\begin{array}{cc}
             -\alpha & (\bar\zeta_+,\xi_+,\eta_+) \\
-            \alpha-\gamma-\delta & (\bar\zeta_-,\xi_+,\eta_+) \\
-            -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_-)
+            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_+,\eta_+) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_\minus,\eta_+) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_\minus)
   \end{array}\right. & s\le\frac12 \\
   -1+2s = \left\{\begin{array}{cc}
             -\alpha & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
-            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_+,\eta_\minus) \\\
+            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_\minus,\eta_\minus) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_+,\eta_\minus) \\
             -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_\minus,\eta_+)
   \end{array}\right. & s\ge\frac12 \\
 \end{array}\right.
 \end{equation}
  
-Certain choices for the parameters lead to solutions of particular
-interest.  If we choose $\bar\zeta=\bar\zeta_\minus$,
-$\xi=\xi_\minus$, and $\eta=\eta_\minus$, then
-\begin{equation}
-\alpha=1+s+\xi_\minus+\eta_\minus-2\bar\zeta_\minus+s\frac{i\bar\omega}{\bar\zeta_\minus} = 1-2s.
-\end{equation}
-Similarly, if we choose $\bar\zeta=\bar\zeta_+$, $\xi=\xi_+$, and
-$\eta=\eta_+$, then
-\begin{equation}
-\alpha=1+s+\xi_++\eta_+-2\bar\zeta_++s\frac{i\bar\omega}{\bar\zeta_+} = 1+2s.
-\end{equation}
+
 
 
 
