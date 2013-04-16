@@ -1320,7 +1320,7 @@ and
 \begin{equation}
  \lim_{z\to\infty}z^\alpha Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z)=1
  \quad\mbox{and}\quad
- Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(r)}_kz^{\alpha-k}}.
+ Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(r)}_kz^{-\alpha-k}}.
 \end{equation}
 {\em Note, there are assumptions about $p$ in the limit for
   $Hc^{(r)}$.}  The coefficients $c^{(a)}_k$ and $c^{(r)}_k$ are
@@ -1330,40 +1330,40 @@ defined by 3-term recurrence relations
   \qquad c^{(a)}_{-1}=0 \qquad c^{(a)}_0=1 \\
   g^{(a)}_k &=& k(k-4p+\gamma+\delta-1)-\sigma \\
   f^{(a)}_k &=& -(k+1)(k+\gamma) \\
-  h^{(a)}_k &=& -4p(k+\alpha-1)
+  h^{(a)}_k &=& 4p(k+\alpha-1)
 \end{eqnarray}
 and
 \begin{eqnarray}
   f^{(r)}_kc^{(r)}_{k+1}+ g^{(r)}_kc^{(r)}_k+ h^{(r)}_kc^{(r)}_{k-1} &=& 0 
   \qquad c^{(r)}_{-1}=0 \qquad c^{(r)}_0=1 \\
-  g^{(r)}_k &=& (k+\alpha)(k-4p-\gamma-\delta+1)-\sigma \\
+  g^{(r)}_k &=& (k+\alpha)(k+4p+\alpha-\gamma-\delta+1)-\sigma \\
   f^{(r)}_k &=& -4p(k+1) \\
   h^{(r)}_k &=& -(k+\alpha-1)(k+\alpha-\gamma)
 \end{eqnarray}
 
 The physical solution at $z=1$ corresponds to either of the local solutions
-\begin{eqnarray}
+\begin{eqnarray}\label{eq:local_sol_z1a}
   Hc^{(a)}(-p,\alpha,\delta,\gamma,\sigma-4p\alpha;1-z) &\mbox{with}&
-  \xi=\xi_\minus, \\
+  \xi=\xi_\minus, \\\label{eq:local_sol_z1b}
   (z-1)^{1-\delta}Hc^{(a)}(-p,\alpha+1-\delta,2-\delta,\gamma,\sigma-(1-\delta)\gamma-4p(\alpha+1-\delta);1-z) &\mbox{with}&
   \xi=\xi_+.
 \end{eqnarray}
 The physical solution at $z=\infty$ corresponds to either of the local solutions
-\begin{eqnarray}
+\begin{eqnarray}\label{eq:local_sol_zinfa}
   Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) &\mbox{with}&
-  \bar\zeta=\bar\zeta_+, \\
+  \bar\zeta=\bar\zeta_+, \\\label{eq:local_sol_zinfb}
   e^{-4pz}Hc^{(r)}(-p,-\alpha+\gamma+\delta,\gamma,\delta,\sigma-4p\gamma;z) &\mbox{with}&
   \bar\zeta=\bar\zeta_\minus.
 \end{eqnarray}
 The two solutions at $z=0$ correspond to either of the two local solutions
-\begin{eqnarray}
+\begin{eqnarray}\label{eq:local_sol_z0a}
   Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;z) &\mbox{with}&
-  \eta=\eta_\pm, \\
+  \eta=\eta_\pm, \\\label{eq:local_sol_z0b}
   z^{1-\gamma}Hc^{(a)}(p,\alpha+1-\gamma,2-\gamma,\delta,\sigma+(1-\gamma)(4p-\delta);z) &\mbox{with}&
   \eta=\eta_\mp.
 \end{eqnarray}
 
-The local solution $Hc^{(a)}(p,-q,\gamma,\delta,\sigma;z)$ has $q+1$
+The local solutions $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$ have $q+1$
 polynomial solutions of $q$-th order whenever the second parameter,
 $-q$, is a non-positive integer.  Each of the $q+1$ solutions
 corresponds to a differnt value for $\sigma\equiv\sigma_{nq}$ with
@@ -1385,9 +1385,65 @@ parameters $\{\bar\zeta,\xi,\eta\}$.  In particular:
   \end{array}\right. & s\ge\frac12 \\
 \end{array}\right.
 \end{equation}
- 
+The polynomial solution requires two conditions.  The first condition,
+that the second parameter, $-q$, be a non-positive integer, means that
+$h^{(a,r)}_{q+1}=0$.  If we can also guarantee that
+$c^{(a,r)}_{q+2}=0$, then we will terminate the infinite series
+solutions at $k=q+1$.  This second condition, referred to as a
+$\Delta_{q+1}=0$ condition, is satisfied by the vanishing of the
+determinant
+\begin{equation}
+  \left|\begin{array}{ccccc}
+  g_0 & f_0 & 0 & \cdots & 0 \\
+  h_1 & g_1 & f_1 & \ddots & 0 \\
+  0 & h_2 & g_2 & \ddots & 0 \\
+  0 & 0 & \ddots & \ddots & \ddots \\
+  0 & 0 & \cdots & h_q & g_q
+  \end{array}\right|
+\end{equation}
+This can be viewed as an eigenvalue problem for the fifth parameter,
+$\sigma$, in $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$.  The $q+1$
+eigenvalues are labeled $\sigma_{0q},\sigma_{1q},\ldots,\sigma_{qq}$
+and the polynomial solution associated with $\sigma_{nq}$ is denoted
+as
+\begin{equation}
+  Hc_{nq}(p,\gamma,\delta;z).
+\end{equation}
 
-
+For gravitational perturbations, $s=-2$ so $q=3$.  Polynomial
+solutions can be found using any of the six local solutions given by
+Eqs.~(\ref{eq:local_sol_z1a})--(\ref{eq:local_sol_z0b})), however it
+is easiest to use Eqs.~(\ref{eq:local_sol_z1a}),
+(\ref{eq:local_sol_zinfa}), or (\ref{eq:local_sol_z0a}) where the
+second parameter is in each case $\alpha$.  In order to get
+$q=-\alpha=3$, we must choose the parameters
+$(\bar\zeta_+,\xi_+,\eta_+)$.  From Eq.~(\ref{eq:local_sol_z1a}), we
+immediately see that all of the polynomial solutions correspond to an
+``unphysical'' boundary condition at the horizon $r=r_+$ ($z=1$), but
+the same conclusion follows regardless of which of the six equations
+is used.  For the non-spinning case, $\bar{a}=0$, we find the 4
+eigenvalues associated with Eq.~(\ref{eq:local_sol_z0a}) to be:
+\begin{equation}
+\sigma_{03}=-1-\sqrt{1-12i\bar\omega},\quad
+\sigma_{13}=-1-\sqrt{1+12i\bar\omega},\quad
+\sigma_{23}=-1+\sqrt{1-12i\bar\omega},\quad
+\sigma_{33}=-1+\sqrt{1+12i\bar\omega}.
+\end{equation}
+Values for $\bar\omega$ are obtained from the requirement that
+$\sigma_{nq}=\sigma$.  In this case, with $\bar{a}=2$, we have
+$\sigma=\scA{s}{\ell{m}}{0}=\ell(\ell+1)-2$.  Since $\sigma>0$, both
+$\sigma_{03}$ and $\sigma_{13}$ are not allowed.  For the other
+two solutions, we have
+\begin{eqnarray}
+  \quad\sigma_{23}&\to&\bar\omega=\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2), \\
+  \quad\sigma_{33}&\to&\bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
+\end{eqnarray}
+Since the imaginary part of $\bar{omega}$ is positive for
+$\sigma_{23}$ this solution is unstable, so the physical solution is
+obtained from $\sigma_{33}$.  The associated solution is
+\begin{equation}
+  Hc_{33}(p,\gamma,\delta;z) = z^2-2z^3.
+\end{equation}
 
 
 
