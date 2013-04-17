@@ -36,7 +36,7 @@ gravitational waves, we use $s=-2$ and $\psi = \rho^{-4}\Psi_4$, with
 $\Psi_4$ being the Weyl scalar that behaves like an 
 outgoing gravitational wave at large distances and $\rho\equiv-1/(r-ia\cos\theta)$.
 Asymptotically, $R_{lm}(r)=r^3e^{i\omega r^*}$ ($r^*$ is the
-''tortoise'' radial coordinate), $\rho=1/r$, and we find
+``tortoise'' radial coordinate), $\rho=1/r$, and we find
 \begin{equation}
 \Psi_4 \sim \frac1{r}\frac{1}{2\pi} \int {e^{-i\omega (t-r^*)} \sum_{\ell,m} \swSH{\minus 2}{\ell{m}}{\theta,\phi}{a\omega} d\omega }.
 \end{equation}
@@ -1145,7 +1145,7 @@ Relabeling the sums we get
 \begin{aligned}
   \sum_{n=1}^\infty{a_{n-1}\{(n-1)(n-2) + (n-1)[C_0+C_1] + C_3\}}\xi^n & \\
   \sum_{n=0}^\infty{a_n\{-2n(n-1) + n[-2C_0-C_1+C_2] + [-C_3+C_4]\}}\xi^n & \\
-  \sum_{n=-1}^\infty{a_{n+1}n(n-1)(n+C_0)}\xi^n &=0.
+  \sum_{n=-1}^\infty{a_{n+1}(n+1)(n+C_0)}\xi^n &=0.
 \end{aligned}
 \end{equation}
 We can rewrite this with a single sum by starting the sum at
@@ -1438,14 +1438,41 @@ two solutions, we have
   \quad\sigma_{23}&\to&\bar\omega=\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2), \\
   \quad\sigma_{33}&\to&\bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
 \end{eqnarray}
-Since the imaginary part of $\bar{omega}$ is positive for
+Since the imaginary part of $\bar\omega$ is positive for
 $\sigma_{23}$ this solution is unstable, so the physical solution is
 obtained from $\sigma_{33}$.  The associated solution is
 \begin{equation}
-  Hc_{33}(p,\gamma,\delta;z) = z^2-2z^3.
+  Hc_{33}(i\bar\omega,-1,-1+4i\bar\omega;z) = z^2-2z^3.
 \end{equation}
 
+For the general case with $\bar{a}\ne0$, we can again use the
+solutions associated with Eq.~(\ref{eq:local_sol_z0a}).  We must find
+the eigenvalues of
+\begin{equation}
+  \left[\begin{array}{cccc}
+    -\sigma_{n3} & 
+    1-2i\bar\omega+i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} &
+    0 & 0 \\
+    -12i\bar\omega\sqrt{1-\bar{a}^2} &
+    -2 + 4i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3} &
+    -4i\bar\omega + 2i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} &
+    0 \\
+    0 & -8i\bar\omega\sqrt{1-\bar{a}^2} &
+    -2 + 8i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3} &
+    -3 - 6i\bar\omega + 3i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} \\
+    0 & 0 & -4i\bar\omega\sqrt{1-\bar{a}^2} &
+    12i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3}
+  \end{array}\right]
+\end{equation}
+and then solve the equation
+\begin{equation}
+  \sigma_{n3}=\sigma = \scA{s}{\ell{m}}{\bar{a}\bar\omega} 
+    + \bar{a}^2\bar\omega^2 + \bar\omega\left(
+       3i\left(1-\sqrt{1-\bar{a}^2}\right) - 2\bar{a}m\right)
+\end{equation}
+for the value of $\bar\omega$.
 
+\vspace*{0.5in}
 
 Another useful form is the so-called {\em symmetrical canonical form}.  If
 we let $z\mapsto 1-2z$, then we have regular singular points at $z=\pm1$
