@@ -1118,7 +1118,7 @@ range $[0,1]$ and is defined by
 In terms of $\xi$, Eq.~(\ref{eqn:radialRbar:Diff_Eqn}) becomes
 \begin{equation}\label{eqn:Rbar_xi:Diff_Eqn}
   \xi(1-\xi)^2\frac{d^2\bar{R}(\xi)}{d\xi^2}
-  + [C_0(1-\xi)^2 + C_1\xi(1-\xi) + C_2\xi]
+  + [C_0(1-\xi)^2 - C_1\xi(1-\xi) + C_2\xi]
             \frac{d\bar{R}(\xi)}{d\xi}
   + [C_3(\xi-1) + C_4]\bar{R}(\xi) = 0,
 \end{equation}
@@ -1253,13 +1253,10 @@ We find:
   \sigma &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
    - 2\left(2\bar\omega^2-(1+s)\bar\zeta-is\bar\omega\right) 
    + 2\bar\zeta(\bar{r}_\minus\xi + \bar{r}_+\eta) - (\xi+\eta) (1+2s+\xi+\eta)
-   -\bar\zeta\alpha\bar{r}_\minus \\
+   -2\bar\zeta\alpha\bar{r}_\minus \nonumber\\
    &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
-   - 8\bar\omega^2 +\bar\zeta\left[
-     \bar{r}_+\left(\alpha+\frac{\gamma-\delta}2\right)-
-     \bar{r}_\minus\left(\frac{\gamma-\delta}2\right)\right]
+   - 8\bar\omega^2 + p(2\alpha+\gamma-\delta)
    + \left(1+s-\frac{\gamma+\delta}2\right)\left(s+\frac{\gamma+\delta}2\right).
-   \nonumber
 \end{eqnarray}
 
 For the regular singular point at $z=0$ ($r=r_\minus$), the
@@ -1468,9 +1465,29 @@ and then solve the equation
 \begin{equation}
   \sigma_{n3}=\sigma = \scA{s}{\ell{m}}{\bar{a}\bar\omega} 
     + \bar{a}^2\bar\omega^2 + \bar\omega\left(
-       3i\left(1-\sqrt{1-\bar{a}^2}\right) - 2\bar{a}m\right)
+       6i\left(1-\sqrt{1-\bar{a}^2}\right) - 2\bar{a}m\right)
 \end{equation}
 for the value of $\bar\omega$.
+
+Non-polynomial solutions can be obtained by first making the transformation
+\begin{equation}
+  H(z) = z^{-\alpha}\bar{R}(z).
+\end{equation}
+If we then choose $\zeta=\zeta_+$ and $\xi=\xi_\minus$, then we
+guarantee that the characteristic exponents at $z=1$
+($\bar{r}=\bar{r}_+$) and at infinity are zero.  (Note that this is
+independent of the choice for $\eta$.)  Next, we let
+$z\mapsto\frac{z-1}{z}$, so that the regular singular point at
+$\bar{r}_\minus$ is now pushed to $z=-\infty$, the regular singular
+point at $\bar{r}_+$ is now located at $z=0$, and the irregular
+singular point at infinity is now located at $z=1$.  The differential
+equation now becomes
+\begin{equation}
+  z(1-z)^2\frac{d^2\bar{R}(z)}{dz^2} 
+     + \left[D_0 + D_1z + D_2z^2\right]\frac{d\bar{R}(z)}{dz} 
+     + \left[D_3 + D_4z\right]\bar{R}(z) = 0
+\end{equation}
+
 
 \vspace*{0.5in}
 
@@ -1501,9 +1518,8 @@ and
   \mu &=& s+\eta+\xi \\
   \nu &=& \eta-\xi \\
   \beta &=& 2\bar\zeta - s\frac{i\bar\omega}{\bar\zeta} \\
-  \lambda &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + \bar{a}^2\bar\omega^2 
-   - 8\bar\omega^2 +\bar\zeta\bar{r}_\minus(1+\mu-\beta)
-   + s(1+s).
+  \lambda &=& \scA{s}{\ell{m}}{\bar{a}\bar\omega} + s(1+s)
+    + \bar{a}^2\bar\omega^2 - 8\bar\omega^2.
 \end{eqnarray}
 
 The {\em B\^{o}cher symmetrical form}, also called the {\em
