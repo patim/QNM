@@ -1483,10 +1483,74 @@ point at $\bar{r}_+$ is now located at $z=0$, and the irregular
 singular point at infinity is now located at $z=1$.  The differential
 equation now becomes
 \begin{equation}
-  z(1-z)^2\frac{d^2\bar{R}(z)}{dz^2} 
-     + \left[D_0 + D_1z + D_2z^2\right]\frac{d\bar{R}(z)}{dz} 
-     + \left[D_3 + D_4z\right]\bar{R}(z) = 0
+  z(1-z)^2\frac{d^2\hat{R}(z)}{dz^2} 
+     + \left[D_0 + D_1z + D_2z^2\right]\frac{d\hat{R}(z)}{dz} 
+     + \left[D_3 + D_4z\right]\hat{R}(z) = 0,
 \end{equation}
+with $\bar{R}(z)=\hat{R}((z-1)/z)$ and
+\begin{eqnarray}
+  D_0 &=& \delta = 1+s+2\xi, \\
+  D_1 &=& 4p-2\alpha+\gamma-\delta-2, \\
+  D_2 &=& 2\alpha-\gamma+2, \\
+  D_3 &=& \alpha(4p-\delta)-\sigma, \\
+  D_4 &=& \alpha(\alpha-\gamma+1).
+\end{eqnarray}
+Expanding $\hat{R}(z)$ in a Taylor-series
+$\hat{R}(z)=\sum_{n=0}^\infty{a_nz^n}$ where the coefficients $a_n$ satisfy
+the 3-term recurrence relation
+\begin{align}
+  a_0\beta_0 + a_1\alpha_0 &= 0, \\
+  a_{n+1}\alpha_n + a_n\beta_n + a_{n-1}\gamma_n &=0, \\
+  \alpha_n &\equiv n^2 + (D_0+1)n + D_0, \\
+  \beta_n &\equiv -2n^2 + (D_1+2)n + D_3, \\
+  \gamma_n &\equiv n^2 + (D_2-3)n +D_4 - D_2 +2.
+\end{align}
+
+If we let $\rho\equiv\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$, then we obtain 
+the characteristic equation
+\begin{equation}\label{eqn:a_ratio_characteristic}
+  \lim_{n\to\infty}\left\{\frac{a_{n+1}}{a_n}+\frac{\beta_n}{\alpha_n}+
+  \frac{a_{n-1}}{a_n}\frac{\gamma_n}{\alpha_n}\right\}=\rho-2+\frac1{\rho}=0.
+\end{equation}
+Unfortunately, this does not have distinct roots, so we must consider
+higher order behavior in $\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$.  We assume
+\begin{equation}\label{eqn:a_ratio_expansion}
+  \lim_{n\to\infty}\frac{a_{n+1}}{a_n} = 1 + \frac{u}{\sqrt{n}}
+      + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots.
+\end{equation}
+If we consider
+\begin{equation}
+  \left(\lim_{n\to\infty}\frac{ \frac{d}{dn}a_{n+1}}{a_n}\right) \approx
+   \lim_{n\to\infty}\left(\frac{a_{n+1}-a_n}{a_n}\right) =
+   \frac{u}{\sqrt{n}} + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots,
+\end{equation}
+then
+\begin{equation}
+  \lim_{n\to\infty}\ln(a_n) \approx \int\left(\frac{u}{\sqrt{n}} 
+    + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots\right)dn.
+\end{equation}
+The result is
+\begin{equation}
+  \lim_{n\to\infty}a_n \propto 
+  \lim_{n\to\infty}n^v\exp\left[2u\sqrt{n}+\frac23\frac{c}{\sqrt{n}} 
+    +\cdots\right] 
+  = \lim_{n\to\infty}n^v e^{2u\sqrt{n}}.
+\end{equation}
+If we now insert Eq.~(\ref{eqn:a_ratio_expansion}) into the left hand
+side of Eq.~(\ref{eqn:a_ratio_characteristic}) and expand in powers of
+$1/\sqrt{n}$, then each power of $n$ must vanish independently and we
+can solve for the unknowns $u$ and $v$.  (The other coefficients are
+irrelevant.)  We find
+\begin{eqnarray}
+  u &=& \pm i\sqrt{D_0+D_1+D_2} =\pm i\sqrt{4p} \\
+    &=& \pm i\sqrt{2(\bar{r}_p-\bar{r}_\minus)\bar\zeta} \\
+  v &=& -\frac14(4D_0+2D_1+7) = -\frac14(8p-4\alpha+2\gamma+2\delta+3) \\
+    &=& (\bar{r}_p-\bar{r}_\minus-2)\bar\zeta 
+        + s\frac{i\bar\omega}{\bar\zeta} -3/4.
+\end{eqnarray}
+With $\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as $\bar\omega$
+is not pure imaginary, $\rm{Re}(u)\ne0$ and $u=-i\sqrt{4p}$ will yield
+the minimal solution and $u=+i\sqrt{4p}$ will yield a dominant solution.
 
 
 \vspace*{0.5in}
