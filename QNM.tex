@@ -22,6 +22,22 @@
 \newcommand{\scA}[4][]{{}_{{}_{#2}}A^{#1}_{#3}(#4)}
 \newcommand{\YSH}[3][]{\mathcal{A}^{#1}_{#2}(#3)}
 
+\makeatletter
+\def\lambdabar{\protect\@lambdabar}
+\def\@lambdabar{%
+\relax
+\bgroup
+\def\@tempa{\hbox{\raise.73\ht0
+\hbox to0pt{\kern.25\wd0\vrule width.5\wd0
+height.1pt depth.1pt\hss}\box0}}%
+\mathchoice{\setbox0\hbox{$\displaystyle\lambda$}\@tempa}%
+{\setbox0\hbox{$\textstyle\lambda$}\@tempa}%
+{\setbox0\hbox{$\scriptstyle\lambda$}\@tempa}%
+{\setbox0\hbox{$\scriptscriptstyle\lambda$}\@tempa}%
+\egroup
+}
+\makeatother
+
 \begin{document}
 \noindent{\large\bf Quasi-normal Mode Decomposition for the ring-down} \\
 
@@ -1275,7 +1291,7 @@ For the irregular singular point at $z=\infty$, solutions behave like
   \lim_{z\to\infty}H(z)\sim z^{-\alpha} \quad\mbox{or}\quad 
   e^{-4pz}z^{\alpha-\gamma-\delta}.
 \end{equation}
-Now, with $R(z)\sim z^\eta(z-1)^\xi e^{(\bar{r}_+-\bar{r}_\minus)\bar\zeta z}$, we
+Now, with $R(z)\sim z^\eta(z-1)^\xi e^{(\bar{r}_+-\bar{r}_\minus)\bar\zeta z}H(z)$, we
 find
 \begin{eqnarray}
   \lim_{z\to0}R(z)&\sim& z^\eta \quad\mbox{or}\quad z^{-s-\eta}, \\
@@ -1427,7 +1443,7 @@ eigenvalues associated with Eq.~(\ref{eq:local_sol_z0a}) to be:
 \sigma_{33}=-1+\sqrt{1+12i\bar\omega}.
 \end{equation}
 Values for $\bar\omega$ are obtained from the requirement that
-$\sigma_{nq}=\sigma$.  In this case, with $\bar{a}=2$, we have
+$\sigma_{nq}=\sigma$.  In this case, with $\bar{a}=0$, we have
 $\sigma=\scA{s}{\ell{m}}{0}=\ell(\ell+1)-2$.  Since $\sigma>0$, both
 $\sigma_{03}$ and $\sigma_{13}$ are not allowed.  For the other
 two solutions, we have
@@ -1445,7 +1461,7 @@ obtained from $\sigma_{33}$.  The associated solution is
 For the general case with $\bar{a}\ne0$, we can again use the
 solutions associated with Eq.~(\ref{eq:local_sol_z0a}).  We must find
 the eigenvalues of
-\begin{equation}
+\begin{equation}\label{eq:gen_poly_matrix}
   \left[\begin{array}{cccc}
     -\sigma_{n3} & 
     1-2i\bar\omega+i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} &
@@ -1462,12 +1478,28 @@ the eigenvalues of
   \end{array}\right]
 \end{equation}
 and then solve the equation
-\begin{equation}
+\begin{equation}\label{eq:gen_sigma_val}
   \sigma_{n3}=\sigma = \scA{s}{\ell{m}}{\bar{a}\bar\omega} 
     + \bar{a}^2\bar\omega^2 + \bar\omega\left(
        6i\left(1-\sqrt{1-\bar{a}^2}\right) - 2\bar{a}m\right)
 \end{equation}
-for the value of $\bar\omega$.
+for the value of $\bar\omega$.  Equivalently, we can instert the value
+of $\sigma$ from Eq.~(\ref{eq:gen_sigma_val}) into the matrix of
+Eq.~(\ref{eq:gen_poly_matrix}) and set the determinant equal to zero.
+The result is
+\begin{equation}\label{eq:Starobinsky_const}
+  0=\lambdabar^2(\lambdabar+2)^2 
+  + 8\lambdabar\bar{a}\bar\omega\left(
+      6(\bar{a}\bar\omega+m) -5\lambdabar(\bar{a}\bar\omega-m)\right)
+      + 144\bar\omega^2\left(1+\bar{a}^2(\bar{a}\bar\omega-m)^2\right),
+\end{equation}
+where
+\begin{equation}
+  \lambdabar\equiv \scA{s}{\ell{m}}{\bar{a}\bar\omega}
+     + \bar{a}^2\bar\omega^2 - 2m\bar{a}\bar\omega,
+\end{equation}
+and the right-hand-side of Eq.~(\ref{eq:Starobinsky_const}) is just the
+magnitude squared of the Starobinsky constant.
 
 Non-polynomial solutions can be obtained by first making the transformation
 \begin{equation}
@@ -1482,7 +1514,7 @@ $\bar{r}_\minus$ is now pushed to $z=-\infty$, the regular singular
 point at $\bar{r}_+$ is now located at $z=0$, and the irregular
 singular point at infinity is now located at $z=1$.  The differential
 equation now becomes
-\begin{equation}
+\begin{equation}\label{eq:Leaver_radDE_form}
   z(1-z)^2\frac{d^2\hat{R}(z)}{dz^2} 
      + \left[D_0 + D_1z + D_2z^2\right]\frac{d\hat{R}(z)}{dz} 
      + \left[D_3 + D_4z\right]\hat{R}(z) = 0,
@@ -1495,11 +1527,11 @@ with $\bar{R}(z)=\hat{R}((z-1)/z)$ and
   D_3 &=& \alpha(4p-\delta)-\sigma, \\
   D_4 &=& \alpha(\alpha-\gamma+1).
 \end{eqnarray}
-Expanding $\hat{R}(z)$ in a Taylor-series
-$\hat{R}(z)=\sum_{n=0}^\infty{a_nz^n}$ where the coefficients $a_n$ satisfy
-the 3-term recurrence relation
-\begin{align}
-  a_0\beta_0 + a_1\alpha_0 &= 0, \\
+Expanding $\hat{R}(z)$ in Eq.~(\ref{eq:Leaver_radDE_form}) in terms of
+the Taylor-series $\hat{R}(z)=\sum_{n=0}^\infty{a_nz^n}$, we obtain
+the 3-term recurrence relation where the coefficients, $a_n$, satisfy
+\begin{align}\label{eq:Leaver_rad_2-term}
+  a_0\beta_0 + a_1\alpha_0 &= 0, \\ \label{eq:Leaver_rad_3-term}
   a_{n+1}\alpha_n + a_n\beta_n + a_{n-1}\gamma_n &=0, \\
   \alpha_n &\equiv n^2 + (D_0+1)n + D_0, \\
   \beta_n &\equiv -2n^2 + (D_1+2)n + D_3, \\
@@ -1507,50 +1539,127 @@ the 3-term recurrence relation
 \end{align}
 
 If we let $\rho\equiv\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$, then we obtain 
-the characteristic equation
+from Eq.~(\ref{eq:Leaver_rad_3-term}) the characteristic equation
 \begin{equation}\label{eqn:a_ratio_characteristic}
   \lim_{n\to\infty}\left\{\frac{a_{n+1}}{a_n}+\frac{\beta_n}{\alpha_n}+
   \frac{a_{n-1}}{a_n}\frac{\gamma_n}{\alpha_n}\right\}=\rho-2+\frac1{\rho}=0.
 \end{equation}
-Unfortunately, this does not have distinct roots, so we must consider
-higher order behavior in $\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$.  We assume
+So, the radius of convergence is one, but unfortunately, this does not
+have distinct roots, so we must consider higher order behavior in
+$\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$.  We assume
 \begin{equation}\label{eqn:a_ratio_expansion}
-  \lim_{n\to\infty}\frac{a_{n+1}}{a_n} = 1 + \frac{u}{\sqrt{n}}
-      + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots.
+  \lim_{n\to\infty}\frac{a_{n+1}}{a_n} = 1 + \frac{u_1}{\sqrt{n}}
+      + \frac{u_2}{n} + \frac{u_3}{n^{\frac32}} +\cdots.
 \end{equation}
 If we consider
 \begin{equation}
   \left(\lim_{n\to\infty}\frac{ \frac{d}{dn}a_{n+1}}{a_n}\right) \approx
    \lim_{n\to\infty}\left(\frac{a_{n+1}-a_n}{a_n}\right) =
-   \frac{u}{\sqrt{n}} + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots,
+   \frac{u_1}{\sqrt{n}} + \frac{u_2}{n} + \frac{u_3}{n^{\frac32}} +\cdots,
 \end{equation}
 then
-\begin{equation}
-  \lim_{n\to\infty}\ln(a_n) \approx \int\left(\frac{u}{\sqrt{n}} 
-    + \frac{v}{n} + \frac{w}{n^{\frac32}} +\cdots\right)dn.
+\begin{equation}\label{eq:residual_def}
+  \lim_{n\to\infty}\ln(a_n) \approx \int\left(\frac{u_1}{\sqrt{n}} 
+    + \frac{u_2}{n} + \frac{u_3}{n^{\frac32}} +\cdots\right)dn.
 \end{equation}
 The result is
 \begin{equation}
   \lim_{n\to\infty}a_n \propto 
-  \lim_{n\to\infty}n^v\exp\left[2u\sqrt{n}+\frac23\frac{c}{\sqrt{n}} 
+  \lim_{n\to\infty}n^{u_2}\exp\left[2u_1\sqrt{n}+\frac23\frac{u_3}{\sqrt{n}} 
     +\cdots\right] 
   = \lim_{n\to\infty}n^v e^{2u\sqrt{n}}.
 \end{equation}
 If we now insert Eq.~(\ref{eqn:a_ratio_expansion}) into the left hand
 side of Eq.~(\ref{eqn:a_ratio_characteristic}) and expand in powers of
 $1/\sqrt{n}$, then each power of $n$ must vanish independently and we
-can solve for the unknowns $u$ and $v$.  (The other coefficients are
-irrelevant.)  We find
+can solve for the unknowns $u_i$.  We find
 \begin{eqnarray}
-  u &=& \pm i\sqrt{D_0+D_1+D_2} =\pm i\sqrt{4p} \\
-    &=& \pm i\sqrt{2(\bar{r}_p-\bar{r}_\minus)\bar\zeta} \\
-  v &=& -\frac14(4D_0+2D_1+7) = -\frac14(8p-4\alpha+2\gamma+2\delta+3) \\
-    &=& (\bar{r}_p-\bar{r}_\minus-2)\bar\zeta 
-        + s\frac{i\bar\omega}{\bar\zeta} -3/4.
+  u_1 &=& \pm\sqrt{-(D_0+D_1+D_2)} =\pm\sqrt{-4p} \\
+    &=& \pm\sqrt{-2(\bar{r}_p-\bar{r}_\minus)\bar\zeta}, \\
+  u_2 &=& -\frac14(4D_0+2D_1+7) = -\frac14(8p-4\alpha+2\gamma+2\delta+3) \\
+    &=& -(\bar{r}_p-\bar{r}_\minus+2)\bar\zeta 
+        + s\frac{i\bar\omega}{\bar\zeta} -3/4, \\
+  u_3 &=& \frac1{32u_1}\left[8D_0(4D_0+2D_2+7)+4D_1(8D_0+D_1+12)
+                             +40D_2-16(D_3+D_4)+3\right] \\
+      &=& \frac1{32u_1}\left[32p(2p-4\alpha+\gamma+3\delta+4) 
+                +4(\gamma+\delta)(\gamma+\delta-2) +16\sigma+3\right].
 \end{eqnarray}
-With $\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as $\bar\omega$
-is not pure imaginary, $\rm{Re}(u)\ne0$ and $u=-i\sqrt{4p}$ will yield
-the minimal solution and $u=+i\sqrt{4p}$ will yield a dominant solution.
+With $\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as
+$\rm{Im}(\bar\omega)<0$, $\rm{Re}(\sqrt{-4p})<0$ and $u_1=+\sqrt{-4p}$
+is associated with the minimal solution and $u_1=-\sqrt{-4p}$ with a
+dominant solution.
+
+Let us define the ratio $r_n\equiv\frac{a_{n+1}}{a_n}$, then
+Eq.~(\ref{eq:Leaver_rad_3-term}) can be written as
+\begin{equation}
+  \frac{a_{n+1}}{a_n} \equiv r_n 
+  = \frac{-\gamma_{n+1}}{\beta_{n+1}+ \alpha_{n+1}r_{n+1}}
+  \qquad n=0,1,2,\cdots,
+\end{equation}
+which is a recursive form equivalent to the continued fraction
+\begin{equation}\label{eq:Leaver_rad_CF_dom}
+r_n 
+  = \frac{-\gamma_{n+1}}{\beta_{n+1}-} 
+    \frac{\alpha_{n+1}\gamma_{n+2}}{\beta_{n+2}-}
+    \frac{\alpha_{n+2}\gamma_{n+3}}{\beta_{n+3}-}\cdots.
+\end{equation}
+The usefulness of comes from a theorem due to Pincherle: \\ {\em The
+  continued fraction $r_0$ converges if and only if the recurrence
+  relation Eq.~(\ref{eq:Leaver_rad_3-term}) posesses a minimal
+  solution $a_n=f_n$, with $f_0\ne0$.  In case of convergence,
+  moreover, one has $\frac{f_{n+1}}{f_n}=r_n$ with $n=0,1,2,\cdots$
+  provided $f_n\ne0$.}
+The physical solution we seek will be this minimal solution.  Moreover,
+because the recurrence terminates, we have the special condition given
+by Eq.~(\ref{eq:Leaver_rad_2-term}).  This tells us that
+\begin{equation}
+  r_0=\frac{f_1}{f_0}=-\frac{\beta_0}{\alpha_0}.
+\end{equation}
+So, the continued fraction $r_0$ does converge, but not to any value.
+It must converge to a specific value which will only be possible when
+$\bar\omega$ takes on certain values (the QNM).  We rewrite
+$r_0=-\frac{\beta_0}{\alpha_0}=\frac{-\gamma_{n+1}}{\beta_{n+1}+
+  \alpha_{n+1}r_{n+1}}$ as the continued fraction:
+\begin{equation}\label{eq:Leaver_Cf_inf}
+  0=\beta_0 -\frac{\alpha_0\gamma_1}{\beta_1-}
+             \frac{\alpha_1\gamma_2}{\beta_2-}
+             \frac{\alpha_2\gamma_3}{\beta_3-}\cdots.
+\end{equation}
+Now, define the truncated continued fraction $\rm{Cf}(N)$ defined by
+\begin{equation}\label{eq:Leaver_Cf_N}
+  \rm{Cf}(N) = \beta_0 -\frac{\alpha_0\gamma_1}{\beta_1-}
+             \frac{\alpha_1\gamma_2}{\beta_2-}
+             \frac{\alpha_2\gamma_3}{\beta_3-}\cdots
+             \frac{\alpha_{N-1}\gamma_N}{\beta_N+\alpha_N r_N}.
+\end{equation}
+It is also useful to define the $n^{\rm th}$ inversion of this
+truncated continued fraction $\rm{Cf}(n;N)$:
+\begin{equation}\label{eq:Leaver_Cf_N_inv}
+  \rm{Cf}(n;N) = \beta_n-\frac{\alpha_{n-1}\gamma_n}{\beta_{n-1}-}
+                         \frac{\alpha_{n-2}\gamma_{n-1}}{\beta_{n-2}-}
+                         \cdots\frac{\alpha_0\gamma_1}{\beta_0}
+                         -\frac{\alpha_n\gamma_{n+1}}{\beta_{n+1}-}
+                          \frac{\alpha_{n+1}\gamma_{n+2}}{\beta_{n+2}-}
+                          \cdots\frac{\alpha_{N-1}\gamma_N}{\beta_N+\alpha_N r_N},
+\end{equation}
+with $\rm{Cf}(0;N)\equiv\rm{Cf}(N)$ and $0\le n<N$.
+
+For fixed $s$, $m$, and $a$, and for a given value of
+$\scA{s}{\ell{m}}{\bar{a}\bar\omega}$, we can solve for the
+eigenvalues $\bar\omega$ of Eq.~(\ref{eq:Leaver_radDE_form}) by
+finding the roots of Eq.~(\ref{eq:Leaver_Cf_inf}).  In practice, the
+continued fraction must be truncated by some means.  Using Lentz's
+method, $N$ is determined dynamically by demanding that the change in
+$\rm{Cf}(n;N)$ caused by adding additional terms is below some
+tolerance.  This is a ``top-down'' approach, evaluating the continued
+fraction as a ratio of two infinite series.  With this method, the a
+value for $r_N$ is never needed.  An alternate method is to choose a
+value for $N$, assume $r_N=0$, and evalueate $\rm{Cf}(n;N)$ from the
+``bottom-up''.  With this method, one must test various values of $N$
+to ensure that the desired tolerance in $\rm{Cf}(n;N)$ has been
+reached.  An even better approach, first used in the context of QNM by
+Nollert, is to use Eq.~(\ref{eq:residual_def}) with $n\mapsto N$ to
+approximate $r_N$.
 
 
 \vspace*{0.5in}
