@@ -350,7 +350,9 @@ More generally, when a non-vanishing spin-gauge $\gamma$ is allowed,
 \[
   \swY[\gamma]{s}{\ell{m}}{\theta,\phi}
   = (-1)^s\sqrt{\frac{2\ell+1}{4\pi}}
-           \left(D^\ell_{m(-s)}(\phi,\theta,-\gamma)\right)^*,
+           \left(D^\ell_{m(-s)}(\phi,\theta,-\gamma)\right)^*
+  =(-1)^m\sqrt{\frac{2\ell+1}{4\pi}}
+           D^\ell_{(-m)s}(\phi,\theta,-\gamma),
 \]
 where the Wigner rotation matrices $D^\ell_{mn}(\phi,\theta,\gamma)$
 is defined by
@@ -358,6 +360,10 @@ is defined by
   D^\ell_{mn}(\phi,\theta,\gamma) \equiv 
        e^{-im\phi} d^\ell_{mn}(\theta) e^{-in\gamma}.
 \]
+{\em Note: in {\tt Mathematica}},\ \ 
+${\tt WignerD}[\{j,m_1,m_2\},\phi,\theta,\gamma] =
+D^j_{(-m_1)(-m_2)}(\phi,\theta,\gamma)$
+
 }}
 \end{center}
 
@@ -448,23 +454,23 @@ In spherical coordinates, a standard definition is to take
   \tilde{m} = \frac1{\sqrt2}({\rm d}\theta + i\sqrt{\sin\theta}{\rm d}\phi),
 \end{equation}
 where $\tilde{m}$ is the basis form dual to $\vec{m}$.  With this
-definition, the ${\rm Re}{\vec{m}}$ is tangent to curves of constant
-$\phi$, and the ${\rm Im}{\vec{m}}$ is tangent to curves of constant
+definition, the ${\rm Re}\,\vec{m}$ is tangent to curves of constant
+$\phi$, and the ${\rm Im}\,\vec{m}$ is tangent to curves of constant
 $\theta$.  To consider Lorentz transformations, it is convenient to
 consider the complex coordinate transformation defined by
 \begin{equation}
   \zeta\equiv e^{i\phi}\cot(\theta/2).
 \end{equation}
-We can then consider the complex pair $(\zeta,\zeta^2)$ as coordiantes
+We can then consider the complex pair $(\zeta,\zeta^*)$ as coordiantes
 on the sphere and find the metric is given by
 \begin{equation}
 {\rm d}s^2 = \frac4{(1+\zeta\zeta^*)^2}{\rm d}\zeta{\rm d}\zeta^*.
 \end{equation}
 For clarity later on, we will let $\vec\mu$ denote the complex null
 vector in this coordinate system.  It is natural to choose the ${\rm
-  Re}{\vec\mu}$ to be tangent to curves of constant ${\rm Im}\zeta$
-and the ${\rm Im}{\vec\mu}$ to be tangent to curves of constant ${\rm
-  Re}\zeta$.  We can then write the $\tilde\mu$ as
+  Re}\,\vec\mu$ to be tangent to curves of constant ${\rm Im}\,\zeta$
+and the ${\rm Im}\,\vec\mu$ to be tangent to curves of constant ${\rm
+  Re}\,\zeta$.  We can then write the $\tilde\mu$ as
 \begin{equation}
   \tilde\mu = \frac1{\sqrt2}\frac2{1+\zeta\zeta^*}{\rm d}\zeta^*,
 \end{equation}
