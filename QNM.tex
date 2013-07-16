@@ -1569,11 +1569,11 @@ then
     + \frac{u_2}{n} + \frac{u_3}{n^{\frac32}} +\cdots\right)dn.
 \end{equation}
 The result is
-\begin{equation}
+\begin{equation}\label{eq:asymptotic_a}
   \lim_{n\to\infty}a_n \propto 
-  \lim_{n\to\infty}n^{u_2}\exp\left[2u_1\sqrt{n}+\frac23\frac{u_3}{\sqrt{n}} 
+  \lim_{n\to\infty}n^{u_2}\exp\left[2u_1\sqrt{n}-2\frac{u_3}{\sqrt{n}} 
     +\cdots\right] 
-  = \lim_{n\to\infty}n^v e^{2u\sqrt{n}}.
+  = \lim_{n\to\infty}n^{u_2} e^{2u_1\sqrt{n}}.
 \end{equation}
 If we now insert Eq.~(\ref{eqn:a_ratio_expansion}) into the left hand
 side of Eq.~(\ref{eqn:a_ratio_characteristic}) and expand in powers of
@@ -1581,16 +1581,21 @@ $1/\sqrt{n}$, then each power of $n$ must vanish independently and we
 can solve for the unknowns $u_i$.  We find
 \begin{eqnarray}
   u_1 &=& \pm\sqrt{-(D_0+D_1+D_2)} =\pm\sqrt{-4p} \\
-    &=& \pm\sqrt{-2(\bar{r}_p-\bar{r}_\minus)\bar\zeta}, \\
+    &=& \pm\sqrt{-2(\bar{r}_+-\bar{r}_\minus)\bar\zeta}, \\
   u_2 &=& -\frac14(4D_0+2D_1+7) = -\frac14(8p-4\alpha+2\gamma+2\delta+3) \\
-    &=& -(\bar{r}_p-\bar{r}_\minus+2)\bar\zeta 
+    &=& -(\bar{r}_+-\bar{r}_\minus+2)\bar\zeta 
         + s\frac{i\bar\omega}{\bar\zeta} -3/4, \\
   u_3 &=& \frac1{32u_1}\left[8D_0(4D_0+2D_2+7)+4D_1(8D_0+D_1+12)
                              +40D_2-16(D_3+D_4)+3\right] \\
       &=& \frac1{32u_1}\left[32p(2p-4\alpha+\gamma+3\delta+4) 
                 +4(\gamma+\delta)(\gamma+\delta-2) +16\sigma+3\right].
 \end{eqnarray}
-With $\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as
+The asymptotic behavior of $a_n$ is dominated by the exponential term
+in Eq.~(\ref{eq:asymptotic_a}), and the two solutions for $u_1$
+correspond to the two possible asymptotic bahaviors for $a_n$.  The
+solution where $\rm{Re}(u_1)<0$ yields the minimal solution and the
+other the dominant solution.  With
+$\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as
 $\rm{Im}(\bar\omega)<0$, $\rm{Re}(\sqrt{-4p})<0$ and $u_1=+\sqrt{-4p}$
 is associated with the minimal solution and $u_1=-\sqrt{-4p}$ with a
 dominant solution.
@@ -1609,21 +1614,24 @@ r_n
     \frac{\alpha_{n+1}\gamma_{n+2}}{\beta_{n+2}-}
     \frac{\alpha_{n+2}\gamma_{n+3}}{\beta_{n+3}-}\cdots.
 \end{equation}
-The usefulness of comes from a theorem due to Pincherle: \\ {\em The
-  continued fraction $r_0$ converges if and only if the recurrence
-  relation Eq.~(\ref{eq:Leaver_rad_3-term}) posesses a minimal
-  solution $a_n=f_n$, with $f_0\ne0$.  In case of convergence,
-  moreover, one has $\frac{f_{n+1}}{f_n}=r_n$ with $n=0,1,2,\cdots$
-  provided $f_n\ne0$.}
-The physical solution we seek will be this minimal solution.  Moreover,
-because the recurrence terminates, we have the special condition given
-by Eq.~(\ref{eq:Leaver_rad_2-term}).  This tells us that
-\begin{equation}
+The usefulness of this continued fraction comes from a theorem due to
+Pincherle:
+ \\ {\em The continued fraction $r_0$ converges if and only
+  if the recurrence relation Eq.~(\ref{eq:Leaver_rad_3-term}) posesses
+  a minimal solution $a_n=f_n$, with $f_0\ne0$.  In case of
+  convergence, moreover, one has $\frac{f_{n+1}}{f_n}=r_n$ with
+  $n=0,1,2,\cdots$ provided $f_n\ne0$.}  The physical solution we seek
+will be this minimal solution.  Moreover, because the recurrence
+terminates, we have the special condition given by
+Eq.~(\ref{eq:Leaver_rad_2-term}).  This tells us that
+\begin{equation}\label{eq:termination_cond}
   r_0=\frac{f_1}{f_0}=-\frac{\beta_0}{\alpha_0}.
 \end{equation}
-So, the continued fraction $r_0$ does converge, but not to any value.
-It must converge to a specific value which will only be possible when
-$\bar\omega$ takes on certain values (the QNM).  We rewrite
+So, the continued fraction $r_0$ does converge, but not to just any
+value.  It must converge to the specific value given by
+Eq.~(\ref{eq:termination_cond}), the termination condition for the
+recurrence relation, and this will only be possible when $\bar\omega$
+takes on certain values (the QNM).  We rewrite
 $r_0=-\frac{\beta_0}{\alpha_0}=\frac{-\gamma_{n+1}}{\beta_{n+1}+
   \alpha_{n+1}r_{n+1}}$ as the continued fraction:
 \begin{equation}\label{eq:Leaver_Cf_inf}
@@ -1631,7 +1639,7 @@ $r_0=-\frac{\beta_0}{\alpha_0}=\frac{-\gamma_{n+1}}{\beta_{n+1}+
              \frac{\alpha_1\gamma_2}{\beta_2-}
              \frac{\alpha_2\gamma_3}{\beta_3-}\cdots.
 \end{equation}
-Now, define the truncated continued fraction $\rm{Cf}(N)$ defined by
+Now, define the truncated continued fraction $\rm{Cf}(N)$ by
 \begin{equation}\label{eq:Leaver_Cf_N}
   \rm{Cf}(N) = \beta_0 -\frac{\alpha_0\gamma_1}{\beta_1-}
              \frac{\alpha_1\gamma_2}{\beta_2-}
