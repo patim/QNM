@@ -1395,7 +1395,7 @@ parameters $\{\bar\zeta,\xi,\eta\}$.  In particular:
             \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_+,\eta_+) \\
             -\alpha-1+\delta & (\bar\zeta_+,\xi_\minus,\eta_+) \\
             -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_\minus)
-  \end{array}\right. & s\le\frac12 \\
+  \end{array}\right. & s\le-\frac12 \\
   -1+2s = \left\{\begin{array}{cc}
             -\alpha & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
             \alpha-\gamma-\delta & (\bar\zeta_+,\xi_\minus,\eta_\minus) \\
@@ -1507,6 +1507,88 @@ where
 and the right-hand-side of Eq.~(\ref{eq:Starobinsky_const}) is just the
 magnitude squared of the Starobinsky constant.
 
+Polynomial solutions are also possible in certain cases where
+$i\bar\omega$ is an integer.  In particular:
+\begin{equation}
+  q= \left\{\begin{array}{lc}
+  -1+4i\bar\omega = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_+,\xi_\minus,\eta_\minus) \\
+            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_+,\eta_-) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_\minus,\eta_+)
+  \end{array}\right. & \bar\omega=-iN \\
+  -1-4i\bar\omega = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_\minus,\xi_+,\eta_+) \\
+            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_+,\eta_+) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_\minus,\eta_+) \\
+            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_+,\eta_\minus)
+  \end{array}\right. & \bar\omega=iN \\
+\end{array}\right.
+\end{equation}
+where $N$ is a positive integer.  Considering only the potentially
+physical solutions with $\bar\omega=-iN$, polynomial solutions are
+again possible for any of the six local solutions, but it is easiest
+to use the equations where the second parameter is $\alpha$.  We see
+that any possible solutions correspond to the desired physical
+boundary conditions.  However, solutions are not guaranteed.  We must
+still satisfy the eigenvalue problem for the ``fifth parameger''
+$\sigma$, but we are no longer free to pick $\bar\omega$.  Instead,
+the values of $\bar{a}$ and $\scA{s}{\ell{m}}{\bar{a}\bar\omega}$, for
+given $\ell$ and $m$, must be combatible with the eigenvalue conditions.
+
+Consider the case $N=2$ with $s=-2$.  We find that the fifth parameter
+of the local solution gives
+\begin{equation}
+  \sigma = 48+\scA{-2}{\ell{m}}{-2i\bar{a}}-4i\bar{a}m -4\bar{a}^2
+           -28\sqrt{1-\bar{a}^2}.
+\end{equation}
+The eigenvalues of the corresponding matrix are roots of
+non-polynomial functions of $\bar{a}$.  In general, the two functions
+will not agree.  However, if we consider the special case of
+$\bar{a}=0$, we find
+\begin{equation}
+  \sigma = 20+\scA{-2}{\ell{m}}{0} = 18+\ell(\ell+1),
+\end{equation}
+while of the 8 eigenvalues of the matrix, two are integers.  Their
+values are $24$ and $14$.  Only the eigenvalue of $\sigma_{37}=24$
+yields a real value for $\ell$, with $\ell=2$.
+
+So, we find that for $\ell=2$ and any valid value for $m$,
+$\bar\omega=-2i$ and $\bar{a}=0$ yields a polynomial solution of the
+Heun equation that satisfies the physical, outgoing wave boundary
+conditions.  The associated solution is
+\begin{equation}
+Hc_{37}(2,3,-5;z) = 1 -8z +27z^2 -50z^3 +55z^4 -36z^5 +13z^6 -2z^7.
+\end{equation}
+
+For the case $N=3$ with $s=-2$ and $\bar{a}=0$, we find
+\begin{equation}
+  \sigma = 32+\scA{-2}{\ell{m}}{0} = 30+\ell(\ell+1).
+\end{equation}
+However, in this case, none of the 12 eigenvalues of the matrix are
+integers, so no polynomial solutions exist.  The same is true for
+$N=1$ and $N=5,\ldots,9$.  $N=4$ has 2 integer eigenvalues, but neither
+corresponds to integer or half-integer values for $\ell$.
+
+For $N=10$ with $s=-2$ and $\bar{a}=0$, we find 
+\begin{equation}
+  \sigma = 116+\scA{-2}{\ell{m}}{0} = 114+\ell(\ell+1)
+\end{equation}
+while of the 40 eigenvalues of the matrix, two are integers.  Their
+values are $126$ and $104$.  Only the eigenvalue of $\sigma_{32,39}=126$
+yields a real value for $\ell$, with $\ell=3$.
+
+So, we find that for $\ell=3$ and any valid value for $m$,
+$\bar\omega=-10i$ and $\bar{a}=0$ yields a polynomial solution of the
+Heun equation that satisfies the physical, outgoing wave boundary
+conditions.
+
+While we have not yet confirmed this, we expect that this trend will
+continue, with physical solutions existing for
+$N=(\ell-1)\ell(\ell+1)(\ell+2)/12$, coinciding with the
+algebraically special solutions for $\bar{a}=0$.
+
+\vspace{0.25in}
 Non-polynomial solutions can be obtained by first making the transformation
 \begin{equation}
   H(z) = z^{-\alpha}\bar{R}(z).
