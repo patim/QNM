@@ -449,9 +449,9 @@ $\eta^\prime=e^{is\psi}\eta$.
 
 In spherical coordinates, a standard definition is to take
 \begin{equation}
-  \vec{m} = \frac1{\sqrt2}(\partial_\theta + \frac{i}{\sqrt{\sin\theta}}\partial_\phi)
+  \vec{m} = \frac1{\sqrt2}(\partial_\theta + \frac{i}{\sin\theta}\partial_\phi)
 \quad\mbox{and}\quad
-  \tilde{m} = \frac1{\sqrt2}({\rm d}\theta + i\sqrt{\sin\theta}{\rm d}\phi),
+  \tilde{m} = \frac1{\sqrt2}({\rm d}\theta + i\sin\theta{\rm d}\phi),
 \end{equation}
 where $\tilde{m}$ is the basis form dual to $\vec{m}$.  With this
 definition, the ${\rm Re}\,\vec{m}$ is tangent to curves of constant
@@ -527,7 +527,7 @@ The complex null form in the $(\acute\theta,\acute\phi)$ coordinates,
 $\tilde{m}^\prime$, is given by
 \begin{equation}
 \tilde{m}^\prime = \frac{K}{\sqrt2}
-      ({\rm d}\acute\theta^2+\sin^2\acute\theta{\rm d}\acute\phi^2),
+      ({\rm d}\acute\theta+i\sin\acute\theta{\rm d}\acute\phi),
 \end{equation}
 and we find that
 \begin{equation}
@@ -1254,7 +1254,7 @@ Eq.~(\ref{eqn:radialR:Diff_Eqn}) then takes the form
 }{(r-r_+)(r-r_\minus)}H(r)=0, \nonumber
 \end{eqnarray}
 where the parameters $\zeta$, $\xi$, and $\eta$ must be fixed to be
-\begin{equation}
+\begin{equation}\label{eq:Teukolsky_Heun_parameters}
   \zeta=\pm i\omega\equiv\zeta_\pm,\qquad
   \xi=\frac{-s\pm(s + 2i\sigma_+)}2\equiv\xi_\pm,\qquad
   \eta=\frac{-s\pm(s - 2i\sigma_\minus)}2\equiv\eta_\pm,
@@ -1282,7 +1282,7 @@ If we define $\bar\zeta=\pm i\bar\omega$, then we have the dimensionless form
 \end{eqnarray}
 
 There are several choices for transforming the radial coordinate
-$\bar{r}$.  We will focus use
+$\bar{r}$.  We will use
 \begin{equation}
 z \equiv \frac{\bar{r}-\bar{r}_\minus}{\bar{r}_+-\bar{r}_\minus}.
 \end{equation}
@@ -1343,7 +1343,7 @@ z^{-1-2i\bar\omega}e^{-i(\bar{r}_+-\bar{r}_\minus)\bar\omega z}.
 \end{eqnarray}
 Physical solutions representing radiation that is entering the black-hole
 horizon ($z=1$) and is outgoing at infinity are given by
-\begin{equation}\
+\begin{equation}\label{eq:Phys_R_BCs}
   \lim_{z\to1}R(z)\sim (z-1)^{-s-i\sigma_+} \quad\mbox{and}\quad
   \lim_{z\to\infty}R(z)\sim 
   z^{-1-2s+2i\bar\omega}e^{i(\bar{r}_+-\bar{r}_\minus)\bar\omega z},
@@ -1351,12 +1351,12 @@ horizon ($z=1$) and is outgoing at infinity are given by
 and require $s\le0$.
 
 Two local solutions are defined by
-\begin{equation}
+\begin{equation}\label{eq:local_a_sol}
  Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;0)=1 \quad\mbox{and}\quad
  Hc^{(a)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(a)}_kz^k}
 \end{equation}
 and
-\begin{equation}
+\begin{equation}\label{eq:local_r_sol}
  \lim_{z\to\infty}z^\alpha Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z)=1
  \quad\mbox{and}\quad
  Hc^{(r)}(p,\alpha,\gamma,\delta,\sigma;z) = \sum_{k=0}^\infty{c^{(r)}_kz^{-\alpha-k}}.
@@ -1402,36 +1402,15 @@ The two solutions at $z=0$ correspond to either of the two local solutions
   \eta=\eta_\mp.
 \end{eqnarray}
 
-The local solutions $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$ have $q+1$
-polynomial solutions of $q$-th order whenever the second parameter,
-$-q$, is a non-positive integer.  Each of the $q+1$ solutions
-corresponds to a differnt value for $\sigma\equiv\sigma_{nq}$ with
-$n=0,\ldots,q$.  This is guaranteed for certain combinations of the
-parameters $\{\bar\zeta,\xi,\eta\}$.  In particular:
-\begin{equation}
-  q= \left\{\begin{array}{lc}
-  -1-2s = \left\{\begin{array}{cc}
-            -\alpha & (\bar\zeta_+,\xi_+,\eta_+) \\
-            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_+,\eta_+) \\
-            -\alpha-1+\delta & (\bar\zeta_+,\xi_\minus,\eta_+) \\
-            -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_\minus)
-  \end{array}\right. & s\le-\frac12 \\
-  -1+2s = \left\{\begin{array}{cc}
-            -\alpha & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
-            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_\minus,\eta_\minus) \\
-            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_+,\eta_\minus) \\
-            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_\minus,\eta_+)
-  \end{array}\right. & s\ge\frac12 \\
-\end{array}\right.
-\end{equation}
-The polynomial solution requires two conditions.  The first condition,
-that the second parameter, $-q$, be a non-positive integer, means that
-$h^{(a,r)}_{q+1}=0$.  If we can also guarantee that
-$c^{(a,r)}_{q+2}=0$, then we will terminate the infinite series
-solutions at $k=q+1$.  This second condition, referred to as a
-$\Delta_{q+1}=0$ condition, is satisfied by the vanishing of the
-determinant
-\begin{equation}
+The local solutions $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$ can
+yield polynomial solutions under certain conditions.  A {\em
+  necessary} condition for a polynomial solution to exist is that the
+second parameter, $-q$, must be a non-positive integer.  This forces
+$h_{q+1}^{(a,r)}=0$.  If $c_{q+1}^{(a,r)}=0$ also holds, then the
+infinite series will terminate, yielding a polynomial solution.  This
+second condition, referred to as a $\Delta_{q+1}=0$ condition, is
+satisfied by the vanishing of the determinant
+\begin{equation}\label{eq:Delta_q_cond}
   \left|\begin{array}{ccccc}
   g_0 & f_0 & 0 & \cdots & 0 \\
   h_1 & g_1 & f_1 & \ddots & 0 \\
@@ -1440,28 +1419,157 @@ determinant
   0 & 0 & \cdots & h_q & g_q
   \end{array}\right|
 \end{equation}
-This can be viewed as an eigenvalue problem for the fifth parameter,
-$\sigma$, in $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$.  The $q+1$
-eigenvalues are labeled $\sigma_{0q},\sigma_{1q},\ldots,\sigma_{qq}$
-and the polynomial solution associated with $\sigma_{nq}$ is denoted
-as
+and will be discussed further below.
+
+The necessary condition that the second parameter be a non-positive
+interger, $-q$, can be satisfied in several ways.  First consider
+\begin{equation}\label{eq:PP_boundary_set}
+  q= \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_+,\xi_\minus,\eta_\pm) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_+,\eta_\pm) \\
+            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_\minus,\eta_\pm) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_\minus,\eta_\mp)
+  \end{array}\right\} =\left\{\begin{array}{c}
+  -1-s+i\frac{2\bar\omega(1+\sqrt{1-\bar{a}^2})-\bar{a}m}{\sqrt{1-\bar{a}^2}} \\
+  -1+4i\bar{\omega}
+  \end{array}\right. .
+\end{equation}
+The first column in the first set of brackets corresponds to the four
+versions of the second parameter in
+Eqs.~(\ref{eq:local_sol_z1a})--(\ref{eq:local_sol_z0b}).  The second
+column corresponds to the particular choice for each of the three
+parmeters given in Eq.~(\ref{eq:Teukolsky_Heun_parameters}).  The
+$\zeta$ parameter fixes the two possible boundary conditions at
+infinity.  The $\xi$ parameter, the two possible boundary conditions
+at the black hole horizon.  And the $\eta$ parameter fixes the two
+possible conditions at inner (or Cauchy) horizon.  All four version
+for $q$ represent same physical solution, but where $H(z)$ has been
+redefined leading to a version of the Heun equation with different
+coefficients.
+
+For each version of $q$ in this set, the parameters are chosen to
+yield waves that are in-going (into the black-hole) at the horizon and
+out-going at infinity [see Eq.~(\ref{eq:Phys_R_BCs})].  These are the
+``physical'' boundary conditions that can yield QNMs.  It also assumes
+the local solutions behave as in Eqs.~(\ref{eq:local_a_sol})
+and~(\ref{eq:local_r_sol}).  The boundary conditions at the horizon
+and at infinity are independent of the choice for the $\eta$
+parameter, so this set of values for $q$ corresponds to two distinct
+solutions distinguished by the choice of the boundary condition at the
+inner horizon.  The two equations following the final bracket
+correspond to the values of $q$ for these two possible choices for
+$\eta$.  The top equation corresponds to the ``upper'' choice for
+$\eta$ and the bottom equation to the ``lower'' choice.  Note that for
+$q=-\alpha-1+\gamma$, the choices for $\eta$ are reversed.  Since $q$
+must be a non-negative integer, we see that these conditions fix the
+value of $\bar\omega$.  The upper choice gives requires
+\begin{equation}
+  \bar\omega = \frac{\bar{a}m-iN\sqrt{1-\bar{a}^2}}{2(1+\sqrt{1-\bar{a}^2})}
+  \quad;\qquad N\ge 1+s,\ N\in\,\rm{Integers}.
+\end{equation}
+The lower choice requires
+\begin{equation}
+  \bar\omega = -i\frac{N}4 \quad;\qquad N\ge 1,\ N\in\,\rm{Integers}.
+\end{equation}
+
+There are 3 other sets of conditions on the second parameter.  If we
+consider the so-called Total-Transmission Mode left (TTM${}_{\rm{L}}$)
+case where waves are again out-going at infinity, but the non-physical
+boundary condition of waves coming out of the black-hole horizon is
+chosen, then we find
+\begin{equation}\label{eq:NP_boundary_set}
+  q= \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_+,\xi_+,\eta_\pm) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_\minus,\eta_\pm) \\
+            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_+,\eta_\pm) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_+,\eta_\mp)
+  \end{array}\right\} =\left\{\begin{array}{c}
+  -1-2s \\
+  -1-s-i\frac{2\bar\omega(1-\sqrt{1-\bar{a}^2})-\bar{a}m}{\sqrt{1-\bar{a}^2}}
+  \end{array}\right. .
+\end{equation}  
+In this case, the upper choice does not fix $\bar\omega$, but only requires
+$s\le-\frac12$.  The lower choice requires
+\begin{equation}
+  \bar\omega = \frac{\bar{a}m+iN\sqrt{1-\bar{a}^2}}{2(1-\sqrt{1-\bar{a}^2})}
+  \quad;\qquad N\ge 1+s,\ N\in\,\rm{Integers},
+\end{equation}
+unless $\bar{a}=0$, in which case it is only necessary that $s\le-1$.
+
+The Total-Transmision Mode right (TTM${}_{\rm{R}}$) case represents
+a physical boundary condition at the horizon and waves that are
+in-coming at infinity.  In this case, we find
+\begin{equation}\label{eq:PN_boundary_set}
+  q= \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_\minus,\xi_\minus,\eta_\pm) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_+,\eta_\pm) \\
+            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_\minus,\eta_\pm) \\
+            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_\minus,\eta_\mp)
+  \end{array}\right\} =\left\{\begin{array}{c}
+  -1+s+i\frac{2\bar\omega(1-\sqrt{1-\bar{a}^2})-\bar{a}m}{\sqrt{1-\bar{a}^2}} \\
+  -1+2s
+  \end{array}\right. .
+\end{equation}  
+In this case, the upper choice requires
+\begin{equation}
+  \bar\omega = \frac{\bar{a}m-iN\sqrt{1-\bar{a}^2}}{2(1-\sqrt{1-\bar{a}^2})}
+  \quad;\qquad N\ge 1-s,\ N\in\,\rm{Integers},
+\end{equation}
+unless $\bar{a}=0$, in which case it is only necessary that
+$s\ge1$. The lower choice does not fix $\bar\omega$, but only requires
+$s\ge\frac12$.
+
+Finally, we can consider the case of a bound state where waves are
+coming out of the horizon and coming in from infinity.  In this case,
+we find
+\begin{equation}\label{eq:NN_boundary_set}
+  q= \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_\minus,\xi_+,\eta_\pm) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_\minus,\eta_\pm) \\
+            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_+,\eta_\pm) \\
+            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_+,\eta_\mp)
+  \end{array}\right\} =\left\{\begin{array}{c}
+  -1-4i\bar\omega \\
+  -1+s-i\frac{2\bar\omega(1+\sqrt{1-\bar{a}^2})-\bar{a}m}{\sqrt{1-\bar{a}^2}}
+  \end{array}\right. .
+\end{equation} 
+In this case, both choices for $\eta$ fix $\bar\omega$.  The upper
+choice gives requires
+\begin{equation}
+  \bar\omega = i\frac{N}4 \quad;\qquad N\ge 1,\ N\in\,\rm{Integers}.
+\end{equation} 
+The lower choice requires
+\begin{equation}
+  \bar\omega = \frac{\bar{a}m+iN\sqrt{1-\bar{a}^2}}{2(1+\sqrt{1-\bar{a}^2})}
+  \quad;\qquad N\ge 1-s,\ N\in\,\rm{Integers}.
+\end{equation}
+
+Given the necessary conditions to find polynomial solutions in these
+four cases, we must now consider the $\Delta_{q+1}$ condition.  This
+condition can be viewed as an eigenvalue problem for the fifth
+paremater, $\sigma$, in $Hc^{(a,r)}(p,-q,\gamma,\delta,\sigma;z)$. The
+eigenvalues of the matrix in Eq.~(\ref{eq:Delta_q_cond}) must be equal
+to $\sigma$.  The $q+1$ eigenvalues are labeled
+$\sigma_{0q},\sigma_{1q},\ldots,\sigma_{qq}$ and the polynomial
+solution associated with $\sigma_{nq}$ is denoted as
 \begin{equation}
   Hc_{nq}(p,\gamma,\delta;z).
 \end{equation}
 
+The simplest case to consider this that for the ``upper''
+TTM${}_{\rm{L}}$ solutions where $q=-1-2s$
+[Eq.~(\ref{eq:NP_boundary_set})].  The requirement that $s\le\frac12$
+is sensible given that the Teukolsky equation requires $s\le0$ to
+represent out-going waves at infinity.  Since the choice for $q$ in
+this solution has not fixed $\bar\omega$, the $\Delta_{q+1}$ condition
+will fix the allowed values for $\bar\omega$.
+
 For gravitational perturbations, $s=-2$ so $q=3$.  Polynomial
 solutions can be found using any of the six local solutions given by
 Eqs.~(\ref{eq:local_sol_z1a})--(\ref{eq:local_sol_z0b})), however it
-is easiest to use Eqs.~(\ref{eq:local_sol_z1a}),
-(\ref{eq:local_sol_zinfa}), or (\ref{eq:local_sol_z0a}) where the
-second parameter is in each case $\alpha$.  In order to get
-$q=-\alpha=3$, we must choose the parameters
-$(\bar\zeta_+,\xi_+,\eta_+)$.  From Eq.~(\ref{eq:local_sol_z1a}), we
-immediately see that all of the polynomial solutions correspond to an
-``unphysical'' boundary condition at the horizon $r=r_+$ ($z=1$), but
-the same conclusion follows regardless of which of the six equations
-is used.  For the non-spinning case, $\bar{a}=0$, we find the 4
-eigenvalues associated with Eq.~(\ref{eq:local_sol_z0a}) to be:
+is easiest to use Eqs.~(\ref{eq:local_sol_z0a}).  For the non-spinning
+case, $\bar{a}=0$, we find the 4 eigenvalues associated with
+Eq.~(\ref{eq:local_sol_z0a}) to be:
 \begin{equation}
 \sigma_{03}=-1-\sqrt{1-12i\bar\omega},\quad
 \sigma_{13}=-1-\sqrt{1+12i\bar\omega},\quad
@@ -1474,14 +1582,18 @@ $\sigma=\scA{s}{\ell{m}}{0}=\ell(\ell+1)-2$.  Since $\sigma>0$, both
 $\sigma_{03}$ and $\sigma_{13}$ are not allowed.  For the other
 two solutions, we have
 \begin{eqnarray}
-  \quad\sigma_{23}&\to&\bar\omega=\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2), \\
-  \quad\sigma_{33}&\to&\bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
+  \sigma_{23}&\to&\bar\omega=\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2), \\
+  \sigma_{33}&\to&\bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
 \end{eqnarray}
 Since the imaginary part of $\bar\omega$ is positive for
 $\sigma_{23}$ this solution is unstable, so the physical solution is
 obtained from $\sigma_{33}$.  The associated solution is
-\begin{equation}
-  Hc_{33}(i\bar\omega,-1,-1+4i\bar\omega;z) = z^2-2z^3.
+\begin{equation}\label{eq:TTML_a0_H_sol1}
+  Hc_{33}(i\bar\omega,-1,-1+4i\bar\omega;z) = z^2-\frac{l(l+1)}3z^3
+\end{equation}
+which corresponds to the physical solution
+\begin{equation}\label{eq:TTML_a0_R_sol1}
+  R(z) = z^2(z-1)^{2i\bar\omega}\left(1-\frac{l(l+1)}3z\right)e^{2i\bar\omega z}.
 \end{equation}
 
 For the general case with $\bar{a}\ne0$, we can again use the
@@ -1521,56 +1633,115 @@ The result is
 \end{equation}
 where
 \begin{equation}
-  \lambdabar\equiv \scA{s}{\ell{m}}{\bar{a}\bar\omega}
+  \lambdabar\equiv \scA{-2}{\ell{m}}{\bar{a}\bar\omega}
      + \bar{a}^2\bar\omega^2 - 2m\bar{a}\bar\omega,
 \end{equation}
 and the right-hand-side of Eq.~(\ref{eq:Starobinsky_const}) is just the
 magnitude squared of the Starobinsky constant.
 
-Polynomial solutions are also possible in certain cases where
-$i\bar\omega$ is an integer.  In particular:
+The ``lower'' TTM${}_{\rm{L}}$ solution is somewhat more complicated.
+With $s=-2$ we see that, in general, only $q=0$ results in
+$\rm{Im}(\bar\omega)<0$ so that a solution would be stable.  The
+associated matrix is one-dimensional and trivial, with vanishing
+eigenvalue.  In this case, since $\bar\omega$ is fixed, we must find
+that an eigenvalue equals $\sigma$ in order for a polynomial solution
+to exist.  In this case, $\sigma$ is a function of $\bar{a}$, $m$, and
+$\scA{-2}{\ell{m}}{\bar{a}\bar\omega}$.  The $\Delta_{q+1}$ condition
+is not satisfied and no solution exists for arbtrary $\bar{a}$.  However,
+if $\bar{a}=$, and $s=-2$, we find $q=1$.  The eigenvalue condition
+immediately yields
 \begin{equation}
-  q= \left\{\begin{array}{lc}
-  -1+4i\bar\omega = \left\{\begin{array}{cc}
+\sigma_{02}=-1+\sqrt{1-12i\bar\omega},\quad
+\sigma_{12}=-1+\sqrt{1+12i\bar\omega},
+\end{equation}
+with
+\begin{eqnarray}
+  \sigma_{02}&\to&\bar\omega=\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2), \\
+  \sigma_{12}&\to&\bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
+\end{eqnarray}
+The stable solution is $\sigma_{12}$ with the associated solution
+\begin{equation}\label{eq:TTML_a0_H_sol2}
+  Hc_{12}(i\bar\omega,3,-1+4i\bar\omega;z) = 1-\frac{l(l+1)}3z
+\end{equation}
+which corresponds to the physical solution
+\begin{equation}\label{eq:TTML_a0_R_sol2}
+  R(z) = z^2(z-1)^{2i\bar\omega}\left(1-\frac{l(l+1)}3z\right)e^{2i\bar\omega z}.
+\end{equation}
+
+Interestingly, we find that Eqs.~(\ref{eq:TTML_a0_R_sol1})
+and~(\ref{eq:TTML_a0_R_sol2}), supposedly differing in the boundary
+condition on the inner horizon, are the same.  On closer examination,
+we note that both solution satisfy the ``lower'' boundary condition on
+the inner horizon.
+
+
+
+Polynomial solutions are also possible in two additiona cases where
+$i\bar\omega$ is an integer.  In particular: the first case (A) is
+\begin{equation}
+  q^{\rm{(A)}}= \left\{\begin{array}{lc}
+  -1+N = \left\{\begin{array}{cc}
             -\alpha & (\bar\zeta_+,\xi_\minus,\eta_\minus) \\
             \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
-            -\alpha-1+\delta & (\bar\zeta_+,\xi_+,\eta_-) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_+,\eta_\minus) \\
             -\alpha-1+\gamma & (\bar\zeta_+,\xi_\minus,\eta_+)
-  \end{array}\right. & \bar\omega=-iN \\
-  -1-4i\bar\omega = \left\{\begin{array}{cc}
+  \end{array}\right. & \bar\omega=-i\frac{N}4,\ N\ge1 \\
+  -1+N = \left\{\begin{array}{cc}
             -\alpha & (\bar\zeta_\minus,\xi_+,\eta_+) \\
             \alpha-\gamma-\delta & (\bar\zeta_+,\xi_+,\eta_+) \\
             -\alpha-1+\delta & (\bar\zeta_\minus,\xi_\minus,\eta_+) \\
             -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_+,\eta_\minus)
-  \end{array}\right. & \bar\omega=iN \\
+  \end{array}\right. & \bar\omega=i\frac{N}4,\ N\ge1 \\
 \end{array}\right.
 \end{equation}
-where $N$ is a positive integer.  Considering only the potentially
-physical solutions with $\bar\omega=-iN$, polynomial solutions are
+the second case (B) is
+\begin{equation}
+  q^{\rm{(B)}}= \left\{\begin{array}{ll}
+  -1-s+N = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_+,\xi_\minus,\eta_+) \\
+            \alpha-\gamma-\delta & (\bar\zeta_\minus,\xi_\minus,\eta_+) \\
+            -\alpha-1+\delta & (\bar\zeta_+,\xi_+,\eta_+) \\
+            -\alpha-1+\gamma & (\bar\zeta_+,\xi_\minus,\eta_\minus)
+  \end{array}\right. & 
+     \bar\omega=\frac{\bar{a}m-i\sqrt{1-\bar{a}^2}N}{2(1+\sqrt{1-\bar{a}^2})},
+     \ N\ge1+s \\
+  -1+s+N = \left\{\begin{array}{cc}
+            -\alpha & (\bar\zeta_\minus,\xi_+,\eta_\minus) \\
+            \alpha-\gamma-\delta & (\bar\zeta_+,\xi_+,\eta_\minus) \\
+            -\alpha-1+\delta & (\bar\zeta_\minus,\xi_\minus,\eta_\minus) \\
+            -\alpha-1+\gamma & (\bar\zeta_\minus,\xi_+,\eta_+)
+  \end{array}\right. & 
+     \bar\omega=\frac{\bar{a}m+i\sqrt{1-\bar{a}^2}N}{2(1+\sqrt{1-\bar{a}^2})},
+     \ N\ge1-s \\
+\end{array}\right.
+\end{equation}
+where $N$ is an integer.  Considering only the potentially
+physical solutions with $\rm{Im}(\bar\omega)<0$, polynomial solutions are
 again possible for any of the six local solutions, but it is easiest
-to use the equations where the second parameter is $\alpha$.  We see
+to use the equations where the second parameter is $q=-\alpha$.  We see
 that any possible solutions correspond to the desired physical
 boundary conditions.  However, solutions are not guaranteed.  We must
 still satisfy the eigenvalue problem for the ``fifth parameger''
 $\sigma$, but we are no longer free to pick $\bar\omega$.  Instead,
 the values of $\bar{a}$ and $\scA{s}{\ell{m}}{\bar{a}\bar\omega}$, for
-given $\ell$ and $m$, must be combatible with the eigenvalue conditions.
+given $\ell$ and $m$, must be combatible with the eigenvalue condition.
 
-Consider the case $N=2$ with $s=-2$.  We find that the fifth parameter
-of the local solution gives
+Consider case (A) and let $\bar\omega=-2i$ with $s=-2$.  We have
+$q^{\rm{A}}=7$ and we find that the fifth parameter of the local
+solution gives
 \begin{equation}
   \sigma = 48+\scA{-2}{\ell{m}}{-2i\bar{a}}-4i\bar{a}m -4\bar{a}^2
            -28\sqrt{1-\bar{a}^2}.
 \end{equation}
 The eigenvalues of the corresponding matrix are roots of
-non-polynomial functions of $\bar{a}$.  In general, the two functions
-will not agree.  However, if we consider the special case of
-$\bar{a}=0$, we find
+non-polynomial functions of $\bar{a}$ and $m$.  In general, the two
+functions do not agree.  However, for the special case of $\bar{a}=0$,
+we find
 \begin{equation}
   \sigma = 20+\scA{-2}{\ell{m}}{0} = 18+\ell(\ell+1),
 \end{equation}
 while of the 8 eigenvalues of the matrix, two are integers.  Their
-values are $24$ and $14$.  Only the eigenvalue of $\sigma_{37}=24$
+values are $24$ and $14$.  Only the eigenvalue of $\sigma_{77}=24$
 yields a real value for $\ell$, with $\ell=2$.
 
 So, we find that for $\ell=2$ and any valid value for $m$,
@@ -1578,19 +1749,14 @@ $\bar\omega=-2i$ and $\bar{a}=0$ yields a polynomial solution of the
 Heun equation that satisfies the physical, outgoing wave boundary
 conditions.  The associated solution is
 \begin{equation}
-Hc_{37}(2,3,-5;z) = 1 -8z +27z^2 -50z^3 +55z^4 -36z^5 +13z^6 -2z^7.
+Hc_{77}(2,3,-5;z) = 1 -8z +27z^2 -50z^3 +55z^4 -36z^5 +13z^6 -2z^7.
 \end{equation}
 
-For the case $N=3$ with $s=-2$ and $\bar{a}=0$, we find
-\begin{equation}
-  \sigma = 32+\scA{-2}{\ell{m}}{0} = 30+\ell(\ell+1).
-\end{equation}
-However, in this case, none of the 12 eigenvalues of the matrix are
-integers, so no polynomial solutions exist.  The same is true for
-$N=1$ and $N=5,\ldots,9$.  $N=4$ has 2 integer eigenvalues, but neither
-corresponds to integer or half-integer values for $\ell$.
+For the cases $q^{\rm{A}}=0,\ldots,6$ and $8,\ldots,38$,
+$\sigma$ matches none of the corresponding eigenvalues and so there are
+no polynomial solutions.
 
-For $N=10$ with $s=-2$ and $\bar{a}=0$, we find 
+For $q^{\rm{A}}=39$, we find 
 \begin{equation}
   \sigma = 116+\scA{-2}{\ell{m}}{0} = 114+\ell(\ell+1)
 \end{equation}
@@ -1605,8 +1771,38 @@ conditions.
 
 While we have not yet confirmed this, we expect that this trend will
 continue, with physical solutions existing for
-$N=(\ell-1)\ell(\ell+1)(\ell+2)/12$, coinciding with the
+$q^{\rm{A}}=(\ell-1)\ell(\ell+1)(\ell+2)/3-1$, coinciding with the
 algebraically special solutions for $\bar{a}=0$.
+
+Now, consider case (B) and again let $\bar\omega=-2i$ with $s=-2$.  We have
+$q^{\rm{B}}=9$ and we find that the fifth parameter of the local
+solution gives
+\begin{eqnarray}
+  \sigma &=& \frac{\bar{a}^2(24-m^2) + 4i\bar{a}m(5-\bar{a}^2) 
+    + 2(\scA{-2}{\ell{m}}{\bar{a}\bar\omega}-6)}{1+\sqrt{1-\bar{a}^2}}
+  \nonumber \\
+   &&\mbox{} + \frac{\bar{a}^4(16 +\frac14m^2)-i\bar{a}^3m
+          -\bar{a}^2(\scA{-2}{\ell{m}}{\bar{a}\bar\omega}+82)}
+            {(1+\sqrt{1-\bar{a}^2})^2}
+\end{eqnarray}
+Again, the eigenvalues of the corresponding matrix are roots of
+non-polynomial functions of $\bar{a}$ and $m$.  In general, the two
+functions do not agree.  However, for the special case of $\bar{a}=0$,
+we find
+\begin{equation}
+  \sigma = -6+\scA{-2}{\ell{m}}{0} = -8+\ell(\ell+1),
+\end{equation}
+while of the 10 eigenvalues of the matrix only one is an integer with the
+value $\sigma_{99}=-2$ giving $\ell=2$.
+
+So, we find that for $\ell=2$ and any valid value for $m$,
+$\bar\omega=-2i$ and $\bar{a}=0$ yields a polynomial solution of the
+Heun equation that satisfies the physical, outgoing wave boundary
+conditions.  The associated solution is
+\begin{eqnarray}
+Hc_{99}(2,-1,-5;z) &=& z^2 -8z^3 +27z^4 -50z^5 +55z^6 -36z^7 +13z^8 -2z^9 \\
+    &=& z^2 Hc_{77}(2,3,-5;z).
+\end{eqnarray}
 
 \vspace{0.25in}
 Non-polynomial solutions can be obtained by first making the transformation
