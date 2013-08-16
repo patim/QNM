@@ -1620,7 +1620,7 @@ the eigenvalues of
 \end{equation}
 and then solve the equation
 \begin{equation}\label{eq:gen_sigma_val}
-  \sigma_{n3}=\sigma = \scA{s}{\ell{m}}{\bar{a}\bar\omega} 
+  \sigma_{n3}=\sigma = \scA{-2}{\ell{m}}{\bar{a}\bar\omega} 
     + \bar{a}^2\bar\omega^2 + \bar\omega\left(
        6i\left(1-\sqrt{1-\bar{a}^2}\right) - 2\bar{a}m\right)
 \end{equation}
@@ -1636,7 +1636,7 @@ The result is
 \end{equation}
 where
 \begin{equation}
-  \lambdabar\equiv \scA{-2}{\ell{m}}{\bar{a}\bar\omega}
+  \lambdabar=\lambdabar_\minus\equiv \scA{-2}{\ell{m}}{\bar{a}\bar\omega}
      + \bar{a}^2\bar\omega^2 - 2m\bar{a}\bar\omega,
 \end{equation}
 and the right-hand-side of Eq.~(\ref{eq:Starobinsky_const}) is just the
@@ -1655,15 +1655,15 @@ if $\bar{a}=0$, and $s=-2$, we find $q=1$.  The eigenvalue condition
 immediately yields
 \begin{equation}
 \sigma_{01}=1-\sqrt{1+12i\bar\omega},\quad
-\sigma_{11}=1+\sqrt{1+12i\bar\omega},
+\sigma_{11}=1+\sqrt{1+12i\bar\omega}.
 \end{equation}
-with both giving
+With $\sigma_{01}$ not allowed because it is negative, we find
 \begin{equation}
-   \sigma_{01(11)}\to\bar\omega =-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
+   \sigma_{11}\to\bar\omega =-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
 \end{equation}
-The solutions are stable and yield the same associated solution
+The associated solution is
 \begin{equation}\label{eq:TTML_a0_H_sol2}
-  Hc_{01(11)}(i\bar\omega,3,-1+4i\bar\omega;z) = 1-\frac{l(l+1)}3z
+  Hc_{11}(i\bar\omega,3,-1+4i\bar\omega;z) = 1-\frac{l(l+1)}3z
 \end{equation}
 which corresponds to the physical solution
 \begin{equation}\label{eq:TTML_a0_R_sol2}
@@ -1743,6 +1743,70 @@ the QNM bounary condition.  Since we have found both solutions
 to the equation at the desired frequencies on the NIA, and since 
 neither corresponds to the QNM conditions, we can conclude that
 no QNM solutions exist at these frequencies on the NIA.
+
+For the TTM${}_{\rm R}$ case of Eq.~(\ref{eq:PN_boundary_set}), we a
+required to consider cases with positive $s$ corresponding to incoming
+waves at infinity.  For the case of gravitational waves with $s=2$, we
+find that the ``upper'' condition on the inner boundary yields
+solutions only when $\bar{a}=0$ and these solutions are unstable with
+$\rm{Im}(\bar\omega)>0$.  The ``lower'' condition corresponds to
+  $q=3$ and yields one physical solution with
+\begin{equation}
+  \sigma_{33}=-1+\sqrt{1+12i\bar\omega} \to
+  \bar\omega=-\frac{i}{12}(\ell-1)\ell(\ell+1)(\ell+2).
+\end{equation}
+The associated solution is
+\begin{equation}
+  Hc_{33}(-i\bar\omega,-1,-1-4i\bar\omega;z)=
+  1 + (\ell-1)(\ell+2)z + \frac13(\ell-1)^2(\ell+2)^2z^2\left(
+  1 + \frac{\ell(\ell+1)}3 z\right)
+\end{equation}
+which corresponds to the physical solution
+\begin{equation}
+R(z)=z^{-2}(z-1)^{-2-2i\bar\omega}\left[
+  1 + (\ell-1)(\ell+2)z + \frac13(\ell-1)^2(\ell+2)^2z^2\left(
+  1 + \frac{\ell(\ell+1)}3 z\right)\right]e^{-2i\bar\omega}.
+\end{equation}
+For the general case with $\bar{a}\ne0$, we must find the eigenvalues of
+\begin{equation}\label{eq:gen_poly_matrix2}
+  \left[\begin{array}{cccc}
+    -\sigma_{n3} & 
+    1+2i\bar\omega-i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} &
+    0 & 0 \\
+    12i\bar\omega\sqrt{1-\bar{a}^2} &
+    -2 - 4i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3} &
+    4i\bar\omega - 2i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} &
+    0 \\
+    0 & 8i\bar\omega\sqrt{1-\bar{a}^2} &
+    -2 - 8i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3} &
+    -3 + 6i\bar\omega - 3i\frac{2\bar\omega-am}{\sqrt{1-\bar{a}^2}} \\
+    0 & 0 & 4i\bar\omega\sqrt{1-\bar{a}^2} &
+    -12i\bar\omega\left(1-\sqrt{1-\bar{a}^2}\right) - \sigma_{n3}
+  \end{array}\right]
+\end{equation}
+and then solve the equation
+\begin{equation}\label{eq:gen_sigma_val2}
+  \sigma_{n3}=\sigma = \scA{2}{\ell{m}}{\bar{a}\bar\omega} 
+    + \bar{a}^2\bar\omega^2 - \bar\omega\left(
+       6i\left(1-\sqrt{1-\bar{a}^2}\right) + 2\bar{a}m\right)+4
+\end{equation}
+for the value of $\bar\omega$.  Equivalently, we can instert the value
+of $\sigma$ from Eq.~(\ref{eq:gen_sigma_val}) into the matrix of
+Eq.~(\ref{eq:gen_poly_matrix}) and set the determinant equal to zero.
+The result is the same as Eq.~(\ref{eq:Starobinsky_const}), except
+that
+\begin{equation}
+  \lambdabar=\lambdabar_+\equiv \scA{2}{\ell{m}}{\bar{a}\bar\omega}
+     + \bar{a}^2\bar\omega^2 - 2m\bar{a}\bar\omega+4.
+\end{equation}
+However, since
+$\scA{-s}{\ell{m}}{\bar{a}\bar\omega}=\scA{s}{\ell{m}}{\bar{a}\bar\omega}+2s$,
+we find $\lambdabar_+=\lambdabar_\minus$ yielding the known result
+that the TTM${}_{\rm L}$ and TTM${}_{\rm R}$ cases share the same
+frequency spectrum.
+
+Finally, the case of bound states given by Eq.~(\ref{eq:NN_boundary_set})
+yields no stable modes as expected.
 
 
 
@@ -1832,7 +1896,7 @@ can solve for the unknowns $u_i$.  We find
 \end{eqnarray}
 The asymptotic behavior of $a_n$ is dominated by the exponential term
 in Eq.~(\ref{eq:asymptotic_a}), and the two solutions for $u_1$
-correspond to the two possible asymptotic bahaviors for $a_n$.  The
+correspond to the two possible asymptotic behaviors for $a_n$.  The
 solution where $\rm{Re}(u_1)<0$ yields the minimal solution and the
 other the dominant solution.  With
 $\bar\zeta=\bar\zeta_+=i\bar\omega$, so long as
@@ -1912,7 +1976,7 @@ value for $N$, assume $r_N=0$, and evalueate $\rm{Cf}(n;N)$ from the
 ``bottom-up''.  With this method, one must test various values of $N$
 to ensure that the desired tolerance in $\rm{Cf}(n;N)$ has been
 reached.  An even better approach, first used in the context of QNM by
-Nollert, is to use Eq.~(\ref{eq:residual_def}) with $n\mapsto N$ to
+Nollert, is to use Eq.~(\ref{eqn:a_ratio_expansion}) with $n\mapsto N$ to
 approximate $r_N$.
 
 
