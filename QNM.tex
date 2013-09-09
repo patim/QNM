@@ -303,7 +303,7 @@ spin-weighted spheroidal harmonics, $\swY{s}{\ell{m}}{\theta,\phi}$.
 \end{align}
 
 \noindent
-These leave us with the following conventions for the spin-weighted spherical harmonics and spheroidal functions:
+These leave us with the following conventions for the spin-weighted spheroidal harmonics and spheroidal functions:
 \begin{align}
 \swS{-s}{\ell{m}}{x}{c} &= (-1)^{\ell+m}\swS{s}{\ell{m}}{-x}{c} 
            &:\ \scA{-s}{\ell{m}}{c} = \scA{s}{\ell{m}}{c} + 2s \\
@@ -597,7 +597,7 @@ and
 \begin{equation}
   A^{(j)}_{mn}=\sum_{p=0}^{\min(m,n)}{
     \alpha^{2j+p-m-n}\beta^{n-p}\gamma^{m-p}\delta^p
-      \left(\begin{array}{c}2j-m \\ m-p\end{array}\right)
+      \left(\begin{array}{c}2j-m \\ n-p\end{array}\right)
       \left(\begin{array}{c}m \\ p\end{array}\right)}.
 \end{equation}
 
@@ -966,7 +966,7 @@ The Teukolsky Equation is written as
    \frac{\partial^2\psi}{\partial{t}^2}
 + \frac{4Mar}{\Delta}\frac{\partial^2\psi}{\partial{t}\partial\phi}
 + \left[\frac{a^2}{\Delta} - \frac1{\sin^2\theta}\right]
-   \frac{\partial^2\psi}{\partial{t}^2} &\\
+   \frac{\partial^2\psi}{\partial\phi^2} &\\
 - \Delta^{-s}\frac{\partial}{\partial{r}}\left(
     \Delta^{s+1}\frac{\partial\psi}{\partial{r}}\right)
 -  \frac1{\sin\theta}\frac{\partial}{\partial\theta}\left(
