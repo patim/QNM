@@ -5,6 +5,7 @@ QNM multimode ringdown fitting
 Maxim Zalutskiy
 Gregory Cook
 2013
+test commit
 *)
 
 BeginPackage["QNMfit`"]
@@ -792,9 +793,8 @@ Getaz[fit_]:=Module[{\[Delta],a,ac},
 	ac*Cos[\[Theta]]
 ]
 
-Getatheta[fit_,acx_,acy_,acz_]:=Module[{a,ac,\[Theta],\[Delta]},
+Getatheta[\[Delta]_,acx_,acy_,acz_]:=Module[{a,ac,\[Theta]},
 	ac = Sqrt[acx^2+acy^2+acz^2];
-	\[Delta] = fit[[5]];
 	a = ac/\[Delta]^2;
 	\[Theta] = ArcCos[acz/ac];
 	{a,\[Theta]}
