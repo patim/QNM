@@ -5,7 +5,6 @@ QNM multimode ringdown fitting
 Maxim Zalutskiy
 Gregory Cook
 2013
-test commit
 *)
 
 BeginPackage["QNMfit`"]
