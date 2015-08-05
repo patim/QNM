@@ -210,7 +210,7 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 	lmsize=Length[lm];
 	For[i=1,i<=msize,++i,
 		ll=modes[[i,1]];
-		mm=neg modes[[i,2]];
+		mm=neg*modes[[i,2]];
 		nn=modes[[i,3]];
 		NeedQNM=If[Head[F[ll,mm,nn]]==InterpolatingFunction,False,True,True];
 		If[!NeedQNM,
@@ -222,7 +222,7 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 			];
 		];
 		If[NeedQNM,
-			QNMdata=ReadKerrQNM[ll,mm,nn];
+			QNMdata = ReadKerrQNM[ll,mm,nn];
 			QNMsize = Length[QNMdata];
 			lmin=Max[2,Abs[mm]];
 			Nl=(Length[QNMdata[[1]]]-5)/2;
@@ -241,11 +241,11 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 				l=lm[[k,1]];
 				m=lm[[k,2]];
 				Need\[ScriptCapitalA]=If[Head[\[ScriptCapitalA][l,ll,mm,nn]]==InterpolatingFunction,False,True,
-												True];
+												True];				
 				If[Need\[ScriptCapitalA],
 					\[ScriptCapitalA][l,ll,mm,nn]=Interpolation[
-						Table[{QNMdata[[j,1]],QNMdata[[j,2(l-lmin)+5]]
-								+QNMdata[[j,2(l-lmin)+6]]I},{j,1,QNMsize}]];
+						Table[{QNMdata[[j,1]],QNMdata[[j,2(l-lmin)+6]]
+								+QNMdata[[j,2(l-lmin)+7]]I},{j,1,QNMsize}]];
 				];
 			];
 		];
@@ -305,7 +305,7 @@ GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 	DefineInterpolations[lm,modes,1];
 	DefineInterpolations[lm,pmodes,-1];
 
-	For[i=1,i<= lmsize,i++,
+	For[i=1, i<=lmsize, i++,
 		l=lm[[i,1]];
 		m=lm[[i,2]];
 		(*loop over "positive" modes*)	
@@ -316,7 +316,7 @@ GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 		];
 
 		(*loop over "primed" modes*)
-		For[j=1;ipmodes={},j<= psize,j++,
+		For[j=1;ipmodes={}, j<=psize, j++,
 			mm=pmodes[[j,2]];
 			If[m!= -mm,Continue[];];
 			ipmodes=ipmodes~Join~{pmodes[[j]]};
@@ -464,7 +464,7 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	For[j=1,j<= size,j++,
 		ll=modes[[j,1]];
 		n=modes[[j,3]];
-		If[ll<2 ||n<0,checkedModes=Delete[checkedModes,j]];
+		If[ll<2 || n<0,checkedModes=Delete[checkedModes,j]];
 	];
 	checkedPmodes=pmodes;
 	psize=Length[pmodes];
@@ -484,10 +484,12 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	fitpmodes = fitparameters[[3]]; 
 	DefineInterpolations[lm,newmodes,1];
 	DefineInterpolations[lm,newpmodes,-1];
+	t1 = AbsoluteTime[];
 	fit = Quiet[NonlinearModelFit[newData,{RD[\[Alpha],\[Beta],lm,newmodes,newpmodes,
 				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
-				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}]];
-	
+				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}, ConfidenceLevel -> .9999999]];
+	t2 = AbsoluteTime[];
+Print["t2-t1: ",t2-t1];
 	index=1; 
 	(*sets the correspondence between the mass/spin/theta and the indexing 
 	of the fit parameters*)
