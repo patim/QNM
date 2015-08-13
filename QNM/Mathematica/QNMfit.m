@@ -212,7 +212,8 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 		ll=modes[[i,1]];
 		mm=neg*modes[[i,2]];
 		nn=modes[[i,3]];
-		NeedQNM=If[Head[F[ll,mm,nn]]==InterpolatingFunction,False,True,True];
+(*		NeedQNM=If[Head[F[ll,mm,nn]]==InterpolatingFunction,False,True,True];
+Print["NeedQNM=",NeedQNM];
 		If[!NeedQNM,
 			For[j=1,j<=lmsize,++j,
 				l=lm[[j,1]];
@@ -220,7 +221,8 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 												True,True];
 				If[NeedQNM,Break[]];
 			];
-		];
+		];*)
+		NeedQNM = True; (*always True since F[ll, mm, nn] has been eliminated*)
 		If[NeedQNM,
 			QNMdata = ReadKerrQNM[ll,mm,nn];
 			QNMsize = Length[QNMdata];
@@ -228,6 +230,7 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 			Nl=(Length[QNMdata[[1]]]-5)/2;
 			lmax = lmin+Nl-1;
 			Need\[Omega]=If[Head[\[Omega]bar[ll,mm,nn]]==InterpolatingFunction,False,True,True];
+Print["Need\[Omega]=", Need\[Omega]];			
 			If[Need\[Omega],
 				Re\[Omega][i_]:=QNMdata[[i,2]];
 				Im\[Omega][i_]:=QNMdata[[i,3]];
