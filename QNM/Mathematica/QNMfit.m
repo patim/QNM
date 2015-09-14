@@ -122,6 +122,10 @@ Spin->{Value, Fixed} - intial guess for the value of the spin parameter a, "<>
 Mass->{Value, Fixed} - intial guess for the value of mass \[Delta], if Fixed is "<>
 "True, mass is not used as a fit parameter";
 
+ShowFitParam::usage="ShowFitParam[fit] converts the fit parameters of the "<>
+"fit object returned by MyFit function. Amplitudes A's get converted to "<>
+"positives, phases \[Phi]'s to the range [-\[Pi], \[Pi]].";
+
 DataPlot2::usage="DataPlot[data] plots the data as a function of time and "<>
 "and the \!\(\*SubscriptBox[\(C\), \(lm\)]\) number";
 DataPlot::usage="DataPlot[data] plots the data points.
@@ -230,7 +234,7 @@ Print["NeedQNM=",NeedQNM];
 			Nl=(Length[QNMdata[[1]]]-5)/2;
 			lmax = lmin+Nl-1;
 			Need\[Omega]=If[Head[\[Omega]bar[ll,mm,nn]]==InterpolatingFunction,False,True,True];
-Print["Need\[Omega]=", Need\[Omega]];			
+(*Print["Need\[Omega]=", Need\[Omega]];*)			
 			If[Need\[Omega],
 				Re\[Omega][i_]:=QNMdata[[i,2]];
 				Im\[Omega][i_]:=QNMdata[[i,3]];
@@ -303,8 +307,8 @@ Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:=
 GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 	Module[{C,l,m,mm,t,imodes,ipmodes,lmsize,size,psize,i,j,datalist={}},
 	lmsize = Length[lm];
-	size=Length[modes];
-	psize=Length[pmodes];
+	size = Length[modes];
+	psize = Length[pmodes];
 	DefineInterpolations[lm,modes,1];
 	DefineInterpolations[lm,pmodes,-1];
 
@@ -487,12 +491,12 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	fitpmodes = fitparameters[[3]]; 
 	DefineInterpolations[lm,newmodes,1];
 	DefineInterpolations[lm,newpmodes,-1];
-	t1 = AbsoluteTime[];
+	(*t1 = AbsoluteTime[];*)
 	fit = Quiet[NonlinearModelFit[newData,{RD[\[Alpha],\[Beta],lm,newmodes,newpmodes,
 				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
-				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}, ConfidenceLevel -> .9999999]];
-	t2 = AbsoluteTime[];
-Print["t2-t1: ",t2-t1];
+				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}]];
+	(*t2 = AbsoluteTime[];
+Print["t2-t1: ",t2-t1];*)
 	index=1; 
 	(*sets the correspondence between the mass/spin/theta and the indexing 
 	of the fit parameters*)
@@ -512,6 +516,36 @@ Print["t2-t1: ",t2-t1];
 	
 	{fit,lm,newmodes,newpmodes,MassOut,SpinOut,ThetaOut,modesOnset,
 	fitmodes,fitpmodes}
+]
+
+
+ShowFitParam[fit_]:=
+	Module[{i,params,DeleteParam,ModeChange,out={},A, \[Phi],modSize},
+	params=fit[[1]]["BestFitParameters"];
+	DeleteParam[param_]:=
+		If[Length[FilterRules[params,param]]>0,
+			AppendTo[out,FilterRules[params,param][[1]]];
+			params = Delete[params,
+						Position[params,FilterRules[params,param][[1]]][[1,1]]];
+		];
+	DeleteParam[Private`\[Delta]];
+	DeleteParam[Private`a];
+	DeleteParam[Private`\[Theta]];
+
+	ModeChange[list_,shift_:0]:=Module[{i},
+		modSize=Length[list];
+		For[i=1+shift,i<=modSize+shift,i++,
+			A = params[[i,2]];
+			\[Phi] = params[[i+modSize,2]];
+			If[A<0,\[Phi]+=Pi;A=-A];
+			\[Phi] = Mod[\[Phi],2*Pi];
+			If[\[Phi]>Pi,\[Phi]=\[Phi]-2*Pi];
+			AppendTo[out,{A,\[Phi]}];
+		];
+	];
+	ModeChange[fit[[3]]];(*modes*)
+	ModeChange[fit[[4]],2*Length@fit[[3]]];(*primed modes*)
+	out
 ]
 
 
