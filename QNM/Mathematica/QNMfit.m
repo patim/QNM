@@ -520,7 +520,7 @@ Print["t2-t1: ",t2-t1];*)
 
 
 ShowFitParam[fit_]:=
-	Module[{i,params,DeleteParam,ModeChange,out={},A, \[Phi],modSize},
+	Module[{params,DeleteParam,ModeChange,out={},A, \[Phi]},
 	params=fit[[1]]["BestFitParameters"];
 	DeleteParam[param_]:=
 		If[Length[FilterRules[params,param]]>0,
@@ -532,7 +532,7 @@ ShowFitParam[fit_]:=
 	DeleteParam[Private`a];
 	DeleteParam[Private`\[Theta]];
 
-	ModeChange[list_,shift_:0]:=Module[{i},
+	ModeChange[list_,shift_:0]:=Module[{i,modSize},
 		modSize=Length[list];
 		For[i=1+shift,i<=modSize+shift,i++,
 			A = params[[i,2]];
