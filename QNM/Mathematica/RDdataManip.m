@@ -15,7 +15,22 @@ ReadNRWaveForm::usage="";
 GetData::usage="";
 DataCut::usage="";
 MergeCLists::usage="";
-
+DataPlot2::usage="DataPlot[data] plots the data as a function of time and "<>
+"and the \!\(\*SubscriptBox[\(C\), \(lm\)]\) number";
+DataPlot::usage="DataPlot[data] plots the data points.
+data:
+{{{{\!\(\*SubscriptBox[\(t\), \(1\)]\),Re[\!\(\*SubscriptBox[\(C\), \(lm\)]\)"<>
+"\!\(\*SubscriptBox[\(]\), \(1\)]\),Im[\!\(\*SubscriptBox[\(C\), \(lm\)]\)\!\("<>
+"\*SubscriptBox[\(]\), \(1\)]\)},{\!\(\*SubscriptBox[\(t\), \(2\)]\),Re[\!\(\*"<>
+"SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\),Im[\!\(\*"<>
+"SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\)},...},{\!\(\*"<>
+"SubscriptBox[\(l\), \(1\)]\),\!\(\*SubscriptBox[\(m\), \(1\)]\)}},
+{{{\!\(\*SubscriptBox[\(t\), \(1\)]\),Re[\!\(\*SubscriptBox[\(C\), \(lm\)]\)\!\("<>
+"\*SubscriptBox[\(]\), \(1\)]\),Im[\!\(\*SubscriptBox[\(C\), \(lm\)]\)\!\(\*"<>
+"SubscriptBox[\(]\), \(1\)]\)},{\!\(\*SubscriptBox[\(t\), \(2\)]\),Re[\!\(\*"<>
+"SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\),Im[\!\(\*"<>
+"SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\)},...},{\!\(\*"<>
+"SubscriptBox[\(l\), \(2\)]\),\!\(\*SubscriptBox[\(m\), \(2\)]\)}},...}";
 Begin["Private`"]
 
 (* Utility funcitons *)
@@ -89,5 +104,79 @@ MergeCLists[Clist_]:=Module[{i,j,Clistsize,Csize,newClist={},lmlist},
 	];
 	newClist
 ]
+
+
+MakeLabel[name_,l_,m_]:=
+	Row[{Subscript[name<>"(",-2],Subscript[C,ToString[l]<>ToString[m]],")"}];
+
+Opts[label_,fontsize_,imsize_]:=
+	{Axes->False,Frame->True,FrameLabel->{Text[Style["\!\(\*StyleBox[\"t\",
+	\nFontSlant->\"Italic\"]\)/\!\(\*StyleBox[\"M\",\nFontSlant->\"Italic\"]\)",
+	FontSize->fontsize]],Text[Style[label,FontSize->fontsize]]},ImageSize->imsize};
+
+Options[DataPlot]={fontsize->12,imagesize->200};
+DataPlot[data_,OptionsPattern[]]:=
+	Module[{i,j,lmsize,isize,Relabel,Imlabel,l,m,plots={},fosize,imsize},
+	lmsize=Length[data];
+	fosize=OptionValue[fontsize];
+	imsize=OptionValue[imagesize];
+	For[i=1,i<= lmsize,i++,
+		l=data[[i,2,1]];
+		m=data[[i,2,2]];
+		Relabel=MakeLabel["Re",l,m];
+		Imlabel=MakeLabel["Im",l,m];
+
+		isize=Length[data[[i,1]]];
+		plots=plots~Join~{
+		(*Re*)
+		ListPlot[Table[{data[[i,1,j,1]],data[[i,1,j,2]]},{j,1,isize}],
+			Opts[Relabel,fosize,imsize]]
+		(*Im*)
+		,ListPlot[Table[{data[[i,1,j,1]],data[[i,1,j,3]]},{j,1,isize}],
+			Opts[Imlabel,fosize,imsize]]};
+	];
+	plots
+]
+
+
+Options[DataPlot2]={fontsize->12,imagesize->600};
+DataPlot2[data_,OptionsPattern[]]:=Module[{i,t1,tN,j,t,styleScheme,colorScheme,
+RDlist,ReRD,ImRD,lmsize,pRelist={},pImlist={},Clmticks,dataSize,PsiPlot},
+	dataSize=Length[data];
+	For[i=1,i<=dataSize,i++,
+		lmsize=Length[data[[i,1]]];
+		RDlist=Table[{data[[i,1,j,1]],data[[i,1,j,2]]},{j,1,lmsize}];
+		ReRD[i]=Interpolation[RDlist];
+		RDlist=Table[{data[[i,1,j,1]],data[[i,1,j,3]]},{j,1,lmsize}];
+		ImRD[i]=Interpolation[RDlist];
+		pRelist=pRelist~Join~{{i,t,ReRD[i][t]}};
+		pImlist=pImlist~Join~{{i,t,ImRD[i][t]}};
+	];
+	(*The time interval is taken from the last element of data. 
+	Should be the same for all elements*)
+	t1=data[[Length[data],1,1,1]];
+	tN=data[[Length[data],1,lmsize,1]];
+	
+	(*colorScheme=ColorData[3,"ColorList"];*)
+	colorScheme = {RGBColor[0.2,0.2,0.2],RGBColor[76/85,26/255,28/255],
+RGBColor[166/255,86/255,8/51],RGBColor[11/51,42/85,184/255],RGBColor[77/255,35/51,74/255],
+RGBColor[1,127/255,0],RGBColor[247/255,43/85,191/255],RGBColor[1,1,1/5]};
+	styleScheme=Table[{Thickness[0.005], colorScheme[[i]]},{i,1,Length[colorScheme]}];
+	Clmticks=Table[i,{i,1,dataSize}];
+	PsiPlot[list_,label_]:=ParametricPlot3D[list,{t,t1,tN},BoxRatios->{3,8,1},
+		Axes->{True,True,True},
+		AxesLabel->{Text[Style["\!\(\*SubscriptBox[\(C\), \(lm\)]\)",
+		FontSize->OptionValue[fontsize]]],
+		Text[Style["t/M",FontSize->OptionValue[fontsize]]],
+		Text[Style[label,OptionValue[imagesize],
+		FontSize->OptionValue[fontsize]]]},ImageSize->OptionValue[imagesize],
+		PlotStyle->styleScheme, Ticks->{Clmticks,Automatic,None}];
+	
+	GraphicsColumn[{PsiPlot[pRelist, "Re(\!\(\*SubscriptBox[\(\[CapitalPsi]\), \(4\)]\))"], 
+	PsiPlot[pImlist, "Im(\!\(\*SubscriptBox[\(\[CapitalPsi]\), \(4\)]\))"]},
+	ImageSize->OptionValue[imagesize]]
+]
+
+
 End[]
 EndPackage[]
