@@ -743,7 +743,7 @@ MassSpinConfRegion[fit_]:=Module[{color},
 ]
 
 
-Getaz[fit_]:=Module[{\[Delta],a,ac},
+Getaz[fit_]:=Module[{\[Delta],a,\[Theta],ac},
 	\[Delta] = fit[[5]];
 	a = fit[[6]];
 	\[Theta] = fit[[7]];
