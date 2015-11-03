@@ -77,6 +77,9 @@ GetData[path_,lm_,t1_,t2_,step_:1]:=Module[{Y,size,i,l,m,data={}},
 		l=lm[[i,1]];
 		m=lm[[i,2]];
 		Y=DataCut[t1,t2,ReadNRWaveForm[0,path,l,m],step];
+		If[i==1,
+			Print["\!\(\*SubscriptBox[\(t\), \(1\)]\)=",Y[[1,1]],", \!\(\*SubscriptBox[\(t\), \(2\)]\)=",Y[[-1,1]]];
+		];
 		Y=TimeShift[Y[[1,1]],Y];
 		AppendTo[data,{Y,{l,m}}];
 	];
