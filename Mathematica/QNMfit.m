@@ -199,16 +199,7 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 		ll=modes[[i,1]];
 		mm=neg*modes[[i,2]];
 		nn=modes[[i,3]];
-(*		NeedQNM=If[Head[F[ll,mm,nn]]==InterpolatingFunction,False,True,True];
-Print["NeedQNM=",NeedQNM];
-		If[!NeedQNM,
-			For[j=1,j<=lmsize,++j,
-				l=lm[[j,1]];
-				NeedQNM=If[Head[\[ScriptCapitalA][l,ll,mm,nn]]==InterpolatingFunction,False,
-												True,True];
-				If[NeedQNM,Break[]];
-			];
-		];*)
+
 		NeedQNM = True; (*always True since F[ll, mm, nn] has been eliminated*)
 		If[NeedQNM,
 			QNMdata = ReadKerrQNM[ll,mm,nn];
@@ -244,49 +235,6 @@ Print["NeedQNM=",NeedQNM];
 ]
 
 
-Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:= 
-	Module[{Sum=0,ModeSum},
-
-	ModeSum[modelist_,Aname_,\[Phi]name_,which_]:=
-		Module[{i,ll,mm,nn,A,\[Phi]ase,sum=0,size,isize},
-		size=Length[modelist];
-		For[i=1,i<=size,i++,
-			isize=Length[modelist[[i]]];
-			ll=modelist[[i,1]];
-			mm=modelist[[i,2]];
-			nn=modelist[[i,3]];
-	
-			If[isize>3,
-				If[NumericQ[modelist[[i,4]]],
-					A=modelist[[i,4]]
-				,
-					A=Varname[modelist[[i,4]],ll,mm,nn]
-				];
-				If[NumericQ[modelist[[i,5]]],
-					\[Phi]ase=modelist[[i,5]]
-				,
-					\[Phi]ase=Varname[modelist[[i,5]],ll,mm,nn]
-				];
-			,
-				A=Varname["Private`"<>Aname,ll,mm,nn];
-				\[Phi]ase=Varname["Private`"<>\[Phi]name,ll,mm,nn];
-			];
-			If[which==1,
-				sum+=A*WignerD[{ll,-m,-mm},\[Theta]]*\[ScriptCapitalA][l,ll,mm,nn][Re[a]]
-						*Exp[-I*\[Omega]bar[ll,mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase];
-			,
-				sum+=(-1)^(l+ll)*A*WignerD[{ll,-m,-mm},\[Theta]]
-				*Conjugate[\[ScriptCapitalA][l,ll,-mm,nn][Re[a]]
-				*Exp[-I*\[Omega]bar[ll,-mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase]];
-			];
-		];
-		sum
-	];
-	Sum = ModeSum[modes,"A","\[Phi]",1] + ModeSum[pmodes,"Ap","\[Phi]p",-1];
-	Sum
-]
-
-
 GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 	Module[{C,l,m,mm,t,imodes,ipmodes,lmsize,size,psize,i,j,datalist={}},
 	lmsize = Length[lm];
@@ -319,9 +267,54 @@ GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 ]
 
 
+Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:= 
+	Module[{Sum=0,ModeSum},
+
+	ModeSum[modelist_,Aname_,\[Phi]name_,which_]:=
+		Module[{i,ll,mm,nn,A,\[Phi]ase,sum=0,size,isize},
+		size=Length[modelist];
+		For[i=1,i<=size,i++,
+			isize=Length[modelist[[i]]];
+			ll=modelist[[i,1]];
+			mm=modelist[[i,2]];
+			nn=modelist[[i,3]];
+
+			If[ll<m, Continue[]];
+
+			If[isize>3,
+				If[NumericQ[modelist[[i,4]]],
+					A=modelist[[i,4]]
+				,
+					A=Varname[modelist[[i,4]],ll,mm,nn]
+				];
+				If[NumericQ[modelist[[i,5]]],
+					\[Phi]ase=modelist[[i,5]]
+				,
+					\[Phi]ase=Varname[modelist[[i,5]],ll,mm,nn]
+				];
+			,
+				A=Varname["Private`"<>Aname,ll,mm,nn];
+				\[Phi]ase=Varname["Private`"<>\[Phi]name,ll,mm,nn];
+			];
+			If[which==1,
+				sum+=A*WignerD[{ll,-m,-mm},\[Theta]]*\[ScriptCapitalA][l,ll,mm,nn][Re[a]]
+						*Exp[-I*\[Omega]bar[ll,mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase];
+			,
+				sum+=(-1)^(l+ll)*A*WignerD[{ll,-m,-mm},\[Theta]]
+				*Conjugate[\[ScriptCapitalA][l,ll,-mm,nn][Re[a]]
+				*Exp[-I*\[Omega]bar[ll,-mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase]];
+			];
+		];
+		sum
+	];
+	Sum = ModeSum[modes,"A","\[Phi]",1] + ModeSum[pmodes,"Ap","\[Phi]p",-1];
+	Sum
+]
+
+
 ClmSplit[\[Alpha]_,l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_]:=
-	KroneckerDelta[\[Alpha],1] Re[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]] + 
-	KroneckerDelta[\[Alpha],0] Im[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]]
+	KroneckerDelta[\[Alpha],1]*Re[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]] + 
+	KroneckerDelta[\[Alpha],0]*Im[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]]
 
 RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Theta]angle_,t_,t0_]:=
 	Module[{size,i,ModeAnalyze},
@@ -354,6 +347,7 @@ RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Theta]angle_,t_,t0_]:=
 	];
 
 	size=Length[lm];
+
 	(*i goes over lm list *)
 	\!\(
 \*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(size\)]\(KroneckerDelta[\[Beta], i]*ClmSplit[\[Alpha], lm[\([i, 1]\)], lm[\([i, 2]\)], ModeAnalyze[modes], \n\t\t\tModeAnalyze[pmodes], \[Delta], a, \[Theta], t, t0]\)\)
@@ -475,6 +469,9 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	DefineInterpolations[lm,newmodes,1];
 	DefineInterpolations[lm,newpmodes,-1];
 	(*t1 = AbsoluteTime[];*)
+(*Print[RD[\[Alpha],\[Beta],lm,newmodes,newpmodes,
+				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
+				t,OptionValue[t0]]];*)
 	fit = Quiet[NonlinearModelFit[newData,{RD[\[Alpha],\[Beta],lm,newmodes,newpmodes,
 				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
 				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}]];
@@ -503,32 +500,42 @@ Print["t2-t1: ",t2-t1];*)
 
 
 ShowFitParam[fit_]:=
-	Module[{params,DeleteParam,ModeChange,out={},A, \[Phi]},
-	params=fit[[1]]["BestFitParameters"];
-	DeleteParam[param_]:=
-		If[Length[FilterRules[params,param]]>0,
-			AppendTo[out,FilterRules[params,param][[1]]];
-			params = Delete[params,
-						Position[params,FilterRules[params,param][[1]]][[1,1]]];
+	Module[{BestFitParameters,ParameterTableEntries,DeleteParam,ModeChange,params={},
+			A,\[Phi],Aerr,\[Phi]err,errors={}},
+	BestFitParameters=fit[[1]]["BestFitParameters"];
+	ParameterTableEntries=fit[[1]]["ParameterTableEntries"];
+
+	DeleteParam[param_]:=Module[{filter,pos},
+		filter = FilterRules[BestFitParameters,param];
+		If[Length[filter]>0,
+			pos = Position[BestFitParameters,filter[[1]]][[1,1]];
+			AppendTo[params,filter[[1]]];
+			AppendTo[errors,ParameterTableEntries[[pos,2]]];
+			BestFitParameters = Delete[BestFitParameters, pos];
+			ParameterTableEntries = Delete[ParameterTableEntries, pos];
 		];
+	];
 	DeleteParam[Private`\[Delta]];
 	DeleteParam[Private`a];
 	DeleteParam[Private`\[Theta]];
 
-	ModeChange[list_,shift_:0]:=Module[{i,modSize},
+	ModeChange[list_,shift_:0]:=Module[{i,j,modSize,modlist={},errlist={}},
 		modSize=Length[list];
-		For[i=1+shift,i<=modSize+shift,i++,
-			A = params[[i,2]];
-			\[Phi] = params[[i+modSize,2]];
+		For[i=1+shift;j=1,i<=modSize+shift,i++;j++,
+			A = BestFitParameters[[i,2]]; Aerr = ParameterTableEntries[[i,2]];
+			\[Phi] = BestFitParameters[[i+modSize,2]]; \[Phi]err = ParameterTableEntries[[i+modSize,2]];
 			If[A<0,\[Phi]+=Pi;A=-A];
 			\[Phi] = Mod[\[Phi],2*Pi];
 			If[\[Phi]>Pi,\[Phi]=\[Phi]-2*Pi];
-			AppendTo[out,{A,\[Phi]}];
+			AppendTo[modlist,{list[[j,1]],list[[j,2]],list[[j,3]],A,\[Phi]}];
+			AppendTo[errlist,{Aerr,\[Phi]err}];
 		];
+		AppendTo[params,modlist]; AppendTo[errors,errlist]
 	];
+
 	ModeChange[fit[[3]]];(*modes*)
 	ModeChange[fit[[4]],2*Length@fit[[3]]];(*primed modes*)
-	out
+	AppendTo[params,errors]
 ]
 
 
