@@ -279,7 +279,8 @@ Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:=
 			mm=modelist[[i,2]];
 			nn=modelist[[i,3]];
 
-			If[ll<m, Continue[]];
+			(*selcting the allowed modes*)
+			If[ll<Abs@m, Continue[]];
 
 			If[isize>3,
 				If[NumericQ[modelist[[i,4]]],
