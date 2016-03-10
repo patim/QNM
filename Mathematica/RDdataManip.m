@@ -31,6 +31,7 @@ data:
 "SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\),Im[\!\(\*"<>
 "SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\)},...},{\!\(\*"<>
 "SubscriptBox[\(l\), \(2\)]\),\!\(\*SubscriptBox[\(m\), \(2\)]\)}},...}";
+RemnantMassSpin::usage="RemnantMassSpin[sxsbbh], sxsbbh SXS:BBH#";
 Begin["Private`"]
 
 (* Utility funcitons *)
@@ -63,22 +64,39 @@ DataBefore[t_,A_,step_:1]:=Module[{i,iend},
 	Table[{A[[i,1]],A[[i,2]],A[[i,3]]},{i,1,iend,step}]
 ]
 
-ReadNRWaveForm[N_,AnnexDir_,l_,m_]:=Module[{mname,lname,Yname,Gname},
-	mname=If[m<0,"-"<>ToString[Abs[m]],ToString[m]];
-	lname=ToString[l];
-	Yname="Y_l"<>lname<>"_m"<>mname<>".dat";
-	Gname=If[N==0,"/OutermostExtraction.dir/",If[N==2,"/Extrapolated_N2.dir/",If[N==3,"/Extrapolated_N3.dir/",If[N==4,"/Extrapolated_N4.dir/"]]]];
-	Import[AnnexDir<>"rMPsi4_Asymptotic_GeometricUnits.h5",{"HDF5","Datasets",{Gname<>Yname}}]
+Options[ReadNRWaveForm] = {Transform->False};
+ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,Gname,h5name},
+	mname = If[m<0,"-"<>ToString[Abs[m]],ToString[m]];
+	lname = ToString[l];
+	Yname = "Y_l"<>lname<>"_m"<>mname<>".dat";
+	Gname = If[N==0,"/OutermostExtraction.dir/",
+				If[N==2,"/Extrapolated_N2.dir/",
+					If[N==3,"/Extrapolated_N3.dir/",
+						If[N==4,"/Extrapolated_N4.dir/"]
+					]
+				]
+			];
+	If[OptionValue[Transform],
+		h5name = "rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5",
+		h5name = "rMPsi4_Asymptotic_GeometricUnits.h5"
+	];
+	Import[AnnexDir<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
 ]
 
-GetData[path_,lm_,t1_,t2_,step_:1]:=Module[{Y,size,i,l,m,data={}},
+Options[GetData] = Options[ReadNRWaveForm];
+GetData[path_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
+	Module[{Y,size,i,l,m,data={},td1,td2},
 	size=Length[lm];
 	For[i=1,i<=size,i++,
 		l=lm[[i,1]];
 		m=lm[[i,2]];
-		Y=DataCut[t1,t2,ReadNRWaveForm[0,path,l,m],step];
+		Y=DataCut[t1,t2,
+				  ReadNRWaveForm[0,path,l,m,Evaluate@FilterRules[{opts},Options@ReadNRWaveForm]],
+				  step];
+
 		If[i==1,
-			Print["\!\(\*SubscriptBox[\(t\), \(1\)]\)=",Y[[1,1]],", \!\(\*SubscriptBox[\(t\), \(2\)]\)=",Y[[-1,1]]];
+			Print["\!\(\*SubscriptBox[\(t\), \(1\)]\)=",Y[[1,1]],
+				  ", \!\(\*SubscriptBox[\(t\), \(2\)]\)=",Y[[-1,1]]];
 		];
 		Y=TimeShift[Y[[1,1]],Y];
 		AppendTo[data,{Y,{l,m}}];
@@ -179,6 +197,33 @@ RGBColor[1,127/255,0],RGBColor[247/255,43/85,191/255],RGBColor[1,1,1/5]};
 	PsiPlot[pImlist, "Im(\!\(\*SubscriptBox[\(\[CapitalPsi]\), \(4\)]\))"]},
 	ImageSize->OptionValue[imagesize]]
 ]
+
+
+RemnantMassSpin[sxsbbh_] := 
+ Module[{importPath, meta = "metadata.txt", allmeta, 
+   remnants, \[Delta], a, abar, theta, aabs},
+  importPath = 
+   "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:\
+BBH:" <> IntegerString[sxsbbh, 10, 4] <> "&file=Lev5/metadata.txt";
+  allmeta = Import[importPath, meta];
+  remnants = 
+   StringCases[allmeta, 
+    RegularExpression[
+     "(remnant-mass\\s*=.*\n)|(remnant-spin\\s*=.*\n)"]];
+  \[Delta] = 
+   Read[StringToStream[#], Number] & /@ 
+    StringCases[remnants[[1]], 
+     RegularExpression[
+      "(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
+  a = Read[StringToStream[#], Number] & /@ 
+    StringCases[remnants[[2]], 
+     RegularExpression[
+      "(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
+  aabs = Sqrt[a[[1]]^2 + a[[2]]^2 + a[[3]]^2];
+  abar = aabs/\[Delta][[1]]^2;
+  theta = ArcCos[a[[3]]/aabs];
+  {\[Delta][[1]], abar, theta}
+  ]
 
 
 End[]
