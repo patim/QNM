@@ -32,6 +32,9 @@ data:
 "SubscriptBox[\(C\), \(lm\)]\)\!\(\*SubscriptBox[\(]\), \(2\)]\)},...},{\!\(\*"<>
 "SubscriptBox[\(l\), \(2\)]\),\!\(\*SubscriptBox[\(m\), \(2\)]\)}},...}";
 RemnantMassSpin::usage="RemnantMassSpin[sxsbbh], sxsbbh SXS:BBH#";
+CoMmotion::usage = "";
+EstimateAvgComMotion::usage = "EstimateAvgComMotion[sxsbbh, skipBegin:0.01,"<>
+" skipEnd_:0.1]";
 Begin["Private`"]
 
 (* Utility funcitons *)
@@ -199,31 +202,67 @@ RGBColor[1,127/255,0],RGBColor[247/255,43/85,191/255],RGBColor[1,1,1/5]};
 ]
 
 
-RemnantMassSpin[sxsbbh_] := 
- Module[{importPath, meta = "metadata.txt", allmeta, 
-   remnants, \[Delta], a, abar, theta, aabs},
-  importPath = 
-   "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:\
-BBH:" <> IntegerString[sxsbbh, 10, 4] <> "&file=Lev5/metadata.txt";
-  allmeta = Import[importPath, meta];
-  remnants = 
-   StringCases[allmeta, 
-    RegularExpression[
-     "(remnant-mass\\s*=.*\n)|(remnant-spin\\s*=.*\n)"]];
-  \[Delta] = 
-   Read[StringToStream[#], Number] & /@ 
-    StringCases[remnants[[1]], 
-     RegularExpression[
-      "(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
-  a = Read[StringToStream[#], Number] & /@ 
-    StringCases[remnants[[2]], 
-     RegularExpression[
-      "(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
+RemnantMassSpin[sxsbbh_] := Module[{
+	importPath, meta = "metadata.txt", allmeta,remnants, \[Delta], a, abar, theta, aabs},
+
+	importPath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
+			 IntegerString[sxsbbh, 10, 4] <> "&file=Lev5/metadata.txt";
+	allmeta = Import[importPath, meta];
+	remnants = StringCases[allmeta,
+				RegularExpression["(remnant-mass\\s*=.*\n)|(remnant-spin\\s*=.*\n)"]];
+  \[Delta] = Read[StringToStream[#], Number] & /@ StringCases[remnants[[1]],
+					RegularExpression["(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
+  a = Read[StringToStream[#], Number] & /@ StringCases[remnants[[2]],
+					RegularExpression["(\\-?\\d*\\.\\d*(e|E)*[-+]\\d+)|(\\-?\\-*\\d*\\.\\d*)"]];
   aabs = Sqrt[a[[1]]^2 + a[[2]]^2 + a[[3]]^2];
   abar = aabs/\[Delta][[1]]^2;
   theta = ArcCos[a[[3]]/aabs];
   {\[Delta][[1]], abar, theta}
-  ]
+]
+
+
+(*
+  The below routines were adaptted from Michael Boyle's python code 
+  http://arxiv.org/abs/1509.00862
+*)
+
+
+CoMmotion[sxsbbh_]:=Module[{importPath,rawA,rawB,t,mA,xA,mB,xB,m,CoM},
+  importPath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
+			 IntegerString[sxsbbh, 10, 4]<>"&file=Lev5/Horizons.h5";
+  rawA = Import[importPath,{"HDF5","Datasets",{"AhA.dir/ChristodoulouMass.dat"}}]; 
+  t = Table[rawA[[i,1]],{i,1,Length@rawA}];
+  mA = Table[rawA[[i,2]],{i,1,Length@rawA}];
+
+  rawA = Import[importPath,{"HDF5","Datasets",{"AhA.dir/CoordCenterInertial.dat"}}];
+  xA = Table[{rawA[[i,2]],rawA[[i,3]],rawA[[i,4]]},{i,1,Length@rawA}];
+
+  rawB = Import[importPath,{"HDF5","Datasets",{"AhB.dir/ChristodoulouMass.dat"}}]; 
+  mB = Table[rawB[[i,2]],{i,1,Length@rawB}];
+  rawB = Import[importPath,{"HDF5","Datasets",{"AhB.dir/CoordCenterInertial.dat"}}];
+  xB = Table[{rawB[[i,2]],rawB[[i,3]],rawB[[i,4]]},{i,1,Length@rawB}];
+
+  m = mA + mB;
+  CoM = Table[(mA[[i]]*xA[[i]]+mB[[i]]*xB[[i]])/m[[i]],{i,1,Length@m}];
+  {t,CoM}
+]
+
+
+EstimateAvgComMotion[sxsbbh_,skipBegin_:0.01,skipEnd_:0.1]:=
+	Module[{t,CoM,CoMdata,CoM1data,CoM0,CoM1,ii,if,ti,tf,xi,vi,ai},
+  {t,CoM} = CoMmotion[sxsbbh];
+  {ii, if} = {Ceiling[Length[t]*skipBegin], Ceiling[Length[t]*(1-skipEnd)]};
+  ti = t[[ii]]; tf = t[[if]];
+  CoMdata = Table[{t[[i]],CoM[[i,j]]},{j,1,3},{i,ii,if}];
+  CoM0 = Table[NIntegrate[Interpolation[CoMdata[[i]]][x], {x, ti, tf}, AccuracyGoal->6, 
+					Method->"GaussKronrodRule"],{i,1,3}];
+  CoM1data = Table[{t[[i]],t[[i]]*CoM[[i,j]]},{j,1,3},{i,ii,if}];
+  CoM1 = Table[NIntegrate[Interpolation[CoM1data[[i]]][x], {x, ti, tf}, AccuracyGoal->6], {i,1,3}];
+  xi = 2*(CoM0*(2*tf^3 - 2*ti^3) + CoM1*(-3*tf^2 + 3*ti^2))/(tf - ti)^4;
+  vi = 6*(CoM0*(-tf - ti) + 2*CoM1)/(tf - ti)^3;
+  ai = 0.0;
+  {xi,vi,ai}
+]
 
 
 End[]
