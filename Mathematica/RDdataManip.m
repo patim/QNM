@@ -265,5 +265,22 @@ EstimateAvgComMotion[sxsbbh_,skipBegin_:0.01,skipEnd_:0.1]:=
 ]
 
 
+RunPython::badCommand="Python code failed to run with message `StandardError`";
+$pyimports="import scri.SpEC as SpEC
+";
+RunPython[str_String,imports_:$pyimports]:=
+  Module[{pyscrpt=ToString[$pyimports<>str,CharacterEncoding->"ASCII"],file=CreateTemporary[],res, 
+  pypath="/home/zalump8/anaconda2/bin/python"},
+  Export[file,pyscrpt,"Text"];
+  res=RunProcess[{pypath,file}];
+  DeleteFile[file];
+
+  If[res["ExitCode"]!=0,
+   Return@Failure["badCommand",<|"MessageTemplate":>runPython::badCommand,"MessageParameters"-><|"Message"->res["StandardError"]|>|>],
+   Return@ImportString@res["StandardOutput"]
+  ]
+]
+
+
 End[]
 EndPackage[]
