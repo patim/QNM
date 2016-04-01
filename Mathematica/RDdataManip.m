@@ -93,9 +93,8 @@ ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,G
 ]
 
 
-Download[sxsbbh_]:=Module[{localpath,commonpath,horizons,localhorizons,localdir,rMpsi4, 
+Download[sxsbbh_]:=Module[{commonpath,horizons,localhorizons,localdir,rMpsi4, 
                    localrMpsi4},
-  localpath = $HomeDirectory<>"/Mathematica/ringdown stuff/data/";  
   commonpath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
 			 IntegerString[sxsbbh, 10, 4]<>"&file=Lev5/";
  
@@ -121,14 +120,25 @@ Download[sxsbbh_]:=Module[{localpath,commonpath,horizons,localhorizons,localdir,
 ]
 
 
-Options[GetData] = Options[ReadNRWaveForm];
+(*
+  If ForAlll is set to a givien l then lm list is ignored and all 
+  given l(m=-l..l) data is loaded
+*)
+Options[GetData] = {Options[ReadNRWaveForm],ForAlll->None};
 GetData[path_,sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
-	Module[{Y,size,i,l,m,data={},td1,td2},
-	Download[sxsbbh];
-    size=Length[lm];
+	Module[{Y,size,i,l,m,data={},td1,td2,lmax,lmloc},
+
+    Download[sxsbbh];
+
+    lmax = OptionValue[ForAlll];
+    lmloc = lm; (*FarAlll is None*)
+    If[IntegerQ@lmax && lmax>=2, lmloc=Flatten[Table[{l,m},{l,2,lmax},{m,-l,l}],1]
+    ];
+
+    size=Length[lmloc];
 	For[i=1,i<=size,i++,
-		l=lm[[i,1]];
-		m=lm[[i,2]];
+		l=lmloc[[i,1]];
+		m=lmloc[[i,2]];
 		Y=DataCut[t1,t2,
 				  ReadNRWaveForm[0,path,l,m,Evaluate@FilterRules[{opts},Options@ReadNRWaveForm]],
 				  step];
@@ -139,8 +149,8 @@ GetData[path_,sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
 		];
 		Y=TimeShift[Y[[1,1]],Y];
 		AppendTo[data,{Y,{l,m}}];
-	];
-	data
+    ];
+    data
 ]
 
 
