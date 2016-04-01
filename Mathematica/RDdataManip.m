@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
 (*
-Data manipulation for QNMfit package input 
+Data manipulation for QNMfit and Overlap packages input 
 Maxim Zalutskiy
 Gregory Cook
-2013
+(c) 2016
 *)
 BeginPackage["RDdataManip`"]
 TimeShift::usage="";
@@ -35,6 +35,10 @@ RemnantMassSpin::usage="RemnantMassSpin[sxsbbh], sxsbbh SXS:BBH#";
 CoMmotion::usage = "";
 EstimateAvgComMotion::usage = "EstimateAvgComMotion[sxsbbh, skipBegin:0.01,"<>
 " skipEnd_:0.1]";
+RunPython::usage = "RunPython[str_String,imports]";
+Download::usage = "Download[sxsbbh]";
+
+
 Begin["Private`"]
 
 (* Utility funcitons *)
@@ -48,6 +52,7 @@ NormPsi[data_] := Module[{i,size,isize,norm={}},
 	];
 norm
 ]
+
 
 DataAfter[t_,A_,step_:1] := Module[{i,istart},
 	istart = Module[{i},
@@ -66,6 +71,7 @@ DataBefore[t_,A_,step_:1]:=Module[{i,iend},
 		i];
 	Table[{A[[i,1]],A[[i,2]],A[[i,3]]},{i,1,iend,step}]
 ]
+
 
 Options[ReadNRWaveForm] = {Transform->False};
 ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,Gname,h5name},
@@ -86,10 +92,40 @@ ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,G
 	Import[AnnexDir<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
 ]
 
+
+Download[sxsbbh_]:=Module[{localpath,commonpath,horizons,localhorizons,localdir,rMpsi4, 
+                   localrMpsi4},
+  localpath = $HomeDirectory<>"/Mathematica/ringdown stuff/data/";  
+  commonpath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
+			 IntegerString[sxsbbh, 10, 4]<>"&file=Lev5/";
+ 
+  localdir = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4]; 
+
+  (*creating directory*)
+  If[Length@FileNames[localdir]==0,
+   CreateDirectory[localdir];
+  ];
+
+  localhorizons = localdir<>"/Horizons.h5";
+  horizons = commonpath<>"Horizons.h5";
+  If[Length@FileNames[localhorizons]==0,
+   URLSave[horizons,localhorizons];
+  ];
+
+  rMpsi4 = commonpath<>"rMPsi4_Asymptotic_GeometricUnits.h5";
+  localrMpsi4 = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5";
+  If[Length@FileNames[localrMpsi4]==0,
+   URLSave[rMpsi4,localrMpsi4];
+  ];
+
+]
+
+
 Options[GetData] = Options[ReadNRWaveForm];
-GetData[path_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
+GetData[path_,sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
 	Module[{Y,size,i,l,m,data={},td1,td2},
-	size=Length[lm];
+	Download[sxsbbh];
+    size=Length[lm];
 	For[i=1,i<=size,i++,
 		l=lm[[i,1]];
 		m=lm[[i,2]];
@@ -107,24 +143,35 @@ GetData[path_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
 	data
 ]
 
+
 DataCut[t1_,t2_,A_,step_:1]:=Module[{Atemp},
 	If[t1>t2,Print["DataCut: t1 cannot be greater than t2"];Return[-1]];
 	Atemp=DataAfter[t1,A,step];
 	DataBefore[t2,Atemp,step]
 ]
 
+
 (*The intput should be in the following form:
-Clist={{{{Subscript[Re[Subscript[C, lm]], Subscript[list, 1]]}, {Subscript[Im[Subscript[C, lm]], Subscript[list, 1]]}, {Subscript[l, 1],Subscript[m, 1]}}, {{{Subscript[Re[Subscript[C, lm]], Subscript[list, 2]]}, {Subscript[Im[Subscript[C, lm]], Subscript[list, 2]]}, {Subscript[l, 2],Subscript[m, 2]}},...}
+Clist={{{{Subscript[Re[Subscript[C, lm]], Subscript[list, 1]]}, 
+{Subscript[Im[Subscript[C, lm]], Subscript[list, 1]]}, {Subscript[l, 1],Subscript[m, 1]}}, 
+{{{Subscript[Re[Subscript[C, lm]], Subscript[list, 2]]}, {Subscript[Im[Subscript[C, lm]], 
+Subscript[list, 2]]}, {Subscript[l, 2],Subscript[m, 2]}},...}
+
 The output:
-newClist = {{{{Subscript[t, 1],Subscript[Re[Subscript[C, lm]], 1],Subscript[Im[Subscript[C, lm]], 1]},{Subscript[t, 2],Subscript[Re[Subscript[C, lm]], 2],Subscript[Im[Subscript[C, lm]], 2]},...},{Subscript[l, 1],Subscript[m, 1]}},
-{{{Subscript[t, 1],Subscript[Re[Subscript[C, lm]], 1],Subscript[Im[Subscript[C, lm]], 1]},{Subscript[t, 2],Subscript[Re[Subscript[C, lm]], 2],Subscript[Im[Subscript[C, lm]], 2]},...},{Subscript[l, 1],Subscript[m, 1]}},...}
+newClist = {{{{Subscript[t, 1],Subscript[Re[Subscript[C, lm]], 1],
+Subscript[Im[Subscript[C, lm]], 1]},{Subscript[t, 2],Subscript[Re[Subscript[C, lm]], 2],
+Subscript[Im[Subscript[C, lm]], 2]},...},{Subscript[l, 1],Subscript[m, 1]}},
+{{{Subscript[t, 1],Subscript[Re[Subscript[C, lm]], 1],Subscript[Im[Subscript[C, lm]], 1]},
+{Subscript[t, 2],Subscript[Re[Subscript[C, lm]], 2],Subscript[Im[Subscript[C, lm]], 2]},...},
+{Subscript[l, 1],Subscript[m, 1]}},...}
 *)
 MergeCLists[Clist_]:=Module[{i,j,Clistsize,Csize,newClist={},lmlist},
 	Clistsize=Length[Clist];
 	For[i=1,i<= Clistsize,i++,
 		Csize=Length[Clist[[i,1]]];
 		lmlist=Clist[[i,3]];
-		newClist=newClist~Join~{{Table[{Clist[[i,1,j,1]],Clist[[i,1,j,2]],Clist[[i,2,j,2]] },{j,1,Csize}],lmlist}};
+		newClist=newClist~Join~{{Table[{Clist[[i,1,j,1]],Clist[[i,1,j,2]],Clist[[i,2,j,2]]},
+                                {j,1,Csize}],lmlist}};
 	];
 	newClist
 ]
@@ -222,11 +269,9 @@ RemnantMassSpin[sxsbbh_] := Module[{
 
 
 (*
-  The below routines were adaptted from Michael Boyle's python code 
+  CoMmotion and EstimateAvgComMotion routines were adaptted from Michael Boyle's python code 
   http://arxiv.org/abs/1509.00862
 *)
-
-
 CoMmotion[sxsbbh_]:=Module[{importPath,rawA,rawB,t,mA,xA,mB,xB,m,CoM},
   importPath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
 			 IntegerString[sxsbbh, 10, 4]<>"&file=Lev5/Horizons.h5";
@@ -265,6 +310,7 @@ EstimateAvgComMotion[sxsbbh_,skipBegin_:0.01,skipEnd_:0.1]:=
 ]
 
 
+(*taken from http://mathematica.stackexchange.com/a/79065*)
 RunPython::badCommand="Python code failed to run with message `StandardError`";
 $pyimports="import scri.SpEC as SpEC
 ";
@@ -276,11 +322,11 @@ RunPython[str_String,imports_:$pyimports]:=
   DeleteFile[file];
 
   If[res["ExitCode"]!=0,
-   Return@Failure["badCommand",<|"MessageTemplate":>runPython::badCommand,"MessageParameters"-><|"Message"->res["StandardError"]|>|>],
+   Return@Failure["badCommand",<|"MessageTemplate":>runPython::badCommand,
+   "MessageParameters"-><|"Message"->res["StandardError"]|>|>],
    Return@ImportString@res["StandardOutput"]
-  ]
+  ];
 ]
-
 
 End[]
 EndPackage[]
