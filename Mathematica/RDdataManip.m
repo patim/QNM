@@ -74,7 +74,9 @@ DataBefore[t_,A_,step_:1]:=Module[{i,iend},
 
 
 Options[ReadNRWaveForm] = {Transform->False};
-ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,Gname,h5name},
+ReadNRWaveForm[N_,sxsbbh_,l_,m_,OptionsPattern[]]:= Module[{mname,lname,Yname,Gname,
+    h5name,path},
+
 	mname = If[m<0,"-"<>ToString[Abs[m]],ToString[m]];
 	lname = ToString[l];
 	Yname = "Y_l"<>lname<>"_m"<>mname<>".dat";
@@ -85,16 +87,20 @@ ReadNRWaveForm[N_,AnnexDir_,l_,m_,OptionsPattern[]]:=Module[{mname,lname,Yname,G
 					]
 				]
 			];
+    path = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4];
 	If[OptionValue[Transform],
-		h5name = "rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5",
-		h5name = "rMPsi4_Asymptotic_GeometricUnits.h5"
+        RunPython["SpEC.remove_avg_com_motion('"<>
+                    path<>"/rMPsi4_Asymptotic_GeometricUnits.h5/OutermostExtraction.dir')"];
+		h5name = "/rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5";
+    ,
+		h5name = "/rMPsi4_Asymptotic_GeometricUnits.h5";
 	];
-	Import[AnnexDir<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
+	Import[path<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
 ]
 
 
-Download[sxsbbh_]:=Module[{commonpath,horizons,localhorizons,localdir,rMpsi4, 
-                   localrMpsi4},
+Download[sxsbbh_]:=Module[{commonpath,horizons,horizonstgz,localdir,rMpsi4, 
+                   rMpsi4tgz},
   commonpath = "https://www.black-holes.org/waveforms/data/Download.php/?id=SXS:BBH:"<>
 			 IntegerString[sxsbbh, 10, 4]<>"&file=Lev5/";
  
@@ -105,16 +111,20 @@ Download[sxsbbh_]:=Module[{commonpath,horizons,localhorizons,localdir,rMpsi4,
    CreateDirectory[localdir];
   ];
 
-  localhorizons = localdir<>"/Horizons.h5";
+  horizonstgz = localdir<>"/Horizons.h5.tgz";
   horizons = commonpath<>"Horizons.h5";
-  If[Length@FileNames[localhorizons]==0,
-   URLSave[horizons,localhorizons];
+  If[Length@FileNames[localdir<>"/Horizons.h5"]==0,
+   URLSave[horizons,horizonstgz];
+   ExtractArchive[horizonstgz,localdir];
+   DeleteFile[horizonstgz];
   ];
 
+  rMpsi4tgz = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5.tgz";
   rMpsi4 = commonpath<>"rMPsi4_Asymptotic_GeometricUnits.h5";
-  localrMpsi4 = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5";
-  If[Length@FileNames[localrMpsi4]==0,
-   URLSave[rMpsi4,localrMpsi4];
+  If[Length@FileNames[localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5"]==0,
+   URLSave[rMpsi4,rMpsi4tgz];
+   ExtractArchive[rMpsi4tgz,localdir];
+   DeleteFile[rMpsi4tgz];
   ];
 
 ]
@@ -124,25 +134,24 @@ Download[sxsbbh_]:=Module[{commonpath,horizons,localhorizons,localdir,rMpsi4,
   If ForAlll is set to a givien l then lm list is ignored and all 
   given l(m=-l..l) data is loaded
 *)
-Options[GetData] = {Options[ReadNRWaveForm],ForAlll->None};
-GetData[path_,sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
+Options[GetData] = Union[Options@ReadNRWaveForm, {ForAlll->None}]
+GetData[sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
 	Module[{Y,size,i,l,m,data={},td1,td2,lmax,lmloc},
 
     Download[sxsbbh];
 
     lmax = OptionValue[ForAlll];
     lmloc = lm; (*FarAlll is None*)
-    If[IntegerQ@lmax && lmax>=2, lmloc=Flatten[Table[{l,m},{l,2,lmax},{m,-l,l}],1]
-    ];
+    If[IntegerQ@lmax && lmax>=2, lmloc=Flatten[Table[{l,m},{l,2,lmax},{m,-l,l}],1]];
 
     size=Length[lmloc];
 	For[i=1,i<=size,i++,
 		l=lmloc[[i,1]];
 		m=lmloc[[i,2]];
-		Y=DataCut[t1,t2,
-				  ReadNRWaveForm[0,path,l,m,Evaluate@FilterRules[{opts},Options@ReadNRWaveForm]],
-				  step];
 
+		Y=DataCut[t1,t2,
+				  ReadNRWaveForm[0,sxsbbh,l,m,Evaluate@FilterRules[{opts},Options@ReadNRWaveForm]],
+				  step];
 		If[i==1,
 			Print["\!\(\*SubscriptBox[\(t\), \(1\)]\)=",Y[[1,1]],
 				  ", \!\(\*SubscriptBox[\(t\), \(2\)]\)=",Y[[-1,1]]];
@@ -326,7 +335,7 @@ $pyimports="import scri.SpEC as SpEC
 ";
 RunPython[str_String,imports_:$pyimports]:=
   Module[{pyscrpt=ToString[$pyimports<>str,CharacterEncoding->"ASCII"],file=CreateTemporary[],res, 
-  pypath="/home/zalump8/anaconda2/bin/python"},
+  pypath=$HomeDirectory<>"/anaconda2/bin/python"},
   Export[file,pyscrpt,"Text"];
   res=RunProcess[{pypath,file}];
   DeleteFile[file];
