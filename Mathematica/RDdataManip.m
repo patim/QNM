@@ -75,7 +75,7 @@ DataBefore[t_,A_,step_:1]:=Module[{i,iend},
 
 Options[ReadNRWaveForm] = {Transform->False};
 ReadNRWaveForm[N_,sxsbbh_,l_,m_,OptionsPattern[]]:= Module[{mname,lname,Yname,Gname,
-    h5name,path},
+    h5name,localdir},
 
 	mname = If[m<0,"-"<>ToString[Abs[m]],ToString[m]];
 	lname = ToString[l];
@@ -87,15 +87,14 @@ ReadNRWaveForm[N_,sxsbbh_,l_,m_,OptionsPattern[]]:= Module[{mname,lname,Yname,Gn
 					]
 				]
 			];
-    path = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4];
+    localdir = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4];
 	If[OptionValue[Transform],
-        RunPython["SpEC.remove_avg_com_motion('"<>
-                    path<>"/rMPsi4_Asymptotic_GeometricUnits.h5/OutermostExtraction.dir')"];
 		h5name = "/rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5";
     ,
 		h5name = "/rMPsi4_Asymptotic_GeometricUnits.h5";
 	];
-	Import[path<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
+
+	Import[localdir<>h5name,{"HDF5","Datasets",{Gname<>Yname}}]
 ]
 
 
@@ -136,9 +135,15 @@ Download[sxsbbh_]:=Module[{commonpath,horizons,horizonstgz,localdir,rMpsi4,
 *)
 Options[GetData] = Union[Options@ReadNRWaveForm, {ForAlll->None}]
 GetData[sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
-	Module[{Y,size,i,l,m,data={},td1,td2,lmax,lmloc},
+	Module[{Y,size,i,l,m,data={},td1,td2,lmax,lmloc,localdir},
 
     Download[sxsbbh];
+    localdir = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4]; 
+
+    If[Length@FileNames[localdir<>"/rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5"]==0,
+         RunPython["SpEC.remove_avg_com_motion('"<>
+                    localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5/OutermostExtraction.dir')"]
+    ];
 
     lmax = OptionValue[ForAlll];
     lmloc = lm; (*FarAlll is None*)
