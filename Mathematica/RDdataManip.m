@@ -110,20 +110,22 @@ Download[sxsbbh_]:=Module[{commonpath,horizons,horizonstgz,localdir,rMpsi4,
    CreateDirectory[localdir];
   ];
 
-  horizonstgz = localdir<>"/Horizons.h5.tgz";
+  (*horizonstgz = localdir<>"/Horizons.h5.tgz";*)
+  horizonstgz = localdir<>"/Horizons.h5";
   horizons = commonpath<>"Horizons.h5";
   If[Length@FileNames[localdir<>"/Horizons.h5"]==0,
    URLSave[horizons,horizonstgz];
-   ExtractArchive[horizonstgz,localdir];
-   DeleteFile[horizonstgz];
+   (*ExtractArchive[horizonstgz,localdir];
+   DeleteFile[horizonstgz];*)
   ];
 
-  rMpsi4tgz = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5.tgz";
+  rMpsi4tgz = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5";
+  (*rMpsi4tgz = localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5.tgz";*)
   rMpsi4 = commonpath<>"rMPsi4_Asymptotic_GeometricUnits.h5";
   If[Length@FileNames[localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5"]==0,
    URLSave[rMpsi4,rMpsi4tgz];
-   ExtractArchive[rMpsi4tgz,localdir];
-   DeleteFile[rMpsi4tgz];
+   (*ExtractArchive[rMpsi4tgz,localdir];
+   DeleteFile[rMpsi4tgz];*)
   ];
 
 ]
@@ -140,7 +142,8 @@ GetData[sxsbbh_,lm_,t1_,t2_,step_:1,opts:OptionsPattern[]]:=
     Download[sxsbbh];
     localdir = localpath<>"SXS:BBH:"<>IntegerString[sxsbbh, 10, 4]; 
 
-    If[Length@FileNames[localdir<>"/rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5"]==0,
+    If[Length@FileNames[localdir<>"/rMpsi4_rMPsi4_Asymptotic_GeometricUnits_CoM.h5"]==0 
+       && OptionValue[Transform]==True,
          RunPython["SpEC.remove_avg_com_motion('"<>
                     localdir<>"/rMPsi4_Asymptotic_GeometricUnits.h5/OutermostExtraction.dir')"]
     ];
