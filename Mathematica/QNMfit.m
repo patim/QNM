@@ -552,7 +552,7 @@ Opts[label_,fontsize_,imsize_]:=
 DataFitPlot::nodata="cannot find a plot for mode `1`";
 Needs["PlotLegends`"];
 Options[DataFitPlot]={yrange->{-0.01,0.01},xrange->{0,80},
-					fontsize->16,imagesize->600};
+					fontsize->12,imagesize->600};
 DataFitPlot[data_,fit_,lm_,OptionsPattern[]]:=
 	Module[{lpoptioins,poptions,eroptioins,Reshowoptions,Imshowoptions,dataCnum,
 			fitCnum,size,rdata,idata,fsize,isize,datasize,error,rlp,ilp,erp,eip,
@@ -597,17 +597,17 @@ DataFitPlot[data_,fit_,lm_,OptionsPattern[]]:=
 	ilp=ListPlot[idata,lpoptioins];
 	eip=ListPlot[error,eroptioins]; 
 	
-	errorlegend=Text[Style["error",FontSize->fsize]];
+	errorlegend=Text[Style["res",FontSize->fsize]];
 
 	p1=ShowLegend[Show[rlp,erp,pr,Reshowoptions],
 	{{{Graphics[{Black,Line[{{0,0},{1.5,0}}]}], errorlegend}},
 	LegendShadow->None,LegendSize->0.3,LegendTextSpace->2,
-	LegendPosition->{0.58,0.42}}];	
+	LegendPosition->{0.66,0.42}}];	
 	
 	p2=ShowLegend[Show[ilp,eip,pi,Imshowoptions],
 	{{{Graphics[{Black,Line[{{0,0},{1.5,0}}]}], errorlegend}},
 	LegendShadow->None,LegendSize->0.3(*0.2*),LegendTextSpace->2,
-	LegendPosition->{0.58,0.42(*0.68,0.48*)}}];
+	LegendPosition->{0.66,0.42(*0.68,0.48*)}}];
 	p1
 	p2
 ]
