@@ -170,7 +170,7 @@ Getatheta::usage = "Getatheta[fit, (\!\(\*SuperscriptBox[\(a\), \(c\)]\)"<>
 "spin and the z-axis)";
 MassSpinConfRegion::usage = "MassSpinConfRegion[fit] Shows the mass and spin "<>
 "confidence region graphically";
-Protect[Mass,Spin,Theta,Phi,OptRange,Fixed,yrange,xrange,fontsize,imagesize];
+Protect[Mass,Spin,Phi,Theta,OptRange,Fixed,yrange,xrange,fontsize,imagesize];
 
 Begin["Private`"]
 
@@ -235,7 +235,7 @@ DefineInterpolations[lm_,modes_,neg_]:=Module[{i,k,msize,l,m,ll,mm,nn,
 ]
 
 
-GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
+GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Phi]_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 	Module[{C,l,m,mm,t,imodes,ipmodes,lmsize,size,psize,i,j,datalist={}},
 	lmsize = Length[lm];
 	size = Length[modes];
@@ -259,7 +259,7 @@ GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 			If[m!= -mm,Continue[];];
 			ipmodes=ipmodes~Join~{pmodes[[j]]};
 		];
-		C=Clm[l,m,imodes,ipmodes,\[Delta],a,\[Theta],t,t0];
+		C=Clm[l,m,modes,pmodes,\[Delta],a,\[Phi],\[Theta],t,t0];
 		(*Print["lm:",l,m," C:",C];*)
 		datalist=datalist~Join~{{Table[{t,Re[C],Im[C]},{t,t1,tN,dt}],lm[[i]]}};
 	];
@@ -267,7 +267,7 @@ GenData[lm_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t1_,tN_,dt_,t0_:0]:=
 ]
 
 
-Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:= 
+Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Phi]_,\[Theta]_,t_,t0_:0]:= 
 	Module[{Sum=0,ModeSum},
 
 	ModeSum[modelist_,Aname_,\[Phi]name_,which_]:=
@@ -298,10 +298,10 @@ Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:=
 				\[Phi]ase=Varname["Private`"<>\[Phi]name,ll,mm,nn];
 			];
 			If[which==1,
-				sum+=A*WignerD[{ll,-m,-mm},\[Theta]]*\[ScriptCapitalA][l,ll,mm,nn][Re[a]]
+				sum+=A*WignerD[{ll,-m,-mm},\[Phi],\[Theta],0]*\[ScriptCapitalA][l,ll,mm,nn][Re[a]]
 						*Exp[-I*\[Omega]bar[ll,mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase];
 			,
-				sum+=(-1)^(l+ll)*A*WignerD[{ll,-m,-mm},\[Theta]]
+				sum+=(-1)^(l+ll)*A*WignerD[{ll,-m,-mm},\[Phi],\[Theta],0]
 				*Conjugate[\[ScriptCapitalA][l,ll,-mm,nn][Re[a]]
 				*Exp[-I*\[Omega]bar[ll,-mm,nn][Re[a]]*(t-t0)/\[Delta]+I*\[Phi]ase]];
 			];
@@ -313,11 +313,11 @@ Clm[l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_:0]:=
 ]
 
 
-ClmSplit[\[Alpha]_,l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Theta]_,t_,t0_]:=
-	KroneckerDelta[\[Alpha],1]*Re[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]] + 
-	KroneckerDelta[\[Alpha],0]*Im[Clm[l,m,modes,pmodes,\[Delta],a,\[Theta],t,t0]]
+ClmSplit[\[Alpha]_,l_,m_,modes_,pmodes_,\[Delta]_,a_,\[Phi]_,\[Theta]_,t_,t0_]:=
+	KroneckerDelta[\[Alpha],1]*Re[Clm[l,m,modes,pmodes,\[Delta],a,\[Phi],\[Theta],t,t0]] + 
+	KroneckerDelta[\[Alpha],0]*Im[Clm[l,m,modes,pmodes,\[Delta],a,\[Phi],\[Theta],t,t0]]
 
-RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Theta]angle_,t_,t0_]:=
+RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Phi]angle_,\[Theta]angle_,t_,t0_]:=
 	Module[{size,i,ModeAnalyze},
 	ModeAnalyze[mds_]:=Module[{i,newmodes={},modesSize,isize},
 		modesSize = Length[mds];
@@ -334,7 +334,7 @@ RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Theta]angle_,t_,t0_]:=
 		newmodes	
 	];
 
-	Clear[\[Delta],a,\[Theta]];
+	Clear[\[Delta],a,\[Phi],\[Theta]];
 	If[(Length[mass]==2 && mass[[2]]==True), (*value provided*)
 		\[Delta] = mass[[1]]; 
 	];
@@ -346,17 +346,19 @@ RD[\[Alpha]_,\[Beta]_,lm_,modes_,pmodes_,mass_,spin_,\[Theta]angle_,t_,t0_]:=
 	If[(Length[\[Theta]angle]==2 && \[Theta]angle[[2]]==True), (*value provided*)
 		\[Theta] = \[Theta]angle[[1]]; 
 	];
-
+	If[(Length[\[Phi]angle]==2 && \[Phi]angle[[2]]==True), (*value provided*)
+		\[Phi] = \[Phi]angle[[1]]; 
+	];
 	size=Length[lm];
 
 	(*i goes over lm list *)
 	\!\(
-\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(size\)]\(KroneckerDelta[\[Beta], i]*ClmSplit[\[Alpha], lm[\([i, 1]\)], lm[\([i, 2]\)], ModeAnalyze[modes], \n\t\t\tModeAnalyze[pmodes], \[Delta], a, \[Theta], t, t0]\)\)
+\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(size\)]\(KroneckerDelta[\[Beta], i]*ClmSplit[\[Alpha], lm[\([i, 1]\)], lm[\([i, 2]\)], ModeAnalyze[modes], \n\t\t\tModeAnalyze[pmodes], \[Delta], a, \[Phi], \[Theta], t, t0]\)\)
 ]
 
 
-FitParam[modes_,pmodes_,mass_,spin_,\[Theta]angle_]:=
-	Module[{A\[Phi]s,Ap\[Phi]ps,\[Delta]a\[Theta]={},ModeAnalyze,modeAnalyzed,\[Delta]a\[Theta]Analyze,fitmodes,fitpmodes},
+FitParam[modes_,pmodes_,mass_,spin_,\[Phi]angle_,\[Theta]angle_]:=
+	Module[{A\[Phi]s,Ap\[Phi]ps,\[Delta]a\[Phi]\[Theta]={},ModeAnalyze,modeAnalyzed,\[Delta]a\[Phi]\[Theta]Analyze,fitmodes,fitpmodes},
 	ModeAnalyze[mds_,A_,\[Phi]_]:=Module[{i,ll,m,n,size,As={},\[Phi]s={},isize,fitmodes={}},
 		size=Length[mds];
 		fitmodes = mds;
@@ -389,22 +391,23 @@ FitParam[modes_,pmodes_,mass_,spin_,\[Theta]angle_]:=
 	modeAnalyzed = ModeAnalyze[pmodes,"Private`Ap","Private`\[Phi]p"];
 	Ap\[Phi]ps = modeAnalyzed[[1]];
 	fitpmodes = modeAnalyzed[[2]];
-	Clear[\[Delta],a,\[Theta]];
-	\[Delta]a\[Theta]Analyze[\[Delta]a\[Theta]_,var_]:=Module[{\[Delta]a\[Theta]Analyzed={}},
-		If[(Length[\[Delta]a\[Theta]]==2 && \[Delta]a\[Theta][[2]]==False) || Length[\[Delta]a\[Theta]]==1,
-			\[Delta]a\[Theta]Analyzed = {{var,\[Delta]a\[Theta][[1]]}}; 
+	Clear[\[Delta],a,\[Phi],\[Theta]];
+	\[Delta]a\[Phi]\[Theta]Analyze[\[Delta]a\[Phi]\[Theta]_,var_]:=Module[{\[Delta]a\[Phi]\[Theta]Analyzed={}},
+		If[(Length[\[Delta]a\[Phi]\[Theta]]==2 && \[Delta]a\[Phi]\[Theta][[2]]==False) || Length[\[Delta]a\[Phi]\[Theta]]==1,
+			\[Delta]a\[Phi]\[Theta]Analyzed = {{var,\[Delta]a\[Phi]\[Theta][[1]]}}; 
 		];
 
-		If[Length[\[Delta]a\[Theta]]==0,
-			\[Delta]a\[Theta]Analyzed={{var,\[Delta]a\[Theta]}};
+		If[Length[\[Delta]a\[Phi]\[Theta]]==0,
+			\[Delta]a\[Phi]\[Theta]Analyzed={{var,\[Delta]a\[Phi]\[Theta]}};
 		];
-		\[Delta]a\[Theta]Analyzed	
+		\[Delta]a\[Phi]\[Theta]Analyzed	
 	];
 
-	\[Delta]a\[Theta] = Join[\[Delta]a\[Theta]Analyze[mass,ToExpression["Private`\[Delta]"]], 
-			\[Delta]a\[Theta]Analyze[spin,ToExpression["Private`a"]], \[Delta]a\[Theta]Analyze[\[Theta]angle,
+	\[Delta]a\[Phi]\[Theta] = Join[\[Delta]a\[Phi]\[Theta]Analyze[mass,ToExpression["Private`\[Delta]"]], 
+			\[Delta]a\[Phi]\[Theta]Analyze[spin,ToExpression["Private`a"]], \[Delta]a\[Phi]\[Theta]Analyze[\[Phi]angle,
+			ToExpression["Private`\[Phi]"]],\[Delta]a\[Phi]\[Theta]Analyze[\[Theta]angle,
 			ToExpression["Private`\[Theta]"]]];
-	{\[Delta]a\[Theta]~Join~A\[Phi]s~Join~Ap\[Phi]ps,fitmodes,fitpmodes}
+	{\[Delta]a\[Phi]\[Theta]~Join~A\[Phi]s~Join~Ap\[Phi]ps,fitmodes,fitpmodes}
 ]
 
 
@@ -412,12 +415,12 @@ ParFrom[fit_,n_]:=fit[[1]]["BestFitParameters"][[n,2]];
 
 MyFit::nodata="no data for mode `1`.";
 Options[MyFit]={OptRange->All, t0->0, Mass->{1,False}, Spin->{0,False}, 
-				Theta->{0,False}};
+				Theta->{0,False},Phi->{0,False}};
 MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	Module[{fit,newData={},i,j,datasize,datar,datai,\[Alpha],\[Beta],m,size,psize,lmsize,ll,
 			mm,n,fitparameters,fitmodes, fitpmodes,checkedModes,
 			checkedPmodes,newmodes={},newpmodes={},tdata,tstart,tend,j1,j2,
-			datalm={},ipos,MSTPReturn,MassOut,SpinOut,ThetaOut,index,modesOnset},
+			datalm={},ipos,MSTPReturn,MassOut,SpinOut,PhiOut,ThetaOut,index,modesOnset},
 
 	(* building data lm sequence *)
 	datalm=Table[data[[i,2]],{i,1,Length[data]}];
@@ -464,7 +467,7 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 	newmodes=DeleteDuplicates[checkedModes];
 	newpmodes=DeleteDuplicates[checkedPmodes];
 	fitparameters = FitParam[newmodes,newpmodes,OptionValue[Mass],
-					OptionValue[Spin],OptionValue[Theta]];
+					OptionValue[Spin],OptionValue[Phi],OptionValue[Theta]];
 	fitmodes = fitparameters[[2]];
 	fitpmodes = fitparameters[[3]]; 
 	DefineInterpolations[lm,newmodes,1];
@@ -474,7 +477,7 @@ MyFit[data_,lm_,modes_,pmodes_,OptionsPattern[]]:=
 				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
 				t,OptionValue[t0]]];*)
 	fit = Quiet[NonlinearModelFit[newData,{RD[\[Alpha],\[Beta],lm,newmodes,newpmodes,
-				OptionValue[Mass],OptionValue[Spin],OptionValue[Theta],
+				OptionValue[Mass],OptionValue[Spin],OptionValue[Phi],OptionValue[Theta],
 				t,OptionValue[t0]]},fitparameters[[1]],{\[Alpha],\[Beta],t}]];
 	(*t2 = AbsoluteTime[];
 Print["t2-t1: ",t2-t1];*)
@@ -492,22 +495,24 @@ Print["t2-t1: ",t2-t1];*)
 	];
 	MassOut = MSTPReturn[OptionValue[Mass],1];
 	SpinOut = MSTPReturn[OptionValue[Spin],index];
+	PhiOut = MSTPReturn[OptionValue[Phi],index];
 	ThetaOut = MSTPReturn[OptionValue[Theta],index];
 	modesOnset = index-1;
 	
-	{fit,lm,newmodes,newpmodes,MassOut,SpinOut,ThetaOut,modesOnset,
+	{fit,lm,newmodes,newpmodes,MassOut,SpinOut,PhiOut,ThetaOut,modesOnset,
 	fitmodes,fitpmodes}
 ]
 
 
 ShowFitParam[fit_]:=
 	Module[{BestFitParameters,ParameterTableEntries,DeleteParam,ModeChange,params={},
-			A,\[Phi],Aerr,\[Phi]err,errors={}},
+			A,\[Phi]ase,Aerr,\[Phi]err,errors={}},
 	BestFitParameters=fit[[1]]["BestFitParameters"];
 	ParameterTableEntries=fit[[1]]["ParameterTableEntries"];
 
 	DeleteParam[param_]:=Module[{filter,pos},
 		filter = FilterRules[BestFitParameters,param];
+
 		If[Length[filter]>0,
 			pos = Position[BestFitParameters,filter[[1]]][[1,1]];
 			AppendTo[params,filter[[1]]];
@@ -518,17 +523,18 @@ ShowFitParam[fit_]:=
 	];
 	DeleteParam[Private`\[Delta]];
 	DeleteParam[Private`a];
+	DeleteParam[Private`\[Phi]];
 	DeleteParam[Private`\[Theta]];
 
 	ModeChange[list_,shift_:0]:=Module[{i,j,modSize,modlist={},errlist={}},
 		modSize=Length[list];
 		For[i=1+shift;j=1,i<=modSize+shift,i++;j++,
 			A = BestFitParameters[[i,2]]; Aerr = ParameterTableEntries[[i,2]];
-			\[Phi] = BestFitParameters[[i+modSize,2]]; \[Phi]err = ParameterTableEntries[[i+modSize,2]];
-			If[A<0,\[Phi]+=Pi;A=-A];
-			\[Phi] = Mod[\[Phi],2*Pi];
-			If[\[Phi]>Pi,\[Phi]=\[Phi]-2*Pi];
-			AppendTo[modlist,{list[[j,1]],list[[j,2]],list[[j,3]],A,\[Phi]}];
+			\[Phi]ase = BestFitParameters[[i+modSize,2]]; \[Phi]err = ParameterTableEntries[[i+modSize,2]];
+			If[A<0,\[Phi]ase+=Pi;A=-A];
+			\[Phi]ase= Mod[\[Phi]ase,2*Pi];
+			If[\[Phi]ase>Pi,\[Phi]ase=\[Phi]ase-2*Pi];
+			AppendTo[modlist,{list[[j,1]],list[[j,2]],list[[j,3]],A,\[Phi]ase}];
 			AppendTo[errlist,{Aerr,\[Phi]err}];
 		];
 		AppendTo[params,modlist]; AppendTo[errors,errlist]
@@ -552,7 +558,7 @@ Opts[label_,fontsize_,imsize_]:=
 DataFitPlot::nodata="cannot find a plot for mode `1`";
 Needs["PlotLegends`"];
 Options[DataFitPlot]={yrange->{-0.01,0.01},xrange->{0,80},
-					fontsize->12,imagesize->600};
+					fontsize->14,imagesize->400};
 DataFitPlot[data_,fit_,lm_,OptionsPattern[]]:=
 	Module[{lpoptioins,poptions,eroptioins,Reshowoptions,Imshowoptions,dataCnum,
 			fitCnum,size,rdata,idata,fsize,isize,datasize,error,rlp,ilp,erp,eip,
@@ -601,13 +607,13 @@ DataFitPlot[data_,fit_,lm_,OptionsPattern[]]:=
 
 	p1=ShowLegend[Show[rlp,erp,pr,Reshowoptions],
 	{{{Graphics[{Black,Line[{{0,0},{1.5,0}}]}], errorlegend}},
-	LegendShadow->None,LegendSize->0.3,LegendTextSpace->2,
-	LegendPosition->{0.66,0.42}}];	
+	LegendShadow->None,LegendSize->0.25,LegendTextSpace->2,
+	LegendPosition->{0.65,0.42}}];	
 	
 	p2=ShowLegend[Show[ilp,eip,pi,Imshowoptions],
 	{{{Graphics[{Black,Line[{{0,0},{1.5,0}}]}], errorlegend}},
-	LegendShadow->None,LegendSize->0.3(*0.2*),LegendTextSpace->2,
-	LegendPosition->{0.66,0.42(*0.68,0.48*)}}];
+	LegendShadow->None,LegendSize->0.25(*0.2*),LegendTextSpace->2,
+	LegendPosition->{0.65,0.42(*0.68,0.48*)}}];
 	p1
 	p2
 ]
@@ -759,11 +765,13 @@ Getaz[fit_]:=Module[{\[Delta],a,\[Theta],ac},
 	ac*Cos[\[Theta]]
 ]
 
-Getatheta[\[Delta]_,acx_,acy_,acz_]:=Module[{a,ac,\[Theta]},
+Getatheta[\[Delta]_,acx_,acy_,acz_]:=Module[{a,ac,alpha,\[Theta]},
 	ac = Sqrt[acx^2+acy^2+acz^2];
 	a = ac/\[Delta]^2;
 	\[Theta] = ArcCos[acz/ac];
-	{a,\[Theta]}
+    (*alpha = ArcCos[acx/Sqrt[ac^2-acz^2]];*)
+    alpha = ArcTan[acx,acy];
+	{a,alpha,\[Theta]}
 ]
 
 End[]
